@@ -1,0 +1,14 @@
+// Ce fichier gère la connexion logique à la BDD MongoDB.
+
+const mongoose = require('mongoose')
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/MiniGnocchi', { useNewUrlParser: true }).then(() => {
+    console.log("Connexion effectuée à la base ! ;)")
+}).catch((e) => {
+    console.log("Erreur lors de la connexion à la BDD.");
+    console.log(e);
+})
+module.exports = {
+    mongoose
+};
