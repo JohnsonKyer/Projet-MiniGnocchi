@@ -6,8 +6,7 @@ const AnnonceSchema = new mongoose.Schema({
         required: true
     },
     idUtilisateur: {
-        type: ObjectId,
-        ref = 'Utilisateur',
+        type: mongoose.Types.ObjectId,
     },
     titre: {
         type: String,

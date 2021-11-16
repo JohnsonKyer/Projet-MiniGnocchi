@@ -5,8 +5,8 @@ const PlaylistSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId
     },
     idUtilisateur: {
-        type: ObjectId,
-        ref = 'Utilisateur',
+        type: mongoose.Types.ObjectId,
+        required: false
     },
     titre: {
         type: String,
@@ -15,11 +15,10 @@ const PlaylistSchema = new mongoose.Schema({
         trim: true
     },
     idVideos: [{
-        type: ObjectId,
+        type: mongoose.Types.ObjectId,
         required: true,
         minlength: 1,
-        trim: true,
-        ref = 'Video'
+        trim: true
     }],
 });
 
