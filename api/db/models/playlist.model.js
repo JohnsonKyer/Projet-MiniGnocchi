@@ -1,8 +1,12 @@
 const mongoose = require('mongoose')
 
 const PlaylistSchema = new mongoose.Schema({
-    _playlistId: {
+    _idPlaylist: {
         type: mongoose.Types.ObjectId
+    },
+    idUtilisateur: {
+        type: ObjectId,
+        ref = 'Utilisateur',
     },
     titre: {
         type: String,
@@ -10,12 +14,13 @@ const PlaylistSchema = new mongoose.Schema({
         minlength: 1,
         trim: true
     },
-    idVideos: {
-        type: Array,
+    idVideos: [{
+        type: ObjectId,
         required: true,
         minlength: 1,
-        trim: true
-    }
+        trim: true,
+        ref = 'Video'
+    }],
 });
 
 const Playlist = mongoose.model("Playlist", PlaylistSchema)
