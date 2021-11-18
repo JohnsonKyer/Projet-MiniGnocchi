@@ -3,7 +3,7 @@ const app = express();
 
 const { mongoose } = require('./db/mongoose')
 
-const { Playlist, Annonce } = require('./db/models')
+const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
 
 
 app.use(express.json())
@@ -77,9 +77,6 @@ app.delete('/playlists/:id', (req, res) => {
     })
 })
 
-
-
-app.get('/annonces')
 
 app.listen(3000, () => {
     console.log("Serveur UP sur le port 3000");
