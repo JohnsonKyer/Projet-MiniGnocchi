@@ -7,18 +7,6 @@ const UtilisateurSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true
     },
-    prenom: {
-        type: String,
-        required: true,
-        minlength: 1,
-        trim: true
-    },
-    nom: {
-        type: String,
-        required: true,
-        minlength: 1,
-        trim: true
-    },
     mail: {
         type: String,
         required: true,
@@ -32,46 +20,61 @@ const UtilisateurSchema = new mongoose.Schema({
         minlength: 1,
         trim: true
     },
-    tags: [{
+    genre: {
         type: String,
         required: true,
         minlength: 1,
         trim: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        minlength: 1,
+        trim: true
+    },
+    grade: {
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
+    },
+    suspendu: {
+        type: Date,
+        required: false,
+        minlength: 1,
+        trim: true
+    },
+    playlists: [{
+        type: mongoose.Types.ObjectId,
+        required: false,
+        trim: true
     }],
-    impressions: {
-        type: Number,
-        required: true,
-        minlength: 1,
+    historique: [{
+        type: mongoose.Types.ObjectId,
+        required: false,
         trim: true
-    },
-    engagemets: {
-        type: Number,
-        required: true,
-        minlength: 1,
+    }],
+    annonces: [{
+        type: mongoose.Types.ObjectId,
+        required: false,
         trim: true
-    },
-    nbVideos: {
-        type: Number,
-        required: true,
-        minlength: 1,
-        trim: true
-    }
+    }]
 })
 
 const Utilisateur = mongoose.model("Utilisateur", UtilisateurSchema)
 
-UtilisateurSchema.pre(save, function (next) {
+UtilisateurSchema.pre(save, function(next) {
     var utilisateur = this;
 
     // only hash the password if it has been modified (or is new)
     if (!utilisateur.isModified('mdp')) return next();
 
     // generate a salt
-    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
         if (err) return next(err);
 
         // hash the mdp using our new salt
-        bcrypt.hash(utilisateur.mdp, salt, function (err, hash) {
+        bcrypt.hash(utilisateur.mdp, salt, function(err, hash) {
             if (err) return next(err);
 
             // override the cleartext mdp with the hashed one
@@ -83,8 +86,8 @@ UtilisateurSchema.pre(save, function (next) {
 
 });
 
-UtilisateurSchema.methods.compareMdp = function (candidateMdp, cb) {
-    bcrypt.compare(candidateMdp, this.mdp, function (err, isMatch) {
+UtilisateurSchema.methods.compareMdp = function(candidateMdp, cb) {
+    bcrypt.compare(candidateMdp, this.mdp, function(err, isMatch) {
         if (err) return cb(err);
         cb(null, isMatch);
     });
