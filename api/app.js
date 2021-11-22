@@ -72,10 +72,11 @@ app.patch('/playlists/:id', (req, res) => {
 app.delete('/playlists/:id', (req, res) => {
     Playlist.findOneAndRemove({
         _id: req.params.id
-    }).then((removedPlaylistDoc) => {
-        res.send(removedPlaylistDoc)
+    }).then(() => {
+        res.sendStatus(200)
     })
 })
+
 
 
 app.listen(3000, () => {
