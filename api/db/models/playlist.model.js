@@ -14,11 +14,19 @@ const PlaylistSchema = new mongoose.Schema({
         minlength: 1,
         trim: true
     },
-    idVideos: [{
-        type: mongoose.Types.ObjectId,
-        required: true,
-        minlength: 1,
-        trim: true
+    videos: [{
+        idVideo: {
+            type: String,
+            required: true,
+            minlength: 1,
+            trim: true
+        },
+        provenance: {
+            type: String,
+            required: true,
+            minlength: 1,
+            trim: true
+        }
     }],
 });
 
