@@ -5,7 +5,7 @@ app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
 const { mongoose } = require('./db/mongoose')
 bcrypt = require('bcrypt')
 const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
-
+const {searchVideos,getTagsByIdVideo} = require('./youtubeApi')
 
 app.use(express.json())
 
@@ -127,6 +127,14 @@ app.post('/utilisateurs/inscription', async(req, res) => {
     //     res.send(PlaylistDoc)
     // })
 
+})
+
+app.get('/getVideoTags/:id', async (req, res) => {
+    res.send( await getTagsByIdVideo(req.params.id))
+})
+
+app.get('/searchVideos/:name', async (req, res) => {
+    res.send( await searchVideos(req.params.name))
 })
 
 
