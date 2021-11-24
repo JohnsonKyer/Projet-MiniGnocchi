@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
-
+const cors = require('cors');
+app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
 const { mongoose } = require('./db/mongoose')
-
+bcrypt = require('bcrypt')
 const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
 
 
 app.use(express.json())
+
 
 // Récupération de toutes les playlists
 app.get('/playlists', (req, res) => {
@@ -18,11 +20,11 @@ app.get('/playlists', (req, res) => {
 // Création d'une playlist. 
 app.post('/playlists', (req, res) => {
     let titre = req.body.titre
-    let idVideos = req.body.idVideos
+    let videos = req.body.videos
     let idUtilisateur = req.body.idUtilisateur
     let newPlaylist = new Playlist({
         titre,
-        idVideos,
+        videos,
         idUtilisateur
     })
     newPlaylist.save().then((PlaylistDoc) => {
@@ -52,7 +54,7 @@ app.patch('/playlists/:id', (req, res) => {
     if (req.body.action == "edit") {
         Playlist.findOneAndUpdate({ _id: req.params.id }, {
             $addToSet: {
-                idVideos: req.body.idVideo,
+                videos: req.body.videos,
             },
             titre: req.body.titre
         }).then(() => {
@@ -60,7 +62,7 @@ app.patch('/playlists/:id', (req, res) => {
         })
     } else if (req.body.action == "del") {
         Playlist.findOneAndUpdate({ _id: req.params.id }, {
-            $pull: { idVideos: req.body.idVideo }
+            $pull: { videos: req.body.videos }
         }).then(() => {
             res.sendStatus(200);
         })
@@ -77,6 +79,62 @@ app.delete('/playlists/:id', (req, res) => {
     })
 })
 
+// app.post('/utilisateurs/inscription', async(req, res) => {
+//     const { mail, mdp, genre, date, grade } = req.body
+//     if (!(mail && mdp && genre && date && grade)) {
+//         res.status(400).send("Tous les champs n'ont pas été remplis");
+//     }
+//     const utilisateur_existant = await Utilisateur.findOne({ mail });
+//     if (utilisateur_existant) {
+//         return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
+//     }
+//     const utilisateur = new Utilisateur({ mail, mdp: await bcrypt.hash(mdp, 10), genre, date, grade })
+//     utilisateur.save().then(() => {
+//         res.sendStatus(200)
+//     })
+
+//     // let newPlaylist = new Playlist({
+//     //     titre,
+//     //     idVideos,
+//     //     idUtilisateur
+//     // })
+//     // newPlaylist.save().then((PlaylistDoc) => {
+//     //     res.send(PlaylistDoc)
+//     // })
+
+// })
+
+app.post('/utilisateurs/inscription', async(req, res) => {
+    const { mail, mdp, genre, date, grade } = req.body
+    if (!(mail && mdp && genre && date && grade)) {
+        res.status(400).send("Tous les champs n'ont pas été remplis");
+    }
+    const utilisateur_existant = await Utilisateur.findOne({ mail });
+    if (utilisateur_existant) {
+        return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
+    }
+    const utilisateur = new Utilisateur({ mail, mdp: await bcrypt.hash(mdp, 10), genre, date, grade })
+    utilisateur.save().then(() => {
+        res.sendStatus(200)
+    })
+
+    // let newPlaylist = new Playlist({
+    //     titre,
+    //     idVideos,
+    //     idUtilisateur
+    // })
+    // newPlaylist.save().then((PlaylistDoc) => {
+    //     res.send(PlaylistDoc)
+    // })
+
+})
+
+
+app.get('/utilisateurs', (req, res) => {
+    Utilisateur.find({}).then((utilisateurs) => {
+        res.send(utilisateurs)
+    })
+})
 
 
 app.listen(3000, () => {
