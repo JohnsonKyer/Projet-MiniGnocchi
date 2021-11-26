@@ -67,6 +67,10 @@
 :focus {
   outline: 0
 }
+.main-search-button:hover {
+  background: #3b7aa5 ;
+  transition: 0.5s;
+}
 
 @media only screen and (max-width: 768px) {
   .main-search-input {
@@ -95,4 +99,5 @@
     width: 100%;
     border-radius: 6px
   }
+
 }

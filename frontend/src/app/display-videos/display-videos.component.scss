@@ -1,10 +1,17 @@
-.parent {
+.container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  padding-left: 6%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 2% 2%;
+  grid-template-areas:". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . .";
   margin-top: 2%;
-  background-color: white;
+}
+.video:hover{
+  cursor: pointer;
+  background-color: lightgray;
+  transition: 0.3s;
 }

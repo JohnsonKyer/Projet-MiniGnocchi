@@ -15,6 +15,17 @@ export class SearchVideoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.httpClient
+      .post(this.url,{"nameVideos" : "nature"})
+      .subscribe(
+        (data) => {
+          this.videos=data
+          this.newItemEvent.emit(this.videos);
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
   }
 
   searchVideos() {
@@ -23,7 +34,6 @@ export class SearchVideoComponent implements OnInit {
       .subscribe(
         (data) => {
           this.videos=data
-          console.log("String json object :", this.videos[0].id);
           this.newItemEvent.emit(this.videos);
         },
         (error) => {

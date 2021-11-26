@@ -24,4 +24,8 @@ export class DisplayVideosComponent implements OnInit {
       });
     }
   }
+
+  watch(link: string){
+    console.log(link)
+  }
 }
