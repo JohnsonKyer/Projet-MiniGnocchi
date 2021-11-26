@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -10,7 +10,7 @@ export class SearchVideoComponent implements OnInit {
   url: string = 'http://127.0.0.1:3000/searchVideos';
   videos: any;
   nameVideos: string;
-
+  @Output() newItemEvent = new EventEmitter<any>();
   constructor(private httpClient: HttpClient) {
   }
 
@@ -24,6 +24,7 @@ export class SearchVideoComponent implements OnInit {
         (data) => {
           this.videos=data
           console.log("String json object :", this.videos[0].id);
+          this.newItemEvent.emit(this.videos);
         },
         (error) => {
           console.log('Erreur ! : ' + error);

@@ -12,7 +12,7 @@ async function searchVideos(name) {
             ],
             "chart": 'mostPopular',
             "q": name,
-            "maxResults": 10
+            "maxResults": 21
 
         }, (err, res) => {
             if (err) return console.log('The API returned an error: ' + err);
@@ -24,7 +24,8 @@ async function searchVideos(name) {
                     const data = {
                         title: video.snippet.title,
                         id : video.id.videoId,
-                        link : "https://www.youtube.com/watch?v=" + video.id.videoId
+                        link : "https://www.youtube.com/watch?v=" + video.id.videoId,
+                        miniature : video.snippet.thumbnails["medium"].url
                     }
                     if (video.id.videoId !== undefined){
                         o[i]=data;

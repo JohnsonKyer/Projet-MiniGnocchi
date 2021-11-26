@@ -12,6 +12,7 @@ import { MessageService } from './message.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SearchVideoComponent } from './search-video/search-video.component';
 import {IconsModule, InputsModule} from "angular-bootstrap-md";
+import { DisplayVideosComponent } from './display-videos/display-videos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import {IconsModule, InputsModule} from "angular-bootstrap-md";
     HeaderComponent,
     SidebarComponent,
     RegisterComponent,
-    SearchVideoComponent
+    SearchVideoComponent,
+    DisplayVideosComponent
   ],
   imports: [
     BrowserModule,

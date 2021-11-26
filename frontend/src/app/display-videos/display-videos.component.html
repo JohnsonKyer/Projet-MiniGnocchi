@@ -1,0 +1,4 @@
+<app-search-video (newItemEvent)="addItem($event)"></app-search-video>
+<div class="parent">
+  <img *ngFor="let i of videos" src={{i.miniature}}>
+</div>

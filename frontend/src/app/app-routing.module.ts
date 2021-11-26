@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PlaylistsComponent } from './pages/playlists/playlists.component';
 import { RegisterComponent } from './register/register.component';
+import {DisplayVideosComponent} from "./display-videos/display-videos.component";
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path:'register',
     component:RegisterComponent
+  },
+  {
+    path:'video',
+    component:DisplayVideosComponent
   }
 ];
 
