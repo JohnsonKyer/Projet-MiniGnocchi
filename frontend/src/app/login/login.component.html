@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Connexion</h4>
+                </header>
+                <article class="card-body">
+                    <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                        <!-- form-row end.// -->
+                        <div class="form-group">
+                            <label>Adresse mail</label>
+                            <input type="email" class="form-control" name="mail" [(ngModel)]="form.mail" required #mail="ngModel">
+                            <div class="alert alert-danger" role="alert" *ngIf="mail.errors && f.submitted">
+                                Mail is required!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mot de passe</label>
+                            <input type="password" class="form-control" name="mdp" [(ngModel)]="form.mdp" required minlength="6" #mdp="ngModel" l>
+                            <div class="alert alert-danger" role="alert" *ngIf="mdp.errors && f.submitted">
+                                <div *ngIf="mdp.errors.required">mdp is required</div>
+                                <div *ngIf="mdp.errors.minlength">
+                                    Password must be at least 6 characters
+                                </div>
+                            </div>
+                        </div>
+                        <!-- form-group end.// -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+                        </div>
+                        <!-- form-group// -->
+                        <div class="form-group">
+                            <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+                                Login failed: {{ errorMessage }}
+                            </div>
+                        </div>
+                    </form>
+                </article>
+                <!-- card-body end .// -->
+                <div class="border-top card-body text-center">Vous n'avez pas de compte ? <a routerLink="/register">S'inscrire</a></div>
+            </div>
+            <!-- card.// -->
+        </div>
+        <!-- col.//-->
+
+    </div>
+    <!-- row.//-->
+
+
+</div>
+<!--container end.//-->
