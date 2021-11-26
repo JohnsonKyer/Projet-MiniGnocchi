@@ -19,8 +19,7 @@ async function searchVideos(name) {
             const videos = res.data.items;
             if (videos.length) {
                 const o = {} // empty Object
-                const key = 'Videos';
-                o[key] = [];
+                let i =0;
                 videos.map((video) => {
                     const data = {
                         title: video.snippet.title,
@@ -28,7 +27,8 @@ async function searchVideos(name) {
                         link : "https://www.youtube.com/watch?v=" + video.id.videoId
                     }
                     if (video.id.videoId !== undefined){
-                        o[key].push(data);
+                        o[i]=data;
+                        i++;
                     }
                 });
                 resolve(o)

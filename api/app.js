@@ -133,8 +133,9 @@ app.get('/getVideoTags/:id', async (req, res) => {
     res.send( await getTagsByIdVideo(req.params.id))
 })
 
-app.get('/searchVideos/:name', async (req, res) => {
-    res.send( await searchVideos(req.params.name))
+app.post('/searchVideos', async (req, res) => {
+    let name = req.body.nameVideos;
+    res.send( await searchVideos(name))
 })
 
 

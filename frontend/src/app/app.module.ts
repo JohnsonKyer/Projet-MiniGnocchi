@@ -10,20 +10,25 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { MessageService } from './message.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SearchVideoComponent } from './search-video/search-video.component';
+import {IconsModule, InputsModule} from "angular-bootstrap-md";
 @NgModule({
   declarations: [
     AppComponent,
     PlaylistsComponent,
     HeaderComponent,
     SidebarComponent,
-    RegisterComponent
+    RegisterComponent,
+    SearchVideoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    IconsModule,
+    InputsModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
