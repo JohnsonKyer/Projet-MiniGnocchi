@@ -10,8 +10,8 @@ export class HomeComponent implements OnInit {
   videos: any[] = [];
   title: string;
   link: string;
-  videosBool: number;
-  videoBool: number;
+  videosBool: number = 0;
+  videoBool: number = 1;
   urlSafe: SafeResourceUrl;
 
   constructor(public sanitizer: DomSanitizer) { }

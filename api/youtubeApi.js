@@ -1,7 +1,8 @@
 const {google} = require('googleapis');
 const service = google.youtube({
     version: 'v3',
-    auth: 'AIzaSyA3a9ExNfA-NhouM3ixH1aoyezlOuqlI5c'
+    //auth: 'AIzaSyA3a9ExNfA-NhouM3ixH1aoyezlOuqlI5c' //flo
+    auth :'AIzaSyBZKfPOQxbK2XFhzdRnunw-UegYc2OSesM' //cyan
 })
 
 async function searchVideos(name) {

@@ -15,6 +15,7 @@ import {IconsModule, InputsModule} from "angular-bootstrap-md";
 import { DisplayVideosComponent } from './display-videos/display-videos.component';
 import { PlayVideoComponent } from './play-video/play-video.component';
 import { HomeComponent } from './home/home.component';
+import { ButtonPlaylistComponent } from './button-playlist/button-playlist.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { HomeComponent } from './home/home.component';
     SearchVideoComponent,
     DisplayVideosComponent,
     PlayVideoComponent,
-    HomeComponent
+    HomeComponent,
+    ButtonPlaylistComponent
   ],
   imports: [
     BrowserModule,
