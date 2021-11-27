@@ -1,6 +1,6 @@
 <app-search-video (newItemEvent)="addItem($event)"></app-search-video>
 <div class="container">
-  <div class="video" *ngFor="let i of videos" (click)="watch(i.link)">
+  <div class="video" *ngFor="let i of videos" (click)="watch(i.id)">
     <img  src={{i.miniature}}>
     <h5>{{i.title}}</h5>
   </div>

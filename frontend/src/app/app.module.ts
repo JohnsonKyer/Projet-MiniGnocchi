@@ -13,6 +13,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SearchVideoComponent } from './search-video/search-video.component';
 import {IconsModule, InputsModule} from "angular-bootstrap-md";
 import { DisplayVideosComponent } from './display-videos/display-videos.component';
+import { PlayVideoComponent } from './play-video/play-video.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { DisplayVideosComponent } from './display-videos/display-videos.componen
     SidebarComponent,
     RegisterComponent,
     SearchVideoComponent,
-    DisplayVideosComponent
+    DisplayVideosComponent,
+    PlayVideoComponent
   ],
   imports: [
     BrowserModule,

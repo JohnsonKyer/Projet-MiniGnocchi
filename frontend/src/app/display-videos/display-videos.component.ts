@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-display-videos',
@@ -7,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DisplayVideosComponent implements OnInit {
   videos: any[] = [];
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
@@ -25,7 +26,7 @@ export class DisplayVideosComponent implements OnInit {
     }
   }
 
-  watch(link: string){
-    console.log(link)
+  watch(id: string){
+    this.router.navigate(['/watchVideo'], { queryParams: { id: id } });
   }
 }
