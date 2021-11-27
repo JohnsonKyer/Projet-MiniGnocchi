@@ -14,6 +14,7 @@ import { SearchVideoComponent } from './search-video/search-video.component';
 import {IconsModule, InputsModule} from "angular-bootstrap-md";
 import { DisplayVideosComponent } from './display-videos/display-videos.component';
 import { PlayVideoComponent } from './play-video/play-video.component';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { PlayVideoComponent } from './play-video/play-video.component';
     RegisterComponent,
     SearchVideoComponent,
     DisplayVideosComponent,
-    PlayVideoComponent
+    PlayVideoComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

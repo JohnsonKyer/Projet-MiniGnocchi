@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -7,26 +7,20 @@ import {Router} from "@angular/router";
   styleUrls: ['./display-videos.component.scss']
 })
 export class DisplayVideosComponent implements OnInit {
-  videos: any[] = [];
+  @Input() videos: any[] = [];
+  @Output() newItemEvent = new EventEmitter<any>();
+  video: any;
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
-  addItem(newItem: any) {
-    this.videos=[];
-    for (let element in newItem) {
-      this.videos.push({
-        title: newItem[element].title,
-        id: newItem[element].id,
-        link: newItem[element].link,
-        miniature: newItem[element].miniature,
-      });
-    }
-  }
-
-  watch(id: string){
-    this.router.navigate(['/watchVideo'], { queryParams: { id: id } });
+  watch(id: string, title:string){
+    this.video = {
+      title: title,
+      id : id
+    };
+    this.newItemEvent.emit(this.video);
   }
 }

@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {Component, Input, OnInit} from '@angular/core';
+import {SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-play-video',
@@ -9,21 +8,12 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 })
 
 export class PlayVideoComponent implements OnInit {
-  id: string;
-  link: string;
-  urlSafe: SafeResourceUrl;
+  @Input() urlSafe: SafeResourceUrl;
+  @Input() title: string;
 
-  constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.route.queryParams
-      .subscribe(params => {
-          console.log(params);
-          this.id = params.id;
-          this.link = "https://www.youtube.com/embed/" + this.id;
-          this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
         }
-      );
-  }
 }
