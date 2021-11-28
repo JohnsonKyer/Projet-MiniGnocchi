@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d741cd82-2705-43de-ac55-a9f137d4f409" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/img/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/db/models/utilisateur.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/db/models/utilisateur.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/api/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/api/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +50,7 @@
       <workItem from="1636667978625" duration="318000" />
       <workItem from="1636669563158" duration="397000" />
       <workItem from="1636670024139" duration="2314000" />
+      <workItem from="1637770059866" duration="26000" />
     </task>
     <servers />
   </component>
