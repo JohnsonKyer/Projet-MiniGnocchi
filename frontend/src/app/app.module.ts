@@ -10,13 +10,17 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { MessageService } from './message.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
     PlaylistsComponent,
     HeaderComponent,
     SidebarComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, authInterceptorProviders, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

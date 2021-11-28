@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
+const { verifInscription } = require("./middlewares/verifInscription");
+const controller = require("./controllers/auth.controller");
+const { authJwt } = require("./middlewares");
+
+
 const { mongoose } = require('./db/mongoose')
 bcrypt = require('bcrypt')
 const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
@@ -104,30 +109,30 @@ app.delete('/playlists/:id', (req, res) => {
 
 // })
 
-app.post('/utilisateurs/inscription', async(req, res) => {
-    const { mail, mdp, genre, date, grade } = req.body
-    if (!(mail && mdp && genre && date && grade)) {
-        res.status(400).send("Tous les champs n'ont pas été remplis");
-    }
-    const utilisateur_existant = await Utilisateur.findOne({ mail });
-    if (utilisateur_existant) {
-        return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
-    }
-    const utilisateur = new Utilisateur({ mail, mdp: await bcrypt.hash(mdp, 10), genre, date, grade })
-    utilisateur.save().then(() => {
-        res.sendStatus(200)
-    })
+// app.post('/utilisateurs/inscription', async(req, res) => {
+//     const { mail, mdp, genre, date, grade } = req.body
+//     if (!(mail && mdp && genre && date && grade)) {
+//         res.status(400).send("Tous les champs n'ont pas été remplis");
+//     }
+//     const utilisateur_existant = await Utilisateur.findOne({ mail });
+//     if (utilisateur_existant) {
+//         return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
+//     }
+//     const utilisateur = new Utilisateur({ mail, mdp: await bcrypt.hash(mdp, 10), genre, date, grade })
+//     utilisateur.save().then(() => {
+//         res.sendStatus(200)
+//     })
 
-    // let newPlaylist = new Playlist({
-    //     titre,
-    //     idVideos,
-    //     idUtilisateur
-    // })
-    // newPlaylist.save().then((PlaylistDoc) => {
-    //     res.send(PlaylistDoc)
-    // })
+//     // let newPlaylist = new Playlist({
+//     //     titre,
+//     //     idVideos,
+//     //     idUtilisateur
+//     // })
+//     // newPlaylist.save().then((PlaylistDoc) => {
+//     //     res.send(PlaylistDoc)
+//     // })
 
-})
+// })
 
 
 app.get('/utilisateurs', (req, res) => {
@@ -135,6 +140,37 @@ app.get('/utilisateurs', (req, res) => {
         res.send(utilisateurs)
     })
 })
+
+app.use(function(req, res, next) {
+    res.header(
+        "Access-Control-Allow-Headers",
+        "x-access-token, Origin, Content-Type, Accept"
+    );
+    next();
+});
+
+app.post("/utilisateurs/inscription", controller.signup), (req, res) => {
+    console.log(req, res)
+    res.status(200).send(res)
+};
+
+app.post("/utilisateurs/connexion", controller.signin);
+
+app.get("/api/test/user", [authJwt.verifToken], controller.utilisateurAcces), (req, res) => {
+    console.log(req, res)
+    res.sendStatus(200)
+};
+
+app.get("/api/test/mod", [authJwt.verifToken, authJwt.isModerateur], controller.moderateurAcces), (req, res) => {
+    console.log(req, res)
+    res.sendStatus(200)
+};
+
+app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller.annonceurAcces), (req, res) => {
+    console.log(req, res)
+    res.sendStatus(200)
+};
+
 
 
 app.listen(3000, () => {
