@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {FlashMessagesService} from "angular2-flash-messages";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { TokenStorageService } from '../services/token-storage.service';
 
 @Component({
   selector: 'app-button-playlist',
@@ -11,16 +12,18 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class ButtonPlaylistComponent implements OnInit {
   url: string = 'http://127.0.0.1:3000/playlistsFromUser/';
   urlNewPlaylist: string = 'http://127.0.0.1:3000/playlists';
-  urlAdd: string = 'http://127.0.0.1:3000/playlists/';
+  urlAdd: string = 'http://127.0.0.1:3000/playlistsAjout/';
+  urlDel: string = 'http://127.0.0.1:3000/playlistsRetrait/';
+  urlEdit: string = 'http://127.0.0.1:3000/playlistsRename/';
   playlistName : any;
   @Input() id : string;
   validatingForm: FormGroup;
-  constructor(private httpClient: HttpClient,private flashMessage: FlashMessagesService) {
+  constructor(private httpClient: HttpClient,private flashMessage: FlashMessagesService, private token: TokenStorageService) {
   }
 
   ngOnInit(): void {
     this.httpClient
-      .get(this.url+"313233343536373839313233")
+      .get(this.url+JSON.parse(this.token.getUser()).id)
       .subscribe(
         (data) => {
           this.playlistName = data
@@ -38,11 +41,10 @@ export class ButtonPlaylistComponent implements OnInit {
   }
 
   newPlaylist() : void{
-    console.log(this.namePlaylist.value)
     this.httpClient
       .post(this.urlNewPlaylist,{
         "titre": this.namePlaylist.value,
-        "idUtilisateur":"313233343536373839313233"
+        "idUtilisateur":JSON.parse(this.token.getUser()).id
       })
       .subscribe(
         () => {
@@ -57,7 +59,6 @@ export class ButtonPlaylistComponent implements OnInit {
   addVideo(idPlaylist : string): void{
     this.httpClient
       .patch(this.urlAdd+idPlaylist,{
-        "action":"edit",
         "videos":{
           "idVideo":this.id,
           "provenance":"youtube"
@@ -65,11 +66,9 @@ export class ButtonPlaylistComponent implements OnInit {
       }, {responseType: 'text'})
       .subscribe(
         res => {
-          console.log('received ok response from patch request');
           this.flashMessage.show('La vidéo a bien été ajoutée a votre playlist.', { cssClass: 'alert-success', timeout: 3000 });
         },
         error => {
-          console.error('There was an error during the request');
           console.log(error);
         });
   }
