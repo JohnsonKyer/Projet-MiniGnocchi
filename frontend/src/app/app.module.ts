@@ -6,12 +6,12 @@ import { PlaylistsComponent } from './pages/playlists/playlists.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { MessageService } from './message.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SearchVideoComponent } from './search-video/search-video.component';
-import {IconsModule, InputsModule} from "angular-bootstrap-md";
+import {IconsModule, InputsModule, MDBRootModule} from "angular-bootstrap-md";
 import { DisplayVideosComponent } from './display-videos/display-videos.component';
 import { PlayVideoComponent } from './play-video/play-video.component';
 import { HomeComponent } from './home/home.component';
@@ -31,17 +31,19 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     HomeComponent,
     ButtonPlaylistComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FontAwesomeModule,
-        FormsModule,
-        HttpClientModule,
-        IconsModule,
-        InputsModule,
-        NgbDropdownModule,
-      FlashMessagesModule.forRoot()
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FontAwesomeModule,
+    FormsModule,
+    HttpClientModule,
+    IconsModule,
+    InputsModule,
+    NgbDropdownModule,
+    FlashMessagesModule.forRoot(),
+    MDBRootModule,
+    ReactiveFormsModule
+  ],
   providers: [MessageService],
   bootstrap: [AppComponent]
 })

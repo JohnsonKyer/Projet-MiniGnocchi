@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {FlashMessagesService} from "angular2-flash-messages";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-button-playlist',
@@ -9,9 +10,11 @@ import {FlashMessagesService} from "angular2-flash-messages";
 })
 export class ButtonPlaylistComponent implements OnInit {
   url: string = 'http://127.0.0.1:3000/playlistsFromUser/';
+  urlNewPlaylist: string = 'http://127.0.0.1:3000/playlists';
   urlAdd: string = 'http://127.0.0.1:3000/playlists/';
   playlistName : any;
   @Input() id : string;
+  validatingForm: FormGroup;
   constructor(private httpClient: HttpClient,private flashMessage: FlashMessagesService) {
   }
 
@@ -21,6 +24,29 @@ export class ButtonPlaylistComponent implements OnInit {
       .subscribe(
         (data) => {
           this.playlistName = data
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+    this.validatingForm = new FormGroup({
+      namePlaylist: new FormControl('', Validators.required),
+    });
+  }
+  get namePlaylist() {
+    return this.validatingForm.get('namePlaylist');
+  }
+
+  newPlaylist() : void{
+    console.log(this.namePlaylist.value)
+    this.httpClient
+      .post(this.urlNewPlaylist,{
+        "titre": this.namePlaylist.value,
+        "idUtilisateur":"313233343536373839313233"
+      })
+      .subscribe(
+        () => {
+          this.ngOnInit()
         },
         (error) => {
           console.log('Erreur ! : ' + error);
