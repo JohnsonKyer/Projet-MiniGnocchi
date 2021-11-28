@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
   videos: any[] = [];
   title: string;
   link: string;
+  id: string;
   videosBool: number = 0;
   videoBool: number = 1;
   urlSafe: SafeResourceUrl;
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
   watchVideo(video: any){
     this.title = video.title;
     this.link = "https://www.youtube.com/embed/" + video.id;
+    this.id=video.id
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
     this.videosBool=1;
     this.videoBool=0;

@@ -10,6 +10,7 @@ import {SafeResourceUrl} from "@angular/platform-browser";
 export class PlayVideoComponent implements OnInit {
   @Input() urlSafe: SafeResourceUrl;
   @Input() title: string;
+  @Input() id: string;
 
   constructor() {
   }
