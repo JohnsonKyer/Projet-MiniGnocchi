@@ -154,10 +154,7 @@ app.post("/utilisateurs/inscription", controller.signup), (req, res) => {
     res.status(200).send(res)
 };
 
-app.post("/utilisateurs/connexion", controller.signin), (req, res) => {
-    console.log(req, res)
-    res.sendStatus(200)
-};
+app.post("/utilisateurs/connexion", controller.signin);
 
 app.get("/api/test/user", [authJwt.verifToken], controller.utilisateurAcces), (req, res) => {
     console.log(req, res)
