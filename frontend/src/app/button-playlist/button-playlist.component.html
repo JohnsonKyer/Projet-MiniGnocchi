@@ -1,10 +1,10 @@
-<h5>Ajoutez la vidéo dans une playlist :</h5>
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Ajouter une playlist ...</a>
-    <a class="dropdown-item" href="#">Playlist 1</a>
+<h5>Ajouter la video à une playlist :</h5>
+<div class="col">
+  <div ngbDropdown class="d-inline-block">
+    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Vos playlists</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem>Créer une playlist ...</button>
+      <button ngbDropdownItem>Playlist 1</button>
+    </div>
   </div>
 </div>

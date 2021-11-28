@@ -16,6 +16,7 @@ import { DisplayVideosComponent } from './display-videos/display-videos.componen
 import { PlayVideoComponent } from './play-video/play-video.component';
 import { HomeComponent } from './home/home.component';
 import { ButtonPlaylistComponent } from './button-playlist/button-playlist.component';
+import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,15 +30,16 @@ import { ButtonPlaylistComponent } from './button-playlist/button-playlist.compo
     HomeComponent,
     ButtonPlaylistComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FontAwesomeModule,
-    FormsModule,
-    HttpClientModule,
-    IconsModule,
-    InputsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FontAwesomeModule,
+        FormsModule,
+        HttpClientModule,
+        IconsModule,
+        InputsModule,
+        NgbDropdownModule
+    ],
   providers: [MessageService],
   bootstrap: [AppComponent]
 })

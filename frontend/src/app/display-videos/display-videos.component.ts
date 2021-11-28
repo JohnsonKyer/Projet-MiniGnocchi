@@ -10,7 +10,7 @@ export class DisplayVideosComponent implements OnInit {
   @Input() videos: any[] = [];
   @Output() newItemEvent = new EventEmitter<any>();
   video: any;
-  constructor(private router: Router) {
+  constructor() {
   }
 
   ngOnInit(): void {
