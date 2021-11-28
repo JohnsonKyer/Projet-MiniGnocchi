@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {FlashMessagesService} from "angular2-flash-messages";
 
 @Component({
   selector: 'app-button-playlist',
@@ -11,7 +12,7 @@ export class ButtonPlaylistComponent implements OnInit {
   urlAdd: string = 'http://127.0.0.1:3000/playlists/';
   playlistName : any;
   @Input() id : string;
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,private flashMessage: FlashMessagesService) {
   }
 
   ngOnInit(): void {
@@ -39,6 +40,7 @@ export class ButtonPlaylistComponent implements OnInit {
       .subscribe(
         res => {
           console.log('received ok response from patch request');
+          this.flashMessage.show('La vidéo a bien été ajoutée a votre playlist.', { cssClass: 'alert-success', timeout: 3000 });
         },
         error => {
           console.error('There was an error during the request');

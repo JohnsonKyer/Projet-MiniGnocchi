@@ -17,6 +17,7 @@ import { PlayVideoComponent } from './play-video/play-video.component';
 import { HomeComponent } from './home/home.component';
 import { ButtonPlaylistComponent } from './button-playlist/button-playlist.component';
 import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
+import { FlashMessagesModule } from 'angular2-flash-messages';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
         HttpClientModule,
         IconsModule,
         InputsModule,
-        NgbDropdownModule
+        NgbDropdownModule,
+      FlashMessagesModule.forRoot()
     ],
   providers: [MessageService],
   bootstrap: [AppComponent]
