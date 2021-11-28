@@ -1,0 +1,6 @@
+<div class="container">
+  <div class="video" *ngFor="let i of videos" (click)="watch(i.id, i.title)">
+    <img  src={{i.miniature}}>
+    <h5>{{i.title}}</h5>
+  </div>
+</div>

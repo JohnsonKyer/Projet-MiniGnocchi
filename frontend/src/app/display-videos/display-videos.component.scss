@@ -1,0 +1,17 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 2% 2%;
+  grid-template-areas:". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . .";
+  margin-top: 2%;
+}
+.video:hover{
+  cursor: pointer;
+  background-color: lightgray;
+  transition: 0.3s;
+}

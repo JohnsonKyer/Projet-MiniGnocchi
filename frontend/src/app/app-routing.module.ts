@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { PlaylistsComponent } from './pages/playlists/playlists.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './services/auth.guard';
+import {HomeComponent} from "./home/home.component";
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   },
   {path:'login',
     component:LoginComponent
+  },
+  {
+    path:'home',
+    component:HomeComponent
   }
 ];
 
