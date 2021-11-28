@@ -28,7 +28,13 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     HeaderComponent,
     SidebarComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    SearchVideoComponent,
+    DisplayVideosComponent,
+    PlayVideoComponent,
+    HomeComponent,
+    ButtonPlaylistComponent
+
   ],
   imports: [
     BrowserModule,
