@@ -42,7 +42,7 @@ signin = (req, res) => {
         }
 
         if (!user) {
-            return res.status(404).send({ message: "Mail introuvable" });
+            return res.status(404).send({ message: "Mail introuvable", reason: "mail" });
         }
         var passwordIsValid = bcrypt.compareSync(
             req.body.mdp,
@@ -52,7 +52,8 @@ signin = (req, res) => {
         if (!passwordIsValid) {
             return res.status(401).send({
                 accessToken: null,
-                message: "Invalid Password!"
+                message: "Mot de passe erroné",
+                reason: "mdp"
             });
         }
 

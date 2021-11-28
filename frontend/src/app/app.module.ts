@@ -29,7 +29,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     FormsModule,
     HttpClientModule
   ],
-  providers: [MessageService, authInterceptorProviders],
+  providers: [MessageService, authInterceptorProviders, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

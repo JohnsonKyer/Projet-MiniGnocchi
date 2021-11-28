@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PlaylistsComponent } from './pages/playlists/playlists.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '', canActivate:[AuthGuard],
     component:PlaylistsComponent
   },
   {

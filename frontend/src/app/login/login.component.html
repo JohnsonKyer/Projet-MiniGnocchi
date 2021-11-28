@@ -4,6 +4,7 @@
             <div class="card">
                 <header class="card-header">
                     <h4 class="card-title mt-2">Connexion</h4>
+                    <button *ngIf="isLoggedIn" type="button" class="btn btn-outline-primary" (click)=onLogout()>Déconnexion</button>
                 </header>
                 <article class="card-body">
                     <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -12,17 +13,16 @@
                             <label>Adresse mail</label>
                             <input type="email" class="form-control" name="mail" [(ngModel)]="form.mail" required #mail="ngModel">
                             <div class="alert alert-danger" role="alert" *ngIf="mail.errors && f.submitted">
-                                Mail is required!
+                                Veuillez renseigner une adresse mail
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Mot de passe</label>
                             <input type="password" class="form-control" name="mdp" [(ngModel)]="form.mdp" required minlength="6" #mdp="ngModel" l>
                             <div class="alert alert-danger" role="alert" *ngIf="mdp.errors && f.submitted">
-                                <div *ngIf="mdp.errors.required">mdp is required</div>
-                                <div *ngIf="mdp.errors.minlength">
-                                    Password must be at least 6 characters
-                                </div>
+                                <div *ngIf="mdp.errors.required">Veuillez renseigner un mot de passe</div>
+                                <div *ngIf="mdp.errors.minlength ">Le mot de passe doit être composé de 6 caractères minimum</div>
+
                             </div>
                         </div>
                         <!-- form-group end.// -->
@@ -32,7 +32,7 @@
                         <!-- form-group// -->
                         <div class="form-group">
                             <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
-                                Login failed: {{ errorMessage }}
+                                Connexion échouée : {{ errorMessage }}
                             </div>
                         </div>
                     </form>

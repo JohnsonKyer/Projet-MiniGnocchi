@@ -15,25 +15,28 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  errorReason = '';
   roles: string[] = [];
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
-
-  ngOnInit(): void {
+ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
     }
   }
-
+  onLogout(): void {
+    this.authService.logout();
+    this.reloadPage();
+  }
   onSubmit(): void {
     const { mail, mdp } = this.form;
 
     this.authService.login(mail, mdp).subscribe(
       data => {
-        console.log("ici")
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
+        data = JSON.parse(data)
+        this.tokenStorage.saveToken(JSON.stringify(data.accessToken));
+        this.tokenStorage.saveUser(JSON.stringify(data));
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
@@ -41,7 +44,8 @@ export class LoginComponent implements OnInit {
         this.reloadPage();
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = JSON.parse(err.error).message;
+        this.errorReason = JSON.parse(err.error).reason;
         this.isLoginFailed = true;
       }
     );
