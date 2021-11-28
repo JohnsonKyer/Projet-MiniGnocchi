@@ -6,8 +6,7 @@ const mongoose = require('mongoose')
 
 const UtilisateurSchema = new mongoose.Schema({
     _idUtilisateur: {
-        type: mongoose.Types.ObjectId,
-        required: true
+        type: mongoose.Types.ObjectId
     },
     mail: {
         type: String,
@@ -53,6 +52,7 @@ const UtilisateurSchema = new mongoose.Schema({
     }],
     historique: [{
         type: mongoose.Types.ObjectId,
+        ref: "Video",
         required: false,
         trim: true
     }]

@@ -18,6 +18,9 @@ import { HomeComponent } from './home/home.component';
 import { ButtonPlaylistComponent } from './button-playlist/button-playlist.component';
 import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { LoginComponent } from './login/login.component';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,11 +28,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     HeaderComponent,
     SidebarComponent,
     RegisterComponent,
-    SearchVideoComponent,
-    DisplayVideosComponent,
-    PlayVideoComponent,
-    HomeComponent,
-    ButtonPlaylistComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +43,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     MDBRootModule,
     ReactiveFormsModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, authInterceptorProviders, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
