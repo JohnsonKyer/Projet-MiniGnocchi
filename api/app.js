@@ -10,7 +10,7 @@ const { authJwt } = require("./middlewares");
 const { mongoose } = require('./db/mongoose')
 bcrypt = require('bcrypt')
 const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
-const {searchVideos,getTagsByIdVideo} = require('./youtubeApi')
+const { searchVideos, getTagsByIdVideo } = require('./youtubeApi')
 
 app.use(express.json())
 
@@ -55,24 +55,30 @@ app.get('/playlists/:id', (req, res) => {
 
 // Ajout ou suppression d'un identifiant de vidéo à la playlist avec les champs "edit" et "del".
 // Modification du titre de la playlist avec le champ "titre".
-app.patch('/playlists/:id', (req, res) => {
-    if (req.body.action == "edit") {
-        Playlist.findOneAndUpdate({ _id: req.params.id }, {
-            $addToSet: {
-                videos: req.body.videos,
-            },
-            titre: req.body.titre
-        }).then(() => {
-            res.sendStatus(200);
-        })
-    } else if (req.body.action == "del") {
-        Playlist.findOneAndUpdate({ _id: req.params.id }, {
-            $pull: { videos: req.body.videos }
-        }).then(() => {
-            res.sendStatus(200);
-        })
-    }
+app.patch('/playlistsAjout/:id/', (req, res) => {
+    Playlist.findOneAndUpdate({ _id: req.params.id }, {
+        $addToSet: {
+            videos: req.body.videos,
+        }
+    }).then(() => { res.sendStatus(200); })
 })
+
+app.patch('/playlistsRetrait/:id', (req, res) => {
+    Playlist.findOneAndUpdate({ _id: req.params.id }, {
+        $pull: { videos: req.body.videos }
+    }).then(() => {
+        res.sendStatus(200);
+    })
+})
+
+app.patch('/playlistsRename/:id', (req, res) => {
+    Playlist.findOneAndUpdate({ _id: req.params.id }, {
+        titre: req.body.titre
+    }).then(() => {
+        res.sendStatus(200);
+    })
+})
+
 
 
 // Suppression d'une playlist par son identifiant.
@@ -134,13 +140,13 @@ app.delete('/playlists/:id', (req, res) => {
 
 // })
 
-app.get('/getVideoTags/:id', async (req, res) => {
-    res.send( await getTagsByIdVideo(req.params.id))
+app.get('/getVideoTags/:id', async(req, res) => {
+    res.send(await getTagsByIdVideo(req.params.id))
 })
 
-app.post('/searchVideos', async (req, res) => {
+app.post('/searchVideos', async(req, res) => {
     let name = req.body.nameVideos;
-    res.send( await searchVideos(name))
+    res.send(await searchVideos(name))
 })
 
 
