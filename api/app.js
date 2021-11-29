@@ -45,10 +45,10 @@ app.get('/playlistsFromUser/:id', (req, res) => {
     })
 })
 
-// Récupération de la playlist par l'identifiant de la playlist.
+// Récupération des videos de la playlist par l'identifiant de la playlist.
 app.get('/playlists/:id', (req, res) => {
     Playlist.findOne({ _id: req.params.id }).then((playlists) => {
-        res.send(playlists)
+        res.send(playlists.videos)
     })
 })
 

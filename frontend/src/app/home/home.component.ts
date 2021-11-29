@@ -9,6 +9,7 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 export class HomeComponent implements OnInit {
   videos: any[] = [];
   title: string;
+  miniature: string;
   link: string;
   id: string;
   videosBool: number = 0;
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
   }
 
   watchVideo(video: any){
+    this.miniature=video.miniature;
     this.title = video.title;
     this.link = "https://www.youtube.com/embed/" + video.id;
     this.id=video.id

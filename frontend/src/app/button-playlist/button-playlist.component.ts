@@ -16,6 +16,8 @@ export class ButtonPlaylistComponent implements OnInit {
   urlDel: string = 'http://127.0.0.1:3000/playlistsRetrait/';
   urlEdit: string = 'http://127.0.0.1:3000/playlistsRename/';
   playlistName : any;
+  @Input() miniature : string;
+  @Input() title : string;
   @Input() id : string;
   validatingForm: FormGroup;
   constructor(private httpClient: HttpClient,private flashMessage: FlashMessagesService, private token: TokenStorageService) {
@@ -60,8 +62,10 @@ export class ButtonPlaylistComponent implements OnInit {
     this.httpClient
       .patch(this.urlAdd+idPlaylist,{
         "videos":{
-          "idVideo":this.id,
-          "provenance":"youtube"
+          "id":this.id,
+          "provenance":"youtube",
+          "miniature":this.miniature,
+          "title":this.title
         }
       }, {responseType: 'text'})
       .subscribe(

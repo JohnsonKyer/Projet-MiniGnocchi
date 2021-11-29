@@ -27,8 +27,8 @@ export class PlaylistComponent implements OnInit {
       );
   }
 
-  playlist(id : string):void{
-    this.router.navigate(['/videoPlaylist'], {queryParams:{ id: id }});
+  playlist(id : string,titre:string):void{
+    this.router.navigate(['/videoPlaylist'], {queryParams:{ id: id, titre:titre }});
   }
 
 }

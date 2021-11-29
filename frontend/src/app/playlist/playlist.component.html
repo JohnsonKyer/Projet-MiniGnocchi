@@ -1,6 +1,6 @@
-<h2>Vos Playlist</h2>
+<h2>Vos Playlists</h2>
 <div class="container">
-  <div class="playlist" *ngFor="let i of playlists" (click)="playlist(i._id)">
+  <div class="playlist" *ngFor="let i of playlists" (click)="playlist(i._id,i.titre)">
     <img src="../../assets/playlist.png" width="200">
     <h5>{{i.titre}}</h5>
   </div>

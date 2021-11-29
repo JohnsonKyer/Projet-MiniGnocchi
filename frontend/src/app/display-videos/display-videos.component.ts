@@ -16,10 +16,11 @@ export class DisplayVideosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  watch(id: string, title:string){
+  watch(id: string, title:string,miniature:string){
     this.video = {
       title: title,
-      id : id
+      id : id,
+      miniature : miniature,
     };
     this.newItemEvent.emit(this.video);
   }

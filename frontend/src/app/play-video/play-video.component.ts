@@ -11,10 +11,11 @@ export class PlayVideoComponent implements OnInit {
   @Input() urlSafe: SafeResourceUrl;
   @Input() title: string;
   @Input() id: string;
+  @Input() miniature: string;
 
   constructor() {
   }
 
   ngOnInit(): void {
-        }
+  }
 }
