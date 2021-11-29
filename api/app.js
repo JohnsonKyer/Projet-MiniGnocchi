@@ -10,7 +10,7 @@ const { authJwt } = require("./middlewares");
 const { mongoose } = require('./db/mongoose')
 bcrypt = require('bcrypt')
 const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
-const { searchVideos, getTagsByIdVideo } = require('./youtubeApi')
+const { searchVideos, getTagsByIdVideo,getVideoByIdVideo } = require('./youtubeApi')
 
 app.use(express.json())
 
@@ -140,10 +140,12 @@ app.delete('/playlists/:id', (req, res) => {
 
 // })
 
-app.get('/getVideoTags/:id', async(req, res) => {
+app.get('/getVideoByIdVideo/:id', async(req, res) => {
+    res.send(await getVideoByIdVideo(req.params.id))
+})
+app.get('/getTagsByIdVideo/:id', async(req, res) => {
     res.send(await getTagsByIdVideo(req.params.id))
 })
-
 app.post('/searchVideos', async(req, res) => {
     let name = req.body.nameVideos;
     res.send(await searchVideos(name))

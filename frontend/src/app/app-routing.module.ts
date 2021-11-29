@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './services/auth.guard';
 import { HomeComponent } from "./home/home.component";
 import {PlaylistComponent} from "./playlist/playlist.component";
+import {VideoPlaylistComponent} from "./video-playlist/video-playlist.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,9 @@ const routes: Routes = [
   },
   { path: 'playlist', canActivate: [AuthGuard],
     component: PlaylistComponent
+  },
+  { path: 'videoPlaylist', canActivate: [AuthGuard],
+    component: VideoPlaylistComponent
   }
 ];
 

@@ -20,6 +20,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { LoginComponent } from './login/login.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { PlaylistComponent } from './playlist/playlist.component';
+import { VideoPlaylistComponent } from './video-playlist/video-playlist.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PlaylistComponent } from './playlist/playlist.component';
     PlayVideoComponent,
     HomeComponent,
     ButtonPlaylistComponent,
-    PlaylistComponent
+    PlaylistComponent,
+    VideoPlaylistComponent
 
   ],
   imports: [
