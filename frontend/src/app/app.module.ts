@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PlaylistsComponent } from './pages/playlists/playlists.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -20,11 +19,11 @@ import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { LoginComponent } from './login/login.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { PlaylistComponent } from './playlist/playlist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlaylistsComponent,
     HeaderComponent,
     SidebarComponent,
     RegisterComponent,
@@ -33,7 +32,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     DisplayVideosComponent,
     PlayVideoComponent,
     HomeComponent,
-    ButtonPlaylistComponent
+    ButtonPlaylistComponent,
+    PlaylistComponent
 
   ],
   imports: [

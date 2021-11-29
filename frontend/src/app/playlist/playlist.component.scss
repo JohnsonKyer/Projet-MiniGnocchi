@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 2% 2%;
+  grid-template-areas:". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . ."
+  ". . . .";
+  margin-top: 2%;
+}
+.playlist:hover{
+  cursor: pointer;
+  background-color: lightgray;
+  transition: 0.3s;
+}
+h2{
+  text-align: center;
+  width: 100%;
+  margin-top: 5%;
+}
