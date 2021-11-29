@@ -6,6 +6,7 @@ import { AuthGuard } from './services/auth.guard';
 import { HomeComponent } from "./home/home.component";
 import {PlaylistComponent} from "./playlist/playlist.component";
 import {VideoPlaylistComponent} from "./video-playlist/video-playlist.component";
+import { ProfilUtilisateurComponent } from './profil-utilisateur/profil-utilisateur.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,9 @@ const routes: Routes = [
   },
   { path: 'videoPlaylist', canActivate: [AuthGuard],
     component: VideoPlaylistComponent
-  }
+  },
+  {path: 'profilUtilisateur', canActivate: [AuthGuard],
+  component: ProfilUtilisateurComponent}
 ];
 
 @NgModule({
