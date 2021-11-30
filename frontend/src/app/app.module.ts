@@ -21,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { VideoPlaylistComponent } from './video-playlist/video-playlist.component';
+import { WatchVideoPlaylistComponent } from './watch-video-playlist/watch-video-playlist.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { VideoPlaylistComponent } from './video-playlist/video-playlist.componen
     HomeComponent,
     ButtonPlaylistComponent,
     PlaylistComponent,
-    VideoPlaylistComponent
+    VideoPlaylistComponent,
+    WatchVideoPlaylistComponent
 
   ],
   imports: [

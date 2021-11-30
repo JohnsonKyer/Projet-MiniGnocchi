@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {HttpClient} from "@angular/common/http";
+import { ActivatedRoute, Router } from "@angular/router";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-video-playlist',
@@ -14,27 +14,25 @@ export class VideoPlaylistComponent implements OnInit {
   title: string;
   miniature: string;
   link: string;
-  videosBool: number = 0;
-  videoBool: number = 1;
   urlSafe: SafeResourceUrl;
   titrePlaylist: string;
   url: string = 'http://127.0.0.1:3000/playlists/';
 
 
-  constructor(private route: ActivatedRoute,public sanitizer: DomSanitizer,private httpClient: HttpClient) { }
+  constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer, private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-          this.id = params.id;
-          this.titrePlaylist = params.titre;
-        }
+        this.id = params.id;
+        this.titrePlaylist = params.titre;
+      }
       );
     this.httpClient
-      .get(this.url+this.id)
+      .get(this.url + this.id)
       .subscribe(
         (data) => {
-          this.videos=data;
+          this.videos = data;
         },
         (error) => {
           console.log('Erreur ! : ' + error);
@@ -42,13 +40,12 @@ export class VideoPlaylistComponent implements OnInit {
       );
   }
 
-  watchVideo(video: any){
-    this.miniature=video.miniature;
+  watchVideo(video: any) {
+    this.miniature = video.miniature;
     this.title = video.title;
     this.link = "https://www.youtube.com/embed/" + video.id;
-    this.id=video.id
+    this.id = video.id
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
-    this.videosBool=1;
-    this.videoBool=0;
+    this.router.navigate(['/watchVideoPlaylist'], { queryParams: { id: this.id, title: this.title } });
   }
 }
