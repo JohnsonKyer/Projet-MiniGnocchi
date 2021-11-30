@@ -3,7 +3,7 @@
   data-target="#basicExample" (click)="frame.show()" mdbWavesEffect>Créer une playlist ...</button>
 <div class="container">
   <div class="playlist" *ngFor="let i of playlists">
-    <i class="bi bi-trash icon"></i>
+    <i class="bi bi-trash icon" (click)="deletePlaylist(i._id)"></i>
     <img class="click" src="../../assets/playlist.png" width="200" (click)="playlist(i._id,i.titre)">
     <h5 class="click" (click)="playlist(i._id,i.titre)">{{i.titre}}</h5>
   </div>

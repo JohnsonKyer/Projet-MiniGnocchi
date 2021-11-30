@@ -56,4 +56,16 @@ export class PlaylistComponent implements OnInit {
         }
       );
   }
+  deletePlaylist(id:string): void{
+    this.httpClient
+      .delete(this.urlNewPlaylist+"/"+id, {responseType: 'text'})
+      .subscribe(
+        () => {
+          this.ngOnInit()
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+  }
 }
