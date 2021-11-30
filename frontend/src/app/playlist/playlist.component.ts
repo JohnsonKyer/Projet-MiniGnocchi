@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {TokenStorageService} from "../services/token-storage.service";
-import {Router} from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { TokenStorageService } from "../services/token-storage.service";
+import { Router } from "@angular/router";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-playlist',
@@ -10,12 +11,14 @@ import {Router} from "@angular/router";
 })
 export class PlaylistComponent implements OnInit {
   url: string = 'http://127.0.0.1:3000/playlistsFromUser/';
-  playlists : any;
-  constructor(private httpClient: HttpClient,private token: TokenStorageService,private router: Router) { }
+  urlNewPlaylist: string = 'http://127.0.0.1:3000/playlists';
+  validatingForm: FormGroup;
+  playlists: any;
+  constructor(private httpClient: HttpClient, private token: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
     this.httpClient
-      .get(this.url+JSON.parse(this.token.getUser()).id)
+      .get(this.url + JSON.parse(this.token.getUser()).id)
       .subscribe(
         (data) => {
           this.playlists = data
@@ -25,10 +28,32 @@ export class PlaylistComponent implements OnInit {
           console.log('Erreur ! : ' + error);
         }
       );
+    this.validatingForm = new FormGroup({
+      namePlaylist: new FormControl('', Validators.required),
+    });
   }
 
-  playlist(id : string,titre:string):void{
-    this.router.navigate(['/videoPlaylist'], {queryParams:{ id: id, titre:titre }});
+  playlist(id: string, titre: string): void {
+    this.router.navigate(['/videoPlaylist'], { queryParams: { id: id, titre: titre } });
   }
 
+  get namePlaylist() {
+    return this.validatingForm.get('namePlaylist');
+  }
+
+  newPlaylist(): void {
+    this.httpClient
+      .post(this.urlNewPlaylist, {
+        "titre": this.namePlaylist.value,
+        "idUtilisateur": JSON.parse(this.token.getUser()).id
+      })
+      .subscribe(
+        () => {
+          this.ngOnInit()
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+  }
 }
