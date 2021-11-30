@@ -1,10 +1,11 @@
 <h2>Vos Playlists</h2>
-<button ngbDropdownItem type="button" mdbBtn color="default" rounded="true" data-toggle="modal"
+<button class="boutonPlaylist" ngbDropdownItem type="button" mdbBtn color="default" rounded="true" data-toggle="modal"
   data-target="#basicExample" (click)="frame.show()" mdbWavesEffect>Créer une playlist ...</button>
 <div class="container">
-  <div class="playlist" *ngFor="let i of playlists" (click)="playlist(i._id,i.titre)">
-    <img src="../../assets/playlist.png" width="200">
-    <h5>{{i.titre}}</h5>
+  <div class="playlist" *ngFor="let i of playlists">
+    <i class="bi bi-trash icon"></i>
+    <img class="click" src="../../assets/playlist.png" width="200" (click)="playlist(i._id,i.titre)">
+    <h5 class="click" (click)="playlist(i._id,i.titre)">{{i.titre}}</h5>
   </div>
 </div>
 

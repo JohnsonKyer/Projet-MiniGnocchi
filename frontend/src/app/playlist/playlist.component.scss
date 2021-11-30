@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -14,7 +16,7 @@
   ". . . .";
   margin-top: 2%;
 }
-.playlist:hover{
+.click:hover{
   cursor: pointer;
   background-color: lightgray;
   transition: 0.3s;
@@ -23,4 +25,25 @@ h2{
   text-align: center;
   width: 100%;
   margin-top: 5%;
+}
+
+.boutonPlaylist{
+  text-align: center;
+  width: auto;
+  margin-left: 5%;
+}
+
+.icon{
+  margin-right: 15%;
+  font-size: 2em;
+  float: right;
+  z-index: 10000;
+}
+.icon:hover{
+  background-color:lightgray;
+  border-radius: 100%;
+  width: 20%;
+  height: 20%;
+  cursor: pointer;
+  transition: 0.3s;  
 }
