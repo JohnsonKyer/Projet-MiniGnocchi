@@ -5,4 +5,9 @@
             allowfullscreen></iframe>
         <h4>{{title}}</h4>
     </div>
+  <div class="right">
+    <button ngbDropdownItem type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
+            (click)="deleteVideo()" mdbWavesEffect>Supprimer la vidéo de votre playlist</button>
+    <flash-messages></flash-messages>
+  </div>
 </div>

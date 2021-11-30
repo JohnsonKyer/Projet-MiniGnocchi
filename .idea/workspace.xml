@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d741cd82-2705-43de-ac55-a9f137d4f409" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/playlist/playlist.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/playlist/playlist.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/playlist/playlist.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/playlist/playlist.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/video-playlist/video-playlist.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/video-playlist/video-playlist.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/watch-video-playlist/watch-video-playlist.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/watch-video-playlist/watch-video-playlist.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/watch-video-playlist/watch-video-playlist.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/watch-video-playlist/watch-video-playlist.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/watch-video-playlist/watch-video-playlist.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/watch-video-playlist/watch-video-playlist.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +64,7 @@
       <workItem from="1636669563158" duration="397000" />
       <workItem from="1636670024139" duration="2314000" />
       <workItem from="1637770059866" duration="26000" />
-      <workItem from="1638295150645" duration="1801000" />
+      <workItem from="1638295150645" duration="3747000" />
     </task>
     <servers />
   </component>

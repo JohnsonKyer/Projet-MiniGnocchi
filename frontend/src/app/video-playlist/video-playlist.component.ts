@@ -10,6 +10,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class VideoPlaylistComponent implements OnInit {
   id: string;
+  idVideo: string;
   videos: any;
   title: string;
   miniature: string;
@@ -44,8 +45,8 @@ export class VideoPlaylistComponent implements OnInit {
     this.miniature = video.miniature;
     this.title = video.title;
     this.link = "https://www.youtube.com/embed/" + video.id;
-    this.id = video.id
+    this.idVideo = video.id
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
-    this.router.navigate(['/watchVideoPlaylist'], { queryParams: { id: this.id, title: this.title } });
+    this.router.navigate(['/watchVideoPlaylist'], { queryParams: { id: this.idVideo, title: this.title,idPlaylist:this.id  } });
   }
 }

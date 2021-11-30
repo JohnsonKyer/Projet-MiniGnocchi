@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {HttpClient} from "@angular/common/http";
+import {FlashMessagesService} from "angular2-flash-messages";
 
 @Component({
   selector: 'app-watch-video-playlist',
@@ -11,15 +13,18 @@ export class WatchVideoPlaylistComponent implements OnInit {
   id: string;
   title: string;
   link: string;
+  idPlaylist: string;
   urlSafe: SafeResourceUrl;
+  url: string = 'http://127.0.0.1:3000/playlistsRetrait/';
 
 
-  constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer) { }
+  constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer,private httpClient: HttpClient,private flashMessage: FlashMessagesService) { }
 
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
         this.id = params.id;
+        this.idPlaylist = params.idPlaylist;
         this.title = params.title;
       })
     this.link = "https://www.youtube.com/embed/" + this.id;
@@ -27,4 +32,17 @@ export class WatchVideoPlaylistComponent implements OnInit {
 
   }
 
+  deleteVideo():void {
+    this.httpClient
+      .patch(this.url+this.idPlaylist,{
+        id:this.id
+      }, {responseType: 'text'})
+      .subscribe(
+        res => {
+          this.flashMessage.show('La vidéo a bien été supprimée de votre playlist.', { cssClass: 'alert-success', timeout: 3000 });
+        },
+        error => {
+          console.log(error);
+        });
+  }
 }
