@@ -1,16 +1,16 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
-const { verifInscription } = require("./middlewares/verifInscription");
+app.use(cors({origin: 'http://localhost:4200', credentials: true}));
+const {verifInscription} = require("./middlewares/verifInscription");
 const controller = require("./controllers/auth.controller");
-const { authJwt } = require("./middlewares");
+const {authJwt} = require("./middlewares");
 
 
-const { mongoose } = require('./db/mongoose')
+const {mongoose} = require('./db/mongoose')
 bcrypt = require('bcrypt')
-const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
-const { searchVideos, getTagsByIdVideo,getVideoByIdVideo } = require('./youtubeApi')
+const {Playlist, Annonce, Utilisateur, Annonceur, Video} = require('./db/models')
+const {searchVideos, getTagsByIdVideo, getVideoByIdVideo} = require('./youtubeApi')
 
 app.use(express.json())
 
@@ -40,14 +40,14 @@ app.post('/playlists', (req, res) => {
 
 // Récupération de toutes les playlists d'un utilisateur par son identifiant.
 app.get('/playlistsFromUser/:id', (req, res) => {
-    Playlist.find({ idUtilisateur: req.params.id }).then((playlists) => {
+    Playlist.find({idUtilisateur: req.params.id}).then((playlists) => {
         res.send(playlists)
     })
 })
 
 // Récupération des videos de la playlist par l'identifiant de la playlist.
 app.get('/playlists/:id', (req, res) => {
-    Playlist.findOne({ _id: req.params.id }).then((playlists) => {
+    Playlist.findOne({_id: req.params.id}).then((playlists) => {
         res.send(playlists.videos)
     })
 })
@@ -56,29 +56,30 @@ app.get('/playlists/:id', (req, res) => {
 // Ajout ou suppression d'un identifiant de vidéo à la playlist avec les champs "edit" et "del".
 // Modification du titre de la playlist avec le champ "titre".
 app.patch('/playlistsAjout/:id/', (req, res) => {
-    Playlist.findOneAndUpdate({ _id: req.params.id }, {
+    Playlist.findOneAndUpdate({_id: req.params.id}, {
         $addToSet: {
             videos: req.body.videos,
         }
-    }).then(() => { res.sendStatus(200); })
+    }).then(() => {
+        res.sendStatus(200);
+    })
 })
 
 app.patch('/playlistsRetrait/:id', (req, res) => {
-    Playlist.findOneAndUpdate({ _id: req.params.id }, {
-        $pull: { videos: req.body.videos }
+    Playlist.findOneAndUpdate({_id: req.params.id}, {
+        $pull: {videos: {id: req.body.id}}
     }).then(() => {
         res.sendStatus(200);
     })
 })
 
 app.patch('/playlistsRename/:id', (req, res) => {
-    Playlist.findOneAndUpdate({ _id: req.params.id }, {
+    Playlist.findOneAndUpdate({_id: req.params.id}, {
         titre: req.body.titre
     }).then(() => {
         res.sendStatus(200);
     })
 })
-
 
 
 // Suppression d'une playlist par son identifiant.
@@ -140,13 +141,13 @@ app.delete('/playlists/:id', (req, res) => {
 
 // })
 
-app.get('/getVideoByIdVideo/:id', async(req, res) => {
+app.get('/getVideoByIdVideo/:id', async (req, res) => {
     res.send(await getVideoByIdVideo(req.params.id))
 })
-app.get('/getTagsByIdVideo/:id', async(req, res) => {
+app.get('/getTagsByIdVideo/:id', async (req, res) => {
     res.send(await getTagsByIdVideo(req.params.id))
 })
-app.post('/searchVideos', async(req, res) => {
+app.post('/searchVideos', async (req, res) => {
     let name = req.body.nameVideos;
     res.send(await searchVideos(name))
 })
@@ -158,7 +159,7 @@ app.get('/utilisateurs', (req, res) => {
     })
 })
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header(
         "Access-Control-Allow-Headers",
         "x-access-token, Origin, Content-Type, Accept"
@@ -187,7 +188,6 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
     console.log(req, res)
     res.sendStatus(200)
 };
-
 
 
 app.listen(3000, () => {
