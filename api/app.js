@@ -168,13 +168,14 @@ app.patch('/utilisateurs/modificationmdp/:id', async(req, res) => {
 })
 
 app.patch('/utilisateurs/modificationmail/:id', async(req, res) => {
-    if (await Utilisateur.findOne({ mail })) {
-        res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
+    if (await Utilisateur.findOne({ mail: req.body.mail })) {
+        return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
     }
+    console.log("suite")
     Utilisateur.findOneAndUpdate({ _id: req.params.id }, {
         mail: req.body.mail
     }).then(() => {
-        res.sendStatus(200);
+        return res.sendStatus(200);
     })
 })
 app.use(function(req, res, next) {

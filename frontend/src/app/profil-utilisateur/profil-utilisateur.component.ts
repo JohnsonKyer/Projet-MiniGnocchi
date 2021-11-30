@@ -10,13 +10,17 @@ import {TokenStorageService} from '../services/token-storage.service';
 })
 export class ProfilUtilisateurComponent implements OnInit {
   form: any = {
-    mdp: null,
+    mdp: null
+  };
+  form2: any = {
     mail: null
   };
-  isSuccessful = false;
+  isMdpSuccessful = false;
+  isMailSuccessful = false;
   errorMessage = '';
   isEditDone = false;
-  areDifferent: boolean;
+  areMdpDifferent: boolean;
+  areMailDifferent: boolean;
 
   constructor(private http: HttpClient, private token: TokenStorageService) {
   }
@@ -31,7 +35,7 @@ export class ProfilUtilisateurComponent implements OnInit {
     this.http.patch('http://localhost:3000/utilisateurs/modificationmdp/' + JSON.parse(this.token.getUser()).id, {
       mdp
     }, {responseType: 'text'}).subscribe(data => {
-        this.isSuccessful = true;
+        this.isMdpSuccessful = true;
       },
       err => {
         this.errorMessage = JSON.parse(err.error).message;
@@ -40,8 +44,27 @@ export class ProfilUtilisateurComponent implements OnInit {
   }
 
   checkMdp(): boolean {
-    this.areDifferent = this.form.mdp !== this.form.mdp2;
-    console.log(this.areDifferent);
-    return this.areDifferent;
+    this.areMdpDifferent = this.form.mdp !== this.form.mdp2;
+    console.log(this.areMdpDifferent);
+    return this.areMdpDifferent;
+  }
+
+  onSubmitMail(): void {
+    const {mail} = this.form2;
+    console.log(mail);
+    this.http.patch('http://localhost:3000/utilisateurs/modificationmail/' + JSON.parse(this.token.getUser()).id, {
+      mail
+    }, {responseType: 'text'}).subscribe(data => {
+        this.isMailSuccessful = true;
+      },
+      err => {
+        this.errorMessage = JSON.parse(err.error).message;
+      });
+  }
+
+  checkMail(): boolean {
+    this.areMailDifferent = this.form2.mail !== this.form2.mail;
+    console.log(this.areMailDifferent);
+    return this.areMailDifferent;
   }
 }

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-5">
       <div class="card">
         <header class="card-header">
           <h4 class="card-title mt-2">Changement de mot de passe</h4>
@@ -25,7 +25,9 @@
                 <div *ngIf="mdp2.errors.required">Veuillez renseigner un mot de passe</div>
                 <div *ngIf="mdp2.errors.minlength ">Le mot de passe doit être composé de 6 caractères minimum</div>
               </div>
-              <div class="alert alert-danger" role="alert" *ngIf="areDifferent">Les mots de passe doivent correspondre</div>
+              <div class="alert alert-danger" role="alert" *ngIf="areMdpDifferent">Les mots de passe doivent
+                correspondre
+              </div>
 
             </div>
             <!-- form-group end.// -->
@@ -38,20 +40,59 @@
                 Changement de mot de passe impossible : {{ errorMessage }}
               </div>
             </div>
-            <div class="alert alert-success" *ngIf="isSuccessful">
+            <div class="alert alert-success" *ngIf="isMdpSuccessful">
               Mot de passe changé avec succès !
             </div>
           </form>
         </article>
-        <!-- card-body end .// -->
       </div>
-      <!-- card.// -->
     </div>
-    <!-- col.//-->
-
+    <div class="col-md-5">
+      <div class="card">
+        <header class="card-header">
+          <h4 class="card-title mt-2">Changement d'adresse mail</h4>
+        </header>
+        <article class="card-body">
+          <form name="form2" (ngSubmit)="f2.form.valid && checkMail() === false && onSubmitMail()" #f2="ngForm" novalidate>
+            <!-- form-row end.// -->
+            <div class="form-group">
+              <label>Nouvelle adresse mail</label>
+              <input type="email" class="form-control" name="mail" [(ngModel)]="form2.mail" required minlength="3"
+                     #mail="ngModel">
+              <div class="alert alert-danger" role="alert" *ngIf="mail.errors && f2.submitted">
+                <div *ngIf="mail.errors.minlength ">L'adresse mail doit être d'au moins 3 caractères.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Nouvelle adresse mail</label>
+              <input type="email" class="form-control" name="mail2" [(ngModel)]="form2.mail2" required minlength="3"
+                     #mail2="ngModel">
+              <div class="alert alert-danger" role="alert" *ngIf="mail2.errors && f.submitted">
+                <div *ngIf="mail2.errors.minlength ">L'adresse mail doit être d'au moins 3 caractères.</div>
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="areMailDifferent">Les adresses mails doivent
+                correspondre
+              </div>
+            </div>
+            <!-- form-group end.// -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block">Changer votre addresse mail</button>
+            </div>
+            <!-- form-group// -->
+            <div class="form-group">
+              <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isEditDone">
+                Changement d'adresse mail impossible : {{ errorMessage }}
+              </div>
+            </div>
+            <div class="alert alert-success" *ngIf="isMailSuccessful">
+              Adresse mail changée avec succès !
+            </div>
+          </form>
+        </article>
+      </div>
+    </div>
   </div>
-  <!-- row.//-->
-
-
 </div>
-<!--container end.//-->
+
+
+
