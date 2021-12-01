@@ -1,13 +1,14 @@
 <div class="center">
-    <div class="left">
-        <iframe width="1150" height="650" [src]="urlSafe" title="YouTube video player" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-        <h4>{{title}}</h4>
-    </div>
+  <div class="left">
+    <iframe width="1150" height="650" [src]="urlSafe" title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+    <h4>{{title}}</h4>
+  </div>
   <div class="right">
-    <button ngbDropdownItem type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-            (click)="deleteVideo()" mdbWavesEffect>Supprimer la vidéo de votre playlist</button>
+    <button [hidden]="del" ngbDropdownItem type="button" mdbBtn color="default" rounded="true" data-toggle="modal"
+      data-target="#basicExample" (click)="deleteVideo()" mdbWavesEffect>Supprimer la vidéo de votre playlist</button>
     <flash-messages></flash-messages>
   </div>
+  <app-button-playlist [hidden]="del"></app-button-playlist>
 </div>
