@@ -54,7 +54,7 @@ export class VideoPlaylistComponent implements OnInit {
     this.httpClient
       .patch(this.urlHistory+JSON.parse(this.token.getUser()).id,{
         "videos":{
-          "id":this.id,
+          "id":this.idVideo,
           "provenance":"youtube",
           "miniature":this.miniature,
           "title":this.title

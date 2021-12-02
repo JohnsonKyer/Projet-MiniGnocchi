@@ -28,6 +28,13 @@ export class WatchVideoPlaylistComponent implements OnInit {
         this.id = params.id;
         this.idPlaylist = params.idPlaylist;
         this.title = params.title;
+        if(params.del==1){
+          this.del=1;
+          this.addPlaylist=0;
+          console.log(params)
+        }
+
+
       })
     this.link = "https://www.youtube.com/embed/" + this.id;
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);

@@ -24,17 +24,12 @@ export class HistoryComponent implements OnInit {
   constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer, private httpClient: HttpClient, private router: Router,private token: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.route.queryParams
-      .subscribe(params => {
-          this.id = params.id;
-          this.titrePlaylist = params.titre;
-        }
-      );
     this.httpClient
       .get(this.url + JSON.parse(this.token.getUser()).id)
       .subscribe(
         (data) => {
           this.videos = data;
+          console.log(this.videos)
         },
         (error) => {
           console.log('Erreur ! : ' + error);
@@ -47,11 +42,11 @@ export class HistoryComponent implements OnInit {
     this.link = "https://www.youtube.com/embed/" + video.id;
     this.idVideo = video.id
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
-    this.router.navigate(['/watchVideoPlaylist'], { queryParams: { id: this.idVideo, title: this.title,idPlaylist:this.id  } });
+    this.router.navigate(['/watchVideoPlaylist'], { queryParams: { del:1 ,id: this.idVideo, title: this.title } });
     this.httpClient
       .patch(this.urlHistory+JSON.parse(this.token.getUser()).id,{
         "videos":{
-          "id":this.id,
+          "id":this.idVideo,
           "provenance":"youtube",
           "miniature":this.miniature,
           "title":this.title
