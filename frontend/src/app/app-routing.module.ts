@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { AuthGuard } from './services/auth.guard';
-import { HomeComponent } from "./home/home.component";
-import { PlaylistComponent } from "./playlist/playlist.component";
-import { VideoPlaylistComponent } from "./video-playlist/video-playlist.component";
-import { WatchVideoPlaylistComponent } from './watch-video-playlist/watch-video-playlist.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {AuthGuard} from './services/auth.guard';
+import {HomeComponent} from "./home/home.component";
+import {PlaylistComponent} from "./playlist/playlist.component";
+import {VideoPlaylistComponent} from "./video-playlist/video-playlist.component";
+import {WatchVideoPlaylistComponent} from './watch-video-playlist/watch-video-playlist.component';
+import {HistoryComponent} from "./history/history.component";
 
 const routes: Routes = [
   {
@@ -32,11 +33,16 @@ const routes: Routes = [
   {
     path: 'watchVideoPlaylist', canActivate: [AuthGuard],
     component: WatchVideoPlaylistComponent
+  },{
+    path: 'history', canActivate: [AuthGuard],
+    component: HistoryComponent
   }
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

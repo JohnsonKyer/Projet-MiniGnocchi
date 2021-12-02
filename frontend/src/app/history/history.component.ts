@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
-import { HttpClient } from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {HttpClient} from "@angular/common/http";
 import {TokenStorageService} from "../services/token-storage.service";
 
 @Component({
-  selector: 'app-video-playlist',
-  templateUrl: './video-playlist.component.html',
-  styleUrls: ['./video-playlist.component.scss']
+  selector: 'app-history',
+  templateUrl: './history.component.html',
+  styleUrls: ['./history.component.scss']
 })
-export class VideoPlaylistComponent implements OnInit {
+export class HistoryComponent implements OnInit {
   id: string;
   idVideo: string;
   videos: any;
@@ -18,22 +18,20 @@ export class VideoPlaylistComponent implements OnInit {
   link: string;
   urlSafe: SafeResourceUrl;
   titrePlaylist: string;
-  url: string = 'http://127.0.0.1:3000/playlists/';
   urlHistory: string = 'http://127.0.0.1:3000/historique/';
-
-
+  url: string = 'http://127.0.0.1:3000/historique/';
 
   constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer, private httpClient: HttpClient, private router: Router,private token: TokenStorageService) { }
 
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        this.id = params.id;
-        this.titrePlaylist = params.titre;
-      }
+          this.id = params.id;
+          this.titrePlaylist = params.titre;
+        }
       );
     this.httpClient
-      .get(this.url + this.id)
+      .get(this.url + JSON.parse(this.token.getUser()).id)
       .subscribe(
         (data) => {
           this.videos = data;
@@ -43,7 +41,6 @@ export class VideoPlaylistComponent implements OnInit {
         }
       );
   }
-
   watchVideo(video: any) {
     this.miniature = video.miniature;
     this.title = video.title;
