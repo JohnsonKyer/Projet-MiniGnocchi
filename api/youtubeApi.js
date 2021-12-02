@@ -11,9 +11,14 @@ async function searchVideos(name) {
             "part": [
                 "snippet"
             ],
+            "regionCode":"FR",
             "chart": 'mostPopular',
             "q": name,
-            "maxResults": 21
+            "maxResults": 40,
+            "order":"viewCount",
+            "relevanceLanguage":"FR",
+
+
 
         }, (err, res) => {
             if (err) return console.log('The API returned an error: ' + err);

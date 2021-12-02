@@ -12,6 +12,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class PlaylistComponent implements OnInit {
   url: string = 'http://127.0.0.1:3000/playlistsFromUser/';
   urlNewPlaylist: string = 'http://127.0.0.1:3000/playlists';
+  urlRenamePlaylist: string = 'http://127.0.0.1:3000/playlistsRename/';
+  id:string;
+
   validatingForm: FormGroup;
   playlists: any;
   constructor(private httpClient: HttpClient, private token: TokenStorageService, private router: Router) { }
@@ -30,6 +33,7 @@ export class PlaylistComponent implements OnInit {
       );
     this.validatingForm = new FormGroup({
       namePlaylist: new FormControl('', Validators.required),
+      newNamePlaylist: new FormControl('', Validators.required),
     });
   }
 
@@ -39,6 +43,9 @@ export class PlaylistComponent implements OnInit {
 
   get namePlaylist() {
     return this.validatingForm.get('namePlaylist');
+  }
+  get newNamePlaylist() {
+    return this.validatingForm.get('newNamePlaylist');
   }
 
   newPlaylist(): void {
@@ -59,6 +66,21 @@ export class PlaylistComponent implements OnInit {
   deletePlaylist(id:string): void{
     this.httpClient
       .delete(this.urlNewPlaylist+"/"+id, {responseType: 'text'})
+      .subscribe(
+        () => {
+          this.ngOnInit()
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+  }
+  setId(id:string): void{
+    this.id=id;
+  }
+  renamePlaylist(): void{
+    this.httpClient
+      .patch(this.urlRenamePlaylist+this.id,{titre:this.newNamePlaylist.value}, {responseType: 'text'})
       .subscribe(
         () => {
           this.ngOnInit()

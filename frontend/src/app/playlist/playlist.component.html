@@ -4,6 +4,7 @@
 <div class="container">
   <div class="playlist" *ngFor="let i of playlists">
     <i class="bi bi-trash icon" (click)="deletePlaylist(i._id)"></i>
+    <i class="bi bi-pencil-square icon"  (click)="setId(i._id)" (click)="rename.show()"></i>
     <img class="click" src="../../assets/playlist.png" width="200" (click)="playlist(i._id,i.titre)">
     <h5 class="click" (click)="playlist(i._id,i.titre)">{{i.titre}}</h5>
   </div>
@@ -32,6 +33,33 @@
       <div class="modal-footer d-flex justify-content-center">
         <button mdbBtn color="default" class="waves-light" (click)="newPlaylist()" (click)="frame.hide()"
           mdbWavesEffect>Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div mdbModal #rename="mdbModal" class="modal fade left"  tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Changer le nom de votre Playlist</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <label>Nouveau nom de la Playlist</label>
+          <input type="text"  [formControl]="newNamePlaylist" class="form-control" mdbInput
+                 mdbValidate>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="default" class="waves-light" (click)="renamePlaylist()" (click)="rename.hide()"
+                mdbWavesEffect>Valider</button>
       </div>
     </div>
   </div>
