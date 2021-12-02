@@ -45,16 +45,32 @@ const UtilisateurSchema = new mongoose.Schema({
         minlength: 1,
         trim: true
     },
-    playlists: [{
-        type: mongoose.Types.ObjectId,
-        required: false,
-        trim: true
-    }],
-    historique: {
-        type: Array,
-        required: false,
-        trim: true
-    }
+    historique: [{
+        id: {
+            type: String,
+            required: true,
+            minlength: 1,
+            trim: true
+        },
+        provenance: {
+            type: String,
+            required: true,
+            minlength: 1,
+            trim: true
+        },
+        title: {
+            type: String,
+            required: true,
+            minlength: 1,
+            trim: true
+        },
+        miniature: {
+            type: String,
+            required: true,
+            minlength: 1,
+            trim: true
+        }
+    }]
 }, )
 
 const Utilisateur = mongoose.model("Utilisateur", UtilisateurSchema)
