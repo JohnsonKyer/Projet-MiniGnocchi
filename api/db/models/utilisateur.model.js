@@ -50,12 +50,11 @@ const UtilisateurSchema = new mongoose.Schema({
         required: false,
         trim: true
     }],
-    historique: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Video",
+    historique: {
+        type: Array,
         required: false,
         trim: true
-    }]
+    }
 }, )
 
 const Utilisateur = mongoose.model("Utilisateur", UtilisateurSchema)
