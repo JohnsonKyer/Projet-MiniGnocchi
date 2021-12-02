@@ -22,6 +22,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { VideoPlaylistComponent } from './video-playlist/video-playlist.component';
 import { ProfilUtilisateurComponent } from './profil-utilisateur/profil-utilisateur.component';
+import { FormChangeMdpComponent } from './forms_utilisateur/form-change-mdp/form-change-mdp.component';
+import { FormChangeMailComponent } from './forms_utilisateur/form-change-mail/form-change-mail.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { ProfilUtilisateurComponent } from './profil-utilisateur/profil-utilisat
     ButtonPlaylistComponent,
     PlaylistComponent,
     VideoPlaylistComponent,
-    ProfilUtilisateurComponent
+    ProfilUtilisateurComponent,
+    FormChangeMdpComponent,
+    FormChangeMailComponent
 
   ],
   imports: [
