@@ -45,6 +45,7 @@ export class VideoPlaylistComponent implements OnInit {
   }
 
   watchVideo(video: any) {
+    console.log(video)
     this.miniature = video.miniature;
     this.title = video.title;
     this.link = "https://www.youtube.com/embed/" + video.id;

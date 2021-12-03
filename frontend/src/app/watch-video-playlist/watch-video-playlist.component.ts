@@ -18,7 +18,9 @@ export class WatchVideoPlaylistComponent implements OnInit {
   del: number = 0;
   addPlaylist: number = 1;
   url: string = 'http://127.0.0.1:3000/playlistsRetrait/';
-
+  urlGetVideo: string = 'http://127.0.0.1:3000/getVideoByIdVideo/';
+  test: any;
+  miniature: string;
 
   constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer, private httpClient: HttpClient, private flashMessage: FlashMessagesService) { }
 
@@ -33,9 +35,21 @@ export class WatchVideoPlaylistComponent implements OnInit {
           this.addPlaylist=0;
           console.log(params)
         }
-
-
       })
+    this.httpClient
+      .get(this.urlGetVideo+this.id)
+      .subscribe(
+        (data) => {
+          this.test=data
+          this.miniature=this.test.miniature
+        },
+        (error) => {
+          console.log('Erreur ! : ' + error);
+        }
+      );
+
+
+
     this.link = "https://www.youtube.com/embed/" + this.id;
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
 

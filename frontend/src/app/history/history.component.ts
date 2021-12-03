@@ -24,6 +24,12 @@ export class HistoryComponent implements OnInit {
   constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer, private httpClient: HttpClient, private router: Router,private token: TokenStorageService) { }
 
   ngOnInit(): void {
+    this.route.queryParams
+      .subscribe(params => {
+          this.id = params.id;
+          this.titrePlaylist = params.titre;
+        }
+      );
     this.httpClient
       .get(this.url + JSON.parse(this.token.getUser()).id)
       .subscribe(
