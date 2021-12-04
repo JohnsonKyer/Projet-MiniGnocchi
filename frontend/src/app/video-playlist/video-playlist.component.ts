@@ -51,7 +51,7 @@ export class VideoPlaylistComponent implements OnInit {
     this.link = "https://www.youtube.com/embed/" + video.id;
     this.idVideo = video.id
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
-    this.router.navigate(['/watchVideoPlaylist'], { queryParams: { id: this.idVideo, title: this.title,idPlaylist:this.id  } });
+    this.router.navigate(['/watchVideo'], { queryParams: { id: this.idVideo,idPlaylist:this.id  } });
     this.httpClient
       .patch(this.urlHistory+JSON.parse(this.token.getUser()).id,{
         "videos":{

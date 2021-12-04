@@ -29,7 +29,6 @@ export class WatchVideoPlaylistComponent implements OnInit {
       .subscribe(params => {
         this.id = params.id;
         this.idPlaylist = params.idPlaylist;
-        this.title = params.title;
         if(params.del==1){
           this.del=1;
           this.addPlaylist=0;
@@ -42,6 +41,7 @@ export class WatchVideoPlaylistComponent implements OnInit {
         (data) => {
           this.test=data
           this.miniature=this.test.miniature
+          this.title=this.test.title
         },
         (error) => {
           console.log('Erreur ! : ' + error);

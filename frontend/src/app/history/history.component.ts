@@ -48,7 +48,7 @@ export class HistoryComponent implements OnInit {
     this.link = "https://www.youtube.com/embed/" + video.id;
     this.idVideo = video.id
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
-    this.router.navigate(['/watchVideoPlaylist'], { queryParams: { del:1 ,id: this.idVideo, title: this.title } });
+    this.router.navigate(['/watchVideo'], { queryParams: { del:1 ,id: this.idVideo } });
     this.httpClient
       .patch(this.urlHistory+JSON.parse(this.token.getUser()).id,{
         "videos":{

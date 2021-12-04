@@ -31,7 +31,7 @@ const routes: Routes = [
     component: VideoPlaylistComponent
   },
   {
-    path: 'watchVideoPlaylist', canActivate: [AuthGuard],
+    path: 'watchVideo', canActivate: [AuthGuard],
     component: WatchVideoPlaylistComponent
   },{
     path: 'history', canActivate: [AuthGuard],

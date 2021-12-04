@@ -9,6 +9,6 @@
     <button [hidden]="del" ngbDropdownItem type="button" mdbBtn color="default" rounded="true" data-toggle="modal"
       data-target="#basicExample" (click)="deleteVideo()" mdbWavesEffect>Supprimer la vidéo de votre playlist</button>
     <flash-messages></flash-messages>
+    <app-button-playlist [id]="id" [miniature]="miniature" [title]="title" [hidden]="addPlaylist"></app-button-playlist>
   </div>
-  <app-button-playlist [id]="id" [miniature]="miniature" [title]="title" [hidden]="addPlaylist"></app-button-playlist>
 </div>
