@@ -1,32 +1,62 @@
 <div class="background">
-  <div class="logo">
-    <a routerLink="/home" routerLinkActive="active"><img src="../../assets/logo.png" alt="Logo"></a>
-  </div>
-  <div class="logo1">
-    <fa-icon [icon]="faBullhorn" class="fa-2x"></fa-icon>
+  <!--  <div class="logo">-->
+  <!--    <a routerLink="/home" routerLinkActive="active"><img src="../../assets/logo.png" alt="Logo"></a>-->
+  <!--  </div>-->
+  <!--  <div class="annonceur">-->
+  <!--    <fa-icon [icon]="faBullhorn" class="fa-2x"></fa-icon>-->
 
-  </div>
-  <div class="logo2">
-    <fa-icon [icon]="faBell" class="fa-2x"></fa-icon>
-  </div>
-  <div class="logo3">
-    <a routerLink="/register">
-      <fa-icon [icon]="faUserCircle" class="fa-2x">
+  <!--  </div>-->
+  <!--  <div class="notif">-->
+  <!--    <fa-icon [icon]="faBell" class="fa-2x"></fa-icon>-->
+  <!--  </div>-->
+  <!--  <div class="profil">-->
+  <!--    <a routerLink="/register">-->
+  <!--      <fa-icon [icon]="faUserCircle" class="fa-2x">-->
 
-      </fa-icon>
-    </a>
+  <!--      </fa-icon>-->
+  <!--    </a>-->
 
-  </div>
-  <div class="logo4">
-    <a routerLink="/playlist">
-      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="black" class="bi bi-list-task icon_playlist" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
-        <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>
-        <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"/>
-      </svg>
+  <!--  </div>-->
+  <!--  <div class="logo4">-->
+  <!--    <a routerLink="/playlist">-->
+  <!--      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="black" class="bi bi-list-task icon_playlist" viewBox="0 0 16 16">-->
+  <!--        <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>-->
+  <!--        <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>-->
+  <!--        <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"/>-->
+  <!--      </svg>-->
 
-    </a>
+  <!--    </a>-->
 
-  </div>
+  <!--  </div>-->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a routerLink="/home" routerLinkActive="active" class="mr-5"><img src="../../assets/logo.png" alt="Logo"></a>
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#header"
+              aria-controls="header"
+              aria-expanded="false" aria-label="Bouton home" (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="header">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profilUtilisateur" routerLinkActive="active" href="#">Mon profil<span
+              class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/playlist" routerLinkActive="active" href="#">Mes playlists<span
+              class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profilUtilisateur" routerLinkActive="active" href="#">Mes annonces<span
+              class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
 </div>
+
 <router-outlet></router-outlet>
