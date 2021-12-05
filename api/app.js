@@ -5,6 +5,7 @@ app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
 const { verifInscription } = require("./middlewares/verifInscription");
 const controller = require("./controllers/auth.controller");
 const { authJwt } = require("./middlewares");
+var bcrypt = require("bcryptjs");
 
 
 const { mongoose } = require('./db/mongoose')
@@ -177,6 +178,25 @@ app.get('/utilisateurs', (req, res) => {
     })
 })
 
+app.patch('/utilisateurs/modificationmdp/:id', async(req, res) => {
+    Utilisateur.findOneAndUpdate({ _id: req.params.id }, {
+        mdp: await bcrypt.hash(req.body.mdp, 10)
+    }).then(() => {
+        res.sendStatus(200);
+    })
+})
+
+app.patch('/utilisateurs/modificationmail/:id', async(req, res) => {
+    if (await Utilisateur.findOne({ mail: req.body.mail })) {
+        return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
+    }
+    console.log("suite")
+    Utilisateur.findOneAndUpdate({ _id: req.params.id }, {
+        mail: req.body.mail
+    }).then(() => {
+        return res.sendStatus(200);
+    })
+})
 app.use(function(req, res, next) {
     res.header(
         "Access-Control-Allow-Headers",
@@ -185,12 +205,12 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.post("/utilisateurs/inscription", controller.signup), (req, res) => {
-    console.log(req, res)
-    res.status(200).send(res)
-};
+app.post("/utilisateurs/inscription", controller.signup);
 
 app.post("/utilisateurs/connexion", controller.signin);
+
+
+
 
 app.get("/api/test/user", [authJwt.verifToken], controller.utilisateurAcces), (req, res) => {
     console.log(req, res)

@@ -8,6 +8,7 @@ import {PlaylistComponent} from "./playlist/playlist.component";
 import {VideoPlaylistComponent} from "./video-playlist/video-playlist.component";
 import {WatchVideoPlaylistComponent} from './watch-video-playlist/watch-video-playlist.component';
 import {HistoryComponent} from "./history/history.component";
+import { ProfilUtilisateurComponent } from './profil-utilisateur/profil-utilisateur.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,9 @@ const routes: Routes = [
     component: HistoryComponent
   }
 
+  },
+  {path: 'profilUtilisateur', canActivate: [AuthGuard],
+  component: ProfilUtilisateurComponent}
 ];
 
 @NgModule({
