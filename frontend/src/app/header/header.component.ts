@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {faCoffee} from '@fortawesome/free-solid-svg-icons';
-import {faBullhorn} from '@fortawesome/free-solid-svg-icons'
-import {faBell} from '@fortawesome/free-solid-svg-icons'
-import {faUserCircle} from '@fortawesome/free-solid-svg-icons'
-import { TokenStorageService } from '../services/token-storage.service';
+import {faBullhorn} from '@fortawesome/free-solid-svg-icons';
+import {faBell} from '@fortawesome/free-solid-svg-icons';
+import {faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import {TokenStorageService} from '../services/token-storage.service';
 
 
 @Component({
@@ -19,14 +19,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-  clickOnUser(){
-    if (this.token.getToken()){
-      this.router.navigateByUrl("/profilUtilisateur")
-    }
-    else {
-      this.router.navigateByUrl("/register")
-    }
   }
 
 }

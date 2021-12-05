@@ -18,7 +18,6 @@ export class ProfilUtilisateurComponent implements OnInit {
   isMdpSuccessful = false;
   isMailSuccessful = false;
   errorMessage = '';
-  isEditDone = false;
   areMdpDifferent: boolean;
   areMailDifferent: boolean;
 
@@ -39,7 +38,6 @@ export class ProfilUtilisateurComponent implements OnInit {
       },
       err => {
         this.errorMessage = JSON.parse(err.error).message;
-
       });
   }
 
