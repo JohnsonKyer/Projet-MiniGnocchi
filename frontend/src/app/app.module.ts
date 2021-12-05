@@ -15,7 +15,7 @@ import { DisplayVideosComponent } from './display-videos/display-videos.componen
 import { PlayVideoComponent } from './play-video/play-video.component';
 import { HomeComponent } from './home/home.component';
 import { ButtonPlaylistComponent } from './button-playlist/button-playlist.component';
-import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbCollapseModule, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { LoginComponent } from './login/login.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
@@ -47,7 +47,8 @@ import { PlaylistComponent } from './playlist/playlist.component';
     NgbDropdownModule,
     FlashMessagesModule.forRoot(),
     MDBRootModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbCollapseModule
   ],
   providers: [MessageService, authInterceptorProviders, LoginComponent],
   bootstrap: [AppComponent]
