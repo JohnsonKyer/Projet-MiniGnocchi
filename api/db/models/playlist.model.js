@@ -15,13 +15,25 @@ const PlaylistSchema = new mongoose.Schema({
         trim: true
     },
     videos: [{
-        idVideo: {
+        id: {
             type: String,
             required: true,
             minlength: 1,
             trim: true
         },
         provenance: {
+            type: String,
+            required: true,
+            minlength: 1,
+            trim: true
+        },
+        title: {
+            type: String,
+            required: true,
+            minlength: 1,
+            trim: true
+        },
+        miniature: {
             type: String,
             required: true,
             minlength: 1,

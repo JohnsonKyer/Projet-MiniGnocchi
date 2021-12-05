@@ -11,9 +11,14 @@ async function searchVideos(name) {
             "part": [
                 "snippet"
             ],
+            "regionCode":"FR",
             "chart": 'mostPopular',
             "q": name,
-            "maxResults": 21
+            "maxResults": 40,
+            "order":"viewCount",
+            "relevanceLanguage":"FR",
+
+
 
         }, (err, res) => {
             if (err) return console.log('The API returned an error: ' + err);
@@ -41,6 +46,31 @@ async function searchVideos(name) {
     });
 }
 
+async function getVideoByIdVideo(IdVideo) {
+    return new Promise((resolve, reject) => {
+        const res = service.videos.list({
+            "part": [
+                "snippet"
+            ],
+            "id": IdVideo
+        }, (err, res) => {
+            if (err) return console.log('The API returned an error: ' + err);
+            const videos = res.data.items;
+            if (videos.length) {
+                const data = {
+                    title: videos[0].snippet.title,
+                    id : IdVideo,
+                    link : "https://www.youtube.com/watch?v=" + IdVideo,
+                    miniature : videos[0].snippet.thumbnails["medium"].url
+                }
+                resolve(data)
+            } else {
+                reject("No Tag")
+            }
+        })
+    });
+}
+
 async function getTagsByIdVideo(IdVideo) {
     return new Promise((resolve, reject) => {
         const res = service.videos.list({
@@ -61,7 +91,8 @@ async function getTagsByIdVideo(IdVideo) {
     });
 }
 
-module.exports = {searchVideos, getTagsByIdVideo}
+
+module.exports = {searchVideos, getTagsByIdVideo,getVideoByIdVideo}
 
 //main().catch(console.error);
 

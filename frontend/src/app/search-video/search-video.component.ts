@@ -16,7 +16,7 @@ export class SearchVideoComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpClient
-      .post(this.url,{"nameVideos" : "nature"})
+      .post(this.url,{"nameVideos" : ""})
       .subscribe(
         (data) => {
           this.videos=data
