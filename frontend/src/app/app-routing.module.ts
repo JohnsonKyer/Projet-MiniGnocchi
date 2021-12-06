@@ -13,6 +13,9 @@ import {ReverseAuthGuard} from './services/reverse-auth.guard';
 
 const routes: Routes = [
   {
+    path: '', redirectTo: 'home', pathMatch: 'full'
+  },
+  {
     path: 'register',
     component: RegisterComponent
   }, {
