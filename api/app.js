@@ -6,13 +6,14 @@ const {verifInscription} = require("./middlewares/verifInscription");
 const controller = require("./controllers/auth.controller");
 const {authJwt} = require("./middlewares");
 var bcrypt = require("bcryptjs");
+multer = require('multer');
 
 
 const {mongoose} = require('./db/mongoose')
 bcrypt = require('bcrypt')
-const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
-const { searchVideos, getTagsByIdVideo, getVideoByIdVideo,TendanceVideos } = require('./youtubeApi')
-const { uploadImage } = require('./imgurApi')
+const {Playlist, Annonce, Utilisateur, Annonceur, Video} = require('./db/models')
+const {searchVideos, getTagsByIdVideo, getVideoByIdVideo, TendanceVideos} = require('./youtubeApi')
+const {uploadImage} = require('./imgurApi')
 
 app.use(express.json())
 
@@ -160,15 +161,14 @@ app.patch('/historique/:id', (req, res) => {
 //     // })
 
 // })
-app.post('/uploadImage', async(req, res) => {
+app.post('/uploadImage', async (req, res) => {
     let image = req.body.image;
     let url = await uploadImage(image)
     res.send(url)
 })
 
 
-
-app.get('/getVideoByIdVideo/:id', async(req, res) => {
+app.get('/getVideoByIdVideo/:id', async (req, res) => {
     res.send(await getVideoByIdVideo(req.params.id))
 })
 app.get('/getTagsByIdVideo/:id', async (req, res) => {
@@ -236,9 +236,27 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
 };
 
 
-app.post("/annonceur/upload", async (req, res) => {
-    uploadOnImgur()
+let storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./uploads");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + '.png')
+        console.log(req, file, cb)
+        // uploadImage(file).then(r => {
+        //     console.log(r)
+        // })
+    }
+
+});
+let upload = multer({storage: storage});
+
+app.post("/annonceur/upload", upload.single('file'), (req, res) => {
+    res.sendStatus(200)
 })
+// app.post("/annonceur/upload", (req, res) => {
+//     uploadImage(req.file).then(r => console.log(r))
+// })
 
 
 app.listen(3000, () => {
