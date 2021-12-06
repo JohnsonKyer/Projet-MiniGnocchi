@@ -9,13 +9,14 @@ import {VideoPlaylistComponent} from './video-playlist/video-playlist.component'
 import {WatchVideoPlaylistComponent} from './watch-video-playlist/watch-video-playlist.component';
 import {HistoryComponent} from './history/history.component';
 import {ProfilUtilisateurComponent} from './profil-utilisateur/profil-utilisateur.component';
+import {ReverseAuthGuard} from './services/reverse-auth.guard';
 
 const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
   }, {
-    path: 'login',
+    path: 'login', canActivate: [ReverseAuthGuard],
     component: LoginComponent
   }, {
     path: 'home', canActivate: [AuthGuard],

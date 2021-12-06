@@ -21,6 +21,14 @@
             <a class="nav-link" routerLink="/annonceur" routerLinkActive="active" href="#">Mes annonces<span
               class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item">
+            <a *ngIf="isLoggedIn" routerLink="/login"  href="#" class="nav-link" (click)=onLogout()>Déconnexion<span
+              class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="!isLoggedIn" routerLink="/login"  routerLinkActive="active" href="#" class="nav-link">Connexion<span
+              class="sr-only">(current)</span></a>
+          </li>
         </ul>
       </div>
     </div>

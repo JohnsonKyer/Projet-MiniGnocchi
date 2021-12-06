@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { TokenStorageService } from '../services/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../services/auth.service';
+import {TokenStorageService} from '../services/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -18,30 +18,30 @@ export class LoginComponent implements OnInit {
   errorReason = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
-ngOnInit(): void {
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) {
+  }
+
+  ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
     }
   }
-  onLogout(): void {
-    this.authService.logout();
-    this.reloadPage();
-  }
+
   onSubmit(): void {
-    const { mail, mdp } = this.form;
+    const {mail, mdp} = this.form;
 
     this.authService.login(mail, mdp).subscribe(
       data => {
-        data = JSON.parse(data)
+        data = JSON.parse(data);
         this.tokenStorage.saveToken(JSON.stringify(data.accessToken));
         this.tokenStorage.saveUser(JSON.stringify(data));
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
+
+        window.location.reload();
       },
       err => {
         this.errorMessage = JSON.parse(err.error).message;
@@ -49,9 +49,5 @@ ngOnInit(): void {
         this.isLoginFailed = true;
       }
     );
-  }
-
-  reloadPage(): void {
-    window.location.reload();
   }
 }
