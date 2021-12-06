@@ -5,6 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/imgurApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/imgurApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/api/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +32,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="20n6FdxWvtFkqGiWsQmJeVw9Q17" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -39,15 +45,15 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="14.15.4" />
-    <property name="javascript.nodejs.core.library.typings.version" value="14.18.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="15.8.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="15.14.9" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/api" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Users\Florent\Documents\5A\Projet-MiniGnocchi\frontend\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\GitKraken_Projets\Projet-MiniGnocchi\frontend\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -86,7 +92,8 @@
       <workItem from="1638392134009" duration="3740000" />
       <workItem from="1638446251500" duration="5182000" />
       <workItem from="1638635307402" duration="1012000" />
-      <workItem from="1638807504511" duration="7579000" />
+      <workItem from="1638807504511" duration="3439000" />
+      <workItem from="1638818868793" duration="445000" />
     </task>
     <servers />
   </component>
@@ -103,6 +110,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
