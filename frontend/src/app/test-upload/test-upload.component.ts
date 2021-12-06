@@ -37,10 +37,12 @@ export class TestUploadComponent implements OnInit {
       const file: File | null = this.selectedFiles.item(0);
 
       if (file) {
+        console.log('ici')
         this.currentFile = file;
 
         this.uploadService.upload(this.currentFile).subscribe(
           (event: any) => {
+            console.log(event.data.id);
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round(100 * event.loaded / event.total);
             } else if (event instanceof HttpResponse) {

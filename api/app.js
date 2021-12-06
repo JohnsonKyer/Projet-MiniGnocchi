@@ -242,7 +242,6 @@ let storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + '.png')
-        console.log(req, file, cb)
         // uploadImage(file).then(r => {
         //     console.log(r)
         // })
