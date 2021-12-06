@@ -12,6 +12,7 @@ const { mongoose } = require('./db/mongoose')
 bcrypt = require('bcrypt')
 const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
 const { searchVideos, getTagsByIdVideo, getVideoByIdVideo,TendanceVideos } = require('./youtubeApi')
+const { uploadImage } = require('./imgurApi')
 
 app.use(express.json())
 
@@ -159,6 +160,13 @@ app.patch('/historique/:id', (req, res) => {
 //     // })
 
 // })
+app.post('/uploadImage', async(req, res) => {
+    let image = req.body.image;
+    let url = await uploadImage(image)
+    res.send(url)
+})
+
+
 
 app.get('/getVideoByIdVideo/:id', async(req, res) => {
     res.send(await getVideoByIdVideo(req.params.id))
