@@ -5,45 +5,6 @@ const service = google.youtube({
     auth: 'AIzaSyBZKfPOQxbK2XFhzdRnunw-UegYc2OSesM' //cyan
 })
 
-// async function getTrendingYoutubeVideos() {
-//     try {
-//         const response = await service.videos.list({
-//             part: "snippet",
-//             chart: 'mostPopular',
-//             regionCode: "FR",
-//             maxResults: 10,
-//         });
-//
-//         const titles = response.data.items.map((item) => item.snippet.title);
-//         const urlVideos = response.data.items.map((item) => item.id);
-//         const channels = response.data.items.map((item) => item.snippet.channelTitle);
-//         const urlChannels = response.data.items.map((item) => item.snippet.channelId);
-//         const dates = response.data.items.map((item) => item.snippet.publishedAt);
-//         const thumbnails = response.data.items.map((item) => item.snippet.thumbnails.high.url);
-//         const descriptions = response.data.items.map((item) => item.snippet.description);
-//
-//         var allVideos = []
-//         for (var i = 0; i < titles.length; i++) {
-//             allVideos.push({
-//                 id: urlVideos[i],
-//                 title: titles[i],
-//                 urlVideo: 'https://www.youtube.com/watch?v=' + urlVideos[i],
-//                 channel: channels[i],
-//                 urlChannel: 'https://www.youtube.com/c/' + urlChannels[i],
-//                 date: dates[i],
-//                 thumbnail: thumbnails[i],
-//                 description: descriptions[i],
-//                 provider: 'youtube'
-//             });
-//         }
-//
-//         return ['ok', allVideos];
-//     } catch (err) {
-//         console.log(err);
-//         return ['error', err];
-//     }
-// }
-
 async function TendanceVideos() {
     return new Promise((resolve, reject) => {
         const res = service.videos.list({
