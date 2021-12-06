@@ -11,7 +11,7 @@ var bcrypt = require("bcryptjs");
 const { mongoose } = require('./db/mongoose')
 bcrypt = require('bcrypt')
 const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('./db/models')
-const { searchVideos, getTagsByIdVideo, getVideoByIdVideo } = require('./youtubeApi')
+const { searchVideos, getTagsByIdVideo, getVideoByIdVideo,TendanceVideos } = require('./youtubeApi')
 
 app.use(express.json())
 
@@ -170,7 +170,9 @@ app.post('/searchVideos', async(req, res) => {
     let name = req.body.nameVideos;
     res.send(await searchVideos(name))
 })
-
+app.get('/trendsVideo', async(req, res) => {
+    res.send(await TendanceVideos())
+})
 
 app.get('/utilisateurs', (req, res) => {
     Utilisateur.find({}).then((utilisateurs) => {

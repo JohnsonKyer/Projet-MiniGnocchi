@@ -8,6 +8,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class SearchVideoComponent implements OnInit {
   url: string = 'http://127.0.0.1:3000/searchVideos';
+  urlTrends: string = 'http://127.0.0.1:3000/trendsVideo';
   videos: any;
   nameVideos: string;
   @Output() newItemEvent = new EventEmitter<any>();
@@ -16,7 +17,7 @@ export class SearchVideoComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpClient
-      .post(this.url,{"nameVideos" : ""})
+      .get(this.urlTrends)
       .subscribe(
         (data) => {
           this.videos=data
