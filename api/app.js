@@ -112,6 +112,13 @@ app.patch('/historique/:id', (req, res) => {
     })
 })
 
+app.delete('/historique/:id', (req, res) => {
+    Utilisateur.findOneAndUpdate({_id: req.params.id}, {
+        $set: {historique: []}
+    }).then(() => {
+        res.sendStatus(200);
+    })
+})
 // app.post('/utilisateurs/inscription', async(req, res) => {
 //     const { mail, mdp, genre, date, grade } = req.body
 //     if (!(mail && mdp && genre && date && grade)) {
