@@ -35,7 +35,7 @@ export class HistoryComponent implements OnInit {
       .subscribe(
         (data) => {
           this.videos = data;
-          console.log(this.videos)
+          this.videos=this.videos.reverse()
         },
         (error) => {
           console.log('Erreur ! : ' + error);

@@ -34,29 +34,7 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-  //
-  // watchVideo(video: any){
-  //   this.miniature=video.miniature;
-  //   this.title = video.title;
-  //   this.link = "https://www.youtube.com/embed/" + video.id;
-  //   this.id=video.id
-  //   this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
-  //   this.httpClient
-  //     .patch(this.url+JSON.parse(this.token.getUser()).id,{
-  //       "videos":{
-  //         "id":this.id,
-  //         "provenance":"youtube",
-  //         "miniature":this.miniature,
-  //         "title":this.title
-  //       }
-  //     }, {responseType: 'text'})
-  //     .subscribe(
-  //       res => {
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
+
   watchVideo(video: any) {
     this.miniature = video.miniature;
     this.title = video.title;
