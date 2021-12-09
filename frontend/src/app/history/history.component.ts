@@ -65,4 +65,16 @@ export class HistoryComponent implements OnInit {
           console.log(error);
         });
   }
+
+  deleteHistory() {
+    this.httpClient
+      .delete(this.urlHistory+JSON.parse(this.token.getUser()).id,{responseType: 'text'})
+      .subscribe(
+        res => {
+        },
+        error => {
+          console.log(error);
+        });
+    this.ngOnInit()
+  }
 }
