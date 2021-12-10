@@ -12,15 +12,27 @@ export class UploadService {
   constructor(private http: HttpClient, private token: TokenStorageService) {
   }
 
-  upload(file: FormData): void {
+  upload(formData: FormData): void {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://api.imgur.com/3/image.json'); // Boooom!
+    xhr.open('POST', 'https://api.imgur.com/3/image.json');
+    console.log(JSON.parse(this.token.getUser()).id)
     xhr.onload = () => {
-      const link = JSON.parse(xhr.responseText).data.link;
-      console.log(link);
+      this.http.patch('http://127.0.0.1:3000/annonceur/ajoutAnnonce/' + JSON.parse(this.token.getUser()).id, {
+          annonce: {
+            titre: formData.get('titre'),
+            video: JSON.parse(xhr.responseText).data.id
+          }
+        })
+          .subscribe(
+            (success) => {
+              console.log('ok');
+            },
+            (error) => {
+              console.log(error);
+            });
     };
     xhr.setRequestHeader('Authorization', 'Client-ID 178ece219d86d47');
-    xhr.send(file);
+    xhr.send(formData);
   }
 
   // const headers = new HttpHeaders({'Access-Control-Allow-Origin': '*', Authorization: 'Client-ID 178ece219d86d47'});

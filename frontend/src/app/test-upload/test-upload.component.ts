@@ -45,16 +45,18 @@ export class TestUploadComponent implements OnInit {
         // reader.readAsDataURL(this.currentFile);
         // reader.onload = (e) => {
         //   this.imglink = reader.result;
+        //
         //   console.log(this.imglink)
         //
         // };
         let formData = new FormData();
         formData.append('image', file);
-        console.log(formData.get('image'))
+        formData.append('titre',this.titre);
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
           console.log(reader.result);
+          this.imglink = reader.result;
           console.log(file)
           this.uploadService.upload(formData)
         };
