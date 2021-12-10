@@ -15,7 +15,6 @@ export class UploadService {
   upload(formData: FormData): void {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://api.imgur.com/3/image.json');
-    console.log(JSON.parse(this.token.getUser()).id)
     xhr.onload = () => {
       this.http.patch('http://127.0.0.1:3000/annonceur/ajoutAnnonce/' + JSON.parse(this.token.getUser()).id, {
           annonce: {
