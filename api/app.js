@@ -14,6 +14,7 @@ bcrypt = require('bcrypt')
 const {Playlist, Annonce, Utilisateur, Annonceur, Video} = require('./db/models')
 const {searchVideos, getTagsByIdVideo, getVideoByIdVideo, TendanceVideos} = require('./youtubeApi')
 const {uploadImage} = require('./imgurApi')
+const bodyParser = require("body-parser");
 
 app.use(express.json())
 
@@ -57,8 +58,6 @@ app.get('/playlists/:id', (req, res) => {
 })
 
 
-// Ajout ou suppression d'un identifiant de vidéo à la playlist avec les champs "edit" et "del".
-// Modification du titre de la playlist avec le champ "titre".
 app.patch('/playlistsAjout/:id/', (req, res) => {
     Playlist.findOneAndUpdate({_id: req.params.id}, {
         $addToSet: {
@@ -161,12 +160,65 @@ app.patch('/historique/:id', (req, res) => {
 //     // })
 
 // })
-app.post('/uploadImage', async (req, res) => {
-    let image = req.body.image;
-    let url = await uploadImage(image)
-    res.send(url)
+app.post('/annonceur/inscription', async (req, res) => {
+    const {mail, mdp, genre, date, grade} = req.body
+    if (!(mail && mdp && genre && date && grade)) {
+        res.status(400).send("Tous les champs n'ont pas été remplis");
+    }
+    const utilisateur_existant = await Utilisateur.findOne({mail});
+    if (utilisateur_existant) {
+        res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
+    }
+    const utilisateur = new Annonceur({
+        mail: mail,
+        mdp: await bcrypt.hash(mdp, 10),
+        genre: genre,
+        date: date,
+        grade: 'annonceur'
+    })
+    utilisateur.save().then(() => {
+        res.sendStatus(200)
+    })
 })
 
+var multer = require( 'multer');
+var upload = multer();
+
+// Parse json data
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+// For multi form data
+app.use(upload.array());
+
+app.post('/annonceur/test/:id', async (req, res) => {
+    // console.log(req.body.file)
+    // return this.http.post('https://api.imgur.com/3/image/', req.body.file, {responseType: 'json', Authorization: 'Client-ID 178ece219d86d47'});
+})
+
+app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
+    Annonceur.findOneAndUpdate({_id: req.params.id}, {
+        $addToSet: {
+            annonces: req.body.annonce,
+        }
+    }).then(() => {
+        res.sendStatus(200);
+    })
+})
+
+app.patch('/annonceur/retraitAnnonce/:id', (req, res) => {
+    Annonceur.findOneAndUpdate({_id: req.params.id}, {
+        $pull: {annonces: {id: req.body.id}}
+    }).then(() => {
+        res.sendStatus(200);
+    })
+})
+app.delete('/annonceur/annonces/:id', (req, res) => {
+    Utilisateur.findOneAndUpdate({_id: req.params.id}, {
+        $set: {annonces: []}
+    }).then(() => {
+        res.sendStatus(200);
+    })
+})
 
 app.get('/getVideoByIdVideo/:id', async (req, res) => {
     res.send(await getVideoByIdVideo(req.params.id))
@@ -248,11 +300,11 @@ let storage = multer.diskStorage({
     }
 
 });
-let upload = multer({storage: storage});
-
-app.post("/annonceur/upload", upload.single('file'), (req, res) => {
-    res.sendStatus(200)
-})
+// let upload = multer({storage: storage});
+//
+// app.post("/annonceur/upload", upload.single('file'), (req, res) => {
+//     res.sendStatus(200)
+// })
 // app.post("/annonceur/upload", (req, res) => {
 //     uploadImage(req.file).then(r => console.log(r))
 // })

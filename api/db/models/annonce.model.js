@@ -14,33 +14,39 @@ const AnnonceSchema = new mongoose.Schema({
         minlength: 1,
         trim: true
     },
-    video: {
+    miniature: {
         type: String,
         required: true,
+        minlength: 1,
+        trim: true
+    },
+    video: {
+        type: String,
+        required: false,
         minlength: 1,
         trim: true
     },
     tags: [{
         type: String,
-        required: true,
+        required: false,
         minlength: 1,
         trim: true
     }],
     impressions: {
         type: Number,
-        required: true,
+        required: false,
         minlength: 1,
         trim: true
     },
-    engagemets: {
+    engagements: {
         type: Number,
-        required: true,
+        required: false,
         minlength: 1,
         trim: true
     },
     nbVideos: {
         type: Number,
-        required: true,
+        required: false,
         minlength: 1,
         trim: true
     }

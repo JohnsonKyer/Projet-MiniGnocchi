@@ -40,4 +40,4 @@ function uploadImage(file){
     });
 }
 
-module.exports = {uploadImage}
+module.exports = {uploadImage,base64_encode}
