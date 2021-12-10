@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {tokenize} from '@angular/compiler/src/ml_parser/lexer';
 import {TokenStorageService} from './token-storage.service';
 
-const AUTH_API = 'http://localhost:3000/utilisateurs/';
+const AUTH_API = 'http://127.0.0.1:3000/utilisateurs/';
 
 
 @Injectable({

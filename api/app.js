@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors({origin: 'http://localhost:4200', credentials: true}));
+app.use(cors({origin: 'http://127.0.0.1:4200', credentials: true}));
 const {verifInscription} = require("./middlewares/verifInscription");
 const controller = require("./controllers/auth.controller");
 const {authJwt} = require("./middlewares");
@@ -193,9 +193,12 @@ app.use(upload.array());
 app.post('/annonceur/test/:id', async (req, res) => {
     // console.log(req.body.file)
     // return this.http.post('https://api.imgur.com/3/image/', req.body.file, {responseType: 'json', Authorization: 'Client-ID 178ece219d86d47'});
+
 })
 
 app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
+    console.log(req.body.annonce)
+    console.log("req.body.annonce")
     Annonceur.findOneAndUpdate({_id: req.params.id}, {
         $addToSet: {
             annonces: req.body.annonce,
