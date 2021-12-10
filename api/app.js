@@ -7,6 +7,8 @@ const controller = require("./controllers/auth.controller");
 const {authJwt} = require("./middlewares");
 var bcrypt = require("bcryptjs");
 multer = require('multer');
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 
 
 const {mongoose} = require('./db/mongoose')
@@ -181,24 +183,56 @@ app.post('/annonceur/inscription', async (req, res) => {
     })
 })
 
-var multer = require( 'multer');
-var upload = multer();
+var multer = require('multer');
+const FormData = require("form-data");
+const axios = require("axios");
+// var upload = multer();
+//
+// // Parse json data
+// app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.json());
+// // For multi form data
+// app.use(upload.array());
 
-// Parse json data
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-// For multi form data
-app.use(upload.array());
-
-app.post('/annonceur/test/:id', async (req, res) => {
-    // console.log(req.body.file)
-    // return this.http.post('https://api.imgur.com/3/image/', req.body.file, {responseType: 'json', Authorization: 'Client-ID 178ece219d86d47'});
+// GET toutes les annonces d'un annonceur
+app.get('/annonceur/annonces/:id', async (req, res) => {
+    Annonceur.find({_id: req.params.id}).then((annonceur) => {
+        res.send(annonceur[0].annonces)
+    })
 
 })
 
+app.post('/annonce/test', async (req, res) => {
+    return new Promise((resolve, reject) => {
+        var data = new FormData();
+        console.log("ouais ouais")
+        data.append('image', req.body.image);
+        var config = {
+            method: 'post',
+            url: 'https://api.imgur.com/3/image',
+            headers: {
+                'Authorization': 'Client-ID 178ece219d86d47',
+                ...data.getHeaders()
+            },
+            data: data
+        };
+        axios(config)
+            .then(function (response) {
+                console.log("je suis là dans la réponse")
+                const image = {
+                    link: response.data.data.link
+                }
+                console.log(response.data.data.link);
+                resolve(image);
+            })
+            .catch(function (error) {
+                console.log(error);
+                reject(error)
+            })
+    });
+})
+
 app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
-    console.log(req.body.annonce)
-    console.log("req.body.annonce")
     Annonceur.findOneAndUpdate({_id: req.params.id}, {
         $addToSet: {
             annonces: req.body.annonce,
@@ -215,6 +249,8 @@ app.patch('/annonceur/retraitAnnonce/:id', (req, res) => {
         res.sendStatus(200);
     })
 })
+
+
 app.delete('/annonceur/annonces/:id', (req, res) => {
     Utilisateur.findOneAndUpdate({_id: req.params.id}, {
         $set: {annonces: []}
@@ -222,6 +258,7 @@ app.delete('/annonceur/annonces/:id', (req, res) => {
         res.sendStatus(200);
     })
 })
+
 
 app.get('/getVideoByIdVideo/:id', async (req, res) => {
     res.send(await getVideoByIdVideo(req.params.id))

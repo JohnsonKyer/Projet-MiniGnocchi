@@ -1,1 +1,9 @@
-<p>annonce works!</p>
+<h2>Vos annonces</h2>
+<div class="container">
+  <div class="playlist" *ngFor="let i of annonces">
+    <!--    <i class="bi bi-trash icon" (click)="deletePlaylist(i._id)"></i>-->
+    <!--    <i class="bi bi-pencil-square icon"  (click)="setId(i._id)" (click)="rename.show()"></i>-->
+    <img class="click" src="{{i.video}}" width="200" (click)="playlist(i._id,i.titre)">
+    <!--    <h5 class="click" (click)="playlist(i._id,i.titre)">{{i.titre}}</h5>-->
+  </div>
+</div>

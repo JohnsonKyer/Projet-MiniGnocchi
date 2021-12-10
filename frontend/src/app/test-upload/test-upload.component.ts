@@ -20,8 +20,9 @@ export class TestUploadComponent implements OnInit {
   };
 
   fileInfos?: Observable<any>;
+  private base64textString: string;
 
-  constructor(private uploadService: UploadService, private httpClient: HttpClient, private token: TokenStorageService) {
+  constructor(private uploadService: UploadService, private http: HttpClient, private token: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -37,6 +38,7 @@ export class TestUploadComponent implements OnInit {
         reader.readAsDataURL(file);
         reader.onload = () => {
           this.imglink = reader.result;
+          // console.log(this.imglink)
         };
       }
     }
@@ -50,12 +52,27 @@ export class TestUploadComponent implements OnInit {
         formData.append('image', file);
         formData.append('titre', this.form.titre);
         const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          this.uploadService.upload(formData);
-        };
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(file);
+        console.log(this.base64textString);
+        this.http.post('http://127.0.0.1:3000/annonce/test', {image: this.base64textString}).subscribe(
+          (r) => {
+            console.log('success');
+            console.log(r);
+          },
+          error => {
+            console.log('error');
+            console.log(error.message);
+          }
+        );
       }
       this.selectedFiles = undefined;
     }
+  }
+
+  _handleReaderLoaded(readerEvt): void {
+    const binaryString = readerEvt.target.result;
+    this.base64textString = btoa(binaryString);
+    console.log(btoa(binaryString));
   }
 }
