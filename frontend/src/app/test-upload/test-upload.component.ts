@@ -42,20 +42,23 @@ export class TestUploadComponent implements OnInit {
         this.titre = (document.getElementById("text") as HTMLInputElement).value;
 
         console.log(file.name);
-        this.currentFile = file;
-        const reader = new FileReader();
-        console.log(this.currentFile)
         // reader.readAsDataURL(this.currentFile);
         // reader.onload = (e) => {
         //   this.imglink = reader.result;
         //   console.log(this.imglink)
         //
         // };
-        this.uploadService.upload(file).subscribe(r => {
-          console.log("it works");
-        }, error => {
-          console.log(error)
-        });
+        let formData = new FormData();
+        formData.append('image', file);
+        console.log(formData.get('image'))
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          console.log(reader.result);
+          console.log(file)
+          this.uploadService.upload(formData)
+        };
+
         // en attendant que imgur soit up
         // let id = 'EbhB21h'
         // this.httpClient.patch('http://localhost:3000/annonceur/ajoutAnnonce/' + JSON.parse(this.token.getUser()).id, {
