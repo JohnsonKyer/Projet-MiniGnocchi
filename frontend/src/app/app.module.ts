@@ -27,6 +27,7 @@ import {FormChangeMailComponent} from './forms_utilisateur/form-change-mail/form
 import {WatchVideoPlaylistComponent} from './watch-video-playlist/watch-video-playlist.component';
 import {HistoryComponent} from './history/history.component';
 import { TestUploadComponent } from './test-upload/test-upload.component';
+import { AnnonceComponent } from './annonce/annonce.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { TestUploadComponent } from './test-upload/test-upload.component';
     VideoPlaylistComponent,
     WatchVideoPlaylistComponent,
     HistoryComponent,
-    TestUploadComponent
+    TestUploadComponent,
+    AnnonceComponent
   ],
   imports: [
     BrowserModule,

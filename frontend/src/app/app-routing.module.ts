@@ -11,6 +11,7 @@ import {HistoryComponent} from './history/history.component';
 import {ProfilUtilisateurComponent} from './profil-utilisateur/profil-utilisateur.component';
 import {ReverseAuthGuard} from './services/reverse-auth.guard';
 import {TestUploadComponent} from './test-upload/test-upload.component';
+import {AnnonceComponent} from "./annonce/annonce.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {path: 'uploadAnnonce', component: TestUploadComponent},
+  {path: 'annonce', component: AnnonceComponent},
   {
     path: 'login', canActivate: [ReverseAuthGuard],
     component: LoginComponent
