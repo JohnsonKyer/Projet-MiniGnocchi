@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UploadService} from '../services/upload.service';
-import {HttpClient, HttpEventType, HttpResponse} from '@angular/common/http';
-import {read} from '@popperjs/core';
+import {HttpClient} from '@angular/common/http';
 import {TokenStorageService} from '../services/token-storage.service';
+import {error} from "protractor";
 
 @Component({
   selector: 'app-test-upload',
@@ -18,7 +18,7 @@ export class TestUploadComponent implements OnInit {
     titre: null,
     image: null
   };
-
+  file;
   fileInfos?: Observable<any>;
   private base64textString: string;
 
@@ -44,44 +44,57 @@ export class TestUploadComponent implements OnInit {
     }
   }
 
-  upload(): void {
+  onSubmit(): any {
     if (this.selectedFiles) {
-      const file: any | null = this.selectedFiles.item(0);
-      if (file) {
-        const formData = new FormData();
-        formData.append('uploadedImage', file);
-        formData.append('titre', this.form.titre);
-
-        this.http.post('http://127.0.0.1:3000/annonce/testmulter', formData).subscribe(res => {
-          console.log(res);
-        }, error => {
-          console.log(error);
-        });
-        // const reader = new FileReader();
-        // reader.onload = this._handleReaderLoaded.bind(this);
-        // reader.readAsBinaryString(file);
-        // console.log(this.base64textString);
-        // if (reader.DONE) {
-        //   this.http.post('http://127.0.0.1:3000/annonce/test', {image: this.base64textString}).subscribe(
-        //     (r) => {
-        //       console.log('success');
-        //       console.log(r);
-        //     },
-        //     error => {
-        //       console.log('error');
-        //       console.log(error.message);
-        //     }
-        //   );
-        // }
-
-      }
-      this.selectedFiles = undefined;
+      this.file = this.selectedFiles.item(0);
     }
+    this.upload().then(res => {
+      this.http.patch('http://localhost:3000/annonceur/ajoutAnnonce/' + JSON.parse(this.token.getUser()).id, {
+        annonce: {
+          titre: this.form.titre,
+          video: res.uploadedFile.link
+        }
+      }, {responseType: 'text'}).subscribe(r => {
+        console.log(r);
+      }, error1 => {
+        console.log(error1.message);
+      });
+    }, reason => {
+      console.log(reason);
+    });
   }
 
-  _handleReaderLoaded(readerEvt): void {
-    const binaryString = readerEvt.target.result;
-    this.base64textString = btoa(binaryString);
-    console.log(btoa(binaryString));
+  upload(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('uploadedImage', this.file);
+      formData.append('titre', this.form.titre);
+      this.http.post('http://localhost:3000/annonceur/uploadOnImgur', formData).subscribe(
+        res => {
+          resolve(res);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
   }
+
+  // const reader = new FileReader();
+  // reader.onload = this._handleReaderLoaded.bind(this);
+  // reader.readAsBinaryString(file);
+  // console.log(this.base64textString);
+  // if (reader.DONE) {
+  //   this.http.post('http://127.0.0.1:3000/annonce/test', {image: this.base64textString}).subscribe(
+  //     (r) => {
+  //       console.log('success');
+  //       console.log(r);
+  //     },
+  //     error => {
+  //       console.log('error');
+  //       console.log(error.message);
+  //     }
+  //   );
+  // }
+
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors({origin: 'http://127.0.0.1:4200', credentials: true}));
+app.use(cors({origin: 'http://localhost:4200', credentials: true}));
 const {verifInscription} = require("./middlewares/verifInscription");
 const controller = require("./controllers/auth.controller");
 const {authJwt} = require("./middlewares");
@@ -203,9 +203,8 @@ const multer = require('multer');
 const upload = multer({
     storage: ImgurStorage({clientId: '178ece219d86d47'})
 })
-app.post('/annonce/testmulter', upload.single('uploadedImage'), (req, res, next) => {
+app.post('/annonceur/uploadOnImgur', upload.single('uploadedImage'), (req, res, next) => {
     const file = req.file
-    console.log(req);
     if (!file) {
         const error = new Error('Please upload a file')
         error.httpStatusCode = 400
@@ -217,44 +216,15 @@ app.post('/annonce/testmulter', upload.single('uploadedImage'), (req, res, next)
         uploadedFile: file
     })
 
-}, (error, req, res, next) => {
-    res.status(400).send({
-        error: error.message
-    })
+    }, (error, req, res, next) => {
+        res.status(400).send({
+            error: error.message
+        })
 
-})
-
-app.post('/annonce/test', async (req, res) => {
-    return new Promise((resolve, reject) => {
-        var data = new FormData();
-        console.log("ouais ouais")
-        data.append('image', req.body.image);
-        var config = {
-            method: 'post',
-            url: 'https://api.imgur.com/3/image',
-            headers: {
-                'Authorization': 'Client-ID 178ece219d86d47',
-                ...data.getHeaders()
-            },
-            data: data
-        };
-        axios(config)
-            .then(function (response) {
-                console.log("je suis là dans la réponse")
-                const image = {
-                    link: response.data.data.link
-                }
-                console.log(response.data.data.link);
-                resolve(image);
-            })
-            .catch(function (error) {
-                console.log(error);
-                reject(error)
-            })
-    });
 })
 
 app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
+    console.log(req.body.annonce)
     Annonceur.findOneAndUpdate({_id: req.params.id}, {
         $addToSet: {
             annonces: req.body.annonce,
@@ -265,8 +235,9 @@ app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
 })
 
 app.patch('/annonceur/retraitAnnonce/:id', (req, res) => {
+    console.log(req.body);
     Annonceur.findOneAndUpdate({_id: req.params.id}, {
-        $pull: {annonces: {id: req.body.id}}
+        $pull: {annonces: {_id: req.body.id}}
     }).then(() => {
         res.sendStatus(200);
     })
