@@ -28,6 +28,7 @@ import {WatchVideoPlaylistComponent} from './watch-video-playlist/watch-video-pl
 import {HistoryComponent} from './history/history.component';
 import { TestUploadComponent } from './test-upload/test-upload.component';
 import { AnnonceComponent } from './annonce/annonce.component';
+import { AnnonceDetailComponent } from './annonce-detail/annonce-detail.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { AnnonceComponent } from './annonce/annonce.component';
     WatchVideoPlaylistComponent,
     HistoryComponent,
     TestUploadComponent,
-    AnnonceComponent
+    AnnonceComponent,
+    AnnonceDetailComponent
   ],
   imports: [
     BrowserModule,
