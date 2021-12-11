@@ -6,7 +6,6 @@ const {verifInscription} = require("./middlewares/verifInscription");
 const controller = require("./controllers/auth.controller");
 const {authJwt} = require("./middlewares");
 var bcrypt = require("bcryptjs");
-multer = require('multer');
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
@@ -182,8 +181,6 @@ app.post('/annonceur/inscription', async (req, res) => {
         res.sendStatus(200)
     })
 })
-
-var multer = require('multer');
 const FormData = require("form-data");
 const axios = require("axios");
 // var upload = multer();
@@ -198,6 +195,31 @@ const axios = require("axios");
 app.get('/annonceur/annonces/:id', async (req, res) => {
     Annonceur.find({_id: req.params.id}).then((annonceur) => {
         res.send(annonceur[0].annonces)
+    })
+
+})
+const ImgurStorage = require('multer-storage-imgur');
+const multer = require('multer');
+const upload = multer({
+    storage: ImgurStorage({clientId: '178ece219d86d47'})
+})
+app.post('/annonce/testmulter', upload.single('uploadedImage'), (req, res, next) => {
+    const file = req.file
+    console.log(req);
+    if (!file) {
+        const error = new Error('Please upload a file')
+        error.httpStatusCode = 400
+        return next(error)
+    }
+    res.status(200).send({
+        statusCode: 200,
+        status: 'success',
+        uploadedFile: file
+    })
+
+}, (error, req, res, next) => {
+    res.status(400).send({
+        error: error.message
     })
 
 })

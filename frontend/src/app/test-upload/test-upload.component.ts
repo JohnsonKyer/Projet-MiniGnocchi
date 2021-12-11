@@ -49,22 +49,31 @@ export class TestUploadComponent implements OnInit {
       const file: any | null = this.selectedFiles.item(0);
       if (file) {
         const formData = new FormData();
-        formData.append('image', file);
+        formData.append('uploadedImage', file);
         formData.append('titre', this.form.titre);
-        const reader = new FileReader();
-        reader.onload = this._handleReaderLoaded.bind(this);
-        reader.readAsBinaryString(file);
-        console.log(this.base64textString);
-        this.http.post('http://127.0.0.1:3000/annonce/test', {image: this.base64textString}).subscribe(
-          (r) => {
-            console.log('success');
-            console.log(r);
-          },
-          error => {
-            console.log('error');
-            console.log(error.message);
-          }
-        );
+
+        this.http.post('http://127.0.0.1:3000/annonce/testmulter', formData).subscribe(res => {
+          console.log(res);
+        }, error => {
+          console.log(error);
+        });
+        // const reader = new FileReader();
+        // reader.onload = this._handleReaderLoaded.bind(this);
+        // reader.readAsBinaryString(file);
+        // console.log(this.base64textString);
+        // if (reader.DONE) {
+        //   this.http.post('http://127.0.0.1:3000/annonce/test', {image: this.base64textString}).subscribe(
+        //     (r) => {
+        //       console.log('success');
+        //       console.log(r);
+        //     },
+        //     error => {
+        //       console.log('error');
+        //       console.log(error.message);
+        //     }
+        //   );
+        // }
+
       }
       this.selectedFiles = undefined;
     }
