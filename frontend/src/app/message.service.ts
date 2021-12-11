@@ -10,12 +10,12 @@ export class MessageService {
 
   registerUser(user){
     user.grade = "utilisateur"
-    this.http.post('http://127.0.0.1:3000/utilisateurs/inscription',user).subscribe(res =>{
+    this.http.post('http://localhost:3000/utilisateurs/inscription',user).subscribe(res =>{
       console.log("res = "+res)
     })
   }
   loginUser(user){
     user.grade = "utilisateur"
-    this.http.post('http://127.0.0.1:3000/utilisateurs/connexion',user)
+    this.http.post('http://localhost:3000/utilisateurs/connexion',user)
   }
 }

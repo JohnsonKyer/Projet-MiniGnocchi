@@ -26,7 +26,7 @@ export class FormChangeMdpComponent implements OnInit {
   onSubmitMdp(): void {
     const {mdp} = this.form;
     console.log(mdp);
-    this.http.patch('http://127.0.0.1:3000/utilisateurs/modificationmdp/' + JSON.parse(this.token.getUser()).id, {
+    this.http.patch('http://localhost:3000/utilisateurs/modificationmdp/' + JSON.parse(this.token.getUser()).id, {
       mdp
     }, {responseType: 'text'}).subscribe(data => {
         this.isMdpSuccessful = true;

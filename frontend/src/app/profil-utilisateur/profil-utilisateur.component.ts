@@ -50,7 +50,7 @@ export class ProfilUtilisateurComponent implements OnInit {
   onSubmitMail(): void {
     const {mail} = this.form2;
     console.log(mail);
-    this.http.patch('http://127.0.0.1:3000/utilisateurs/modificationmail/' + JSON.parse(this.token.getUser()).id, {
+    this.http.patch('http://localhost:3000/utilisateurs/modificationmail/' + JSON.parse(this.token.getUser()).id, {
       mail
     }, {responseType: 'text'}).subscribe(data => {
         this.isMailSuccessful = true;
