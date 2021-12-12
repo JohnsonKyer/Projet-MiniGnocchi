@@ -166,9 +166,14 @@ app.post('/annonceur/uploadOnImgur', upload.single('uploadedImage'), (req, res, 
 
 app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
     console.log(req.body.annonce)
+    let annonceModified = req.body.annonce
+    annonceModified.tags = []
+    annonceModified.engagements = 0
+    annonceModified.impressions = 0
+    annonceModified.nbVideos = 0
     Annonceur.findOneAndUpdate({_id: req.params.id}, {
         $addToSet: {
-            annonces: req.body.annonce,
+            annonces: annonceModified,
         }
     }).then(() => {
         res.sendStatus(200);
