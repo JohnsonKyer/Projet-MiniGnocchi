@@ -1,5 +1,28 @@
 <div class="container">
-<!--  <div class="video" *ngFor="let i of annonces" (click)="watch(i.id, i.title,i.miniature)">-->
-    <img  src={{annonce.video}}>
-    <h5>{{annonce.titre}}</h5>
-  </div>
+  <h2 class="text-center">Votre récapitulatif pour l'annonce "{{annonce.titre}}"</h2>
+  <img src={{annonce.video}} height="256" width="256" alt="Vidéo de votre annonce">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Annonce</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Vidéo</th>
+      <th scope="col">Tags</th>
+      <th scope="col">Impressions</th>
+      <th scope="col">Engagements</th>
+      <th scope="col">Nombre de vidéos impactées</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>{{annonce.titre}}</td>
+      <td>{{annonce.video}}</td>
+      <td>{{annonce.tags}}</td>
+      <td>{{annonce.impressions}}</td>
+      <td>{{annonce.engagements}}</td>
+      <td>{{annonce.nbVideo}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

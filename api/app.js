@@ -216,10 +216,10 @@ app.post('/annonceur/uploadOnImgur', upload.single('uploadedImage'), (req, res, 
         uploadedFile: file
     })
 
-    }, (error, req, res, next) => {
-        res.status(400).send({
-            error: error.message
-        })
+}, (error, req, res, next) => {
+    res.status(400).send({
+        error: error.message
+    })
 
 })
 
@@ -243,6 +243,18 @@ app.patch('/annonceur/retraitAnnonce/:id', (req, res) => {
     })
 })
 
+// Retourne l'annonce par l'id de l'annonce contenue dans le body
+// 'annonces.$':1 retourne le premier champ correspondant à la requête.
+app.get('/annonceur/annonce/:id', (req, res) => {
+    console.log(req.params.id)
+    Annonceur.findOne({'annonces': {$elemMatch: {_id: req.params.id}}}, {'annonces.$': 1}).then((annonceur) => {
+        if (annonceur) {
+            res.send(annonceur.annonces[0])
+        } else {
+            console.log("error")
+        }
+    })
+})
 
 app.delete('/annonceur/annonces/:id', (req, res) => {
     Utilisateur.findOneAndUpdate({_id: req.params.id}, {

@@ -9,16 +9,34 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./annonce-detail.component.scss']
 })
 export class AnnonceDetailComponent implements OnInit {
-  annonce;
+  annonce: {
+    titre,
+    video,
+    tags,
+    impressions,
+    engagements,
+    nbVideo
+  };
   url = '';
+  id;
 
   constructor(private http: HttpClient, private token: TokenStorageService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.http.patch('' + JSON.parse(this.token.getUser()).id, {id: this.route.snapshot.params.id}, {responseType: 'text'}).subscribe(
-      () => {
-        this.ngOnInit();
+    this.route.queryParams.subscribe(r => {
+      this.id = r.id;
+    });
+    this.http.get('http://127.0.0.1:3000/annonceur/annonce/' + this.id).subscribe(
+      (r: any) => {
+        this.annonce = {
+          titre: r.titre,
+          video: r.video,
+          tags: r.tags,
+          impressions: r.impressions,
+          engagements: r.engagements,
+          nbVideo: r.nbVideo
+        };
       },
       error => {
         console.log(error);
