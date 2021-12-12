@@ -111,56 +111,6 @@ app.patch('/historique/:id', (req, res) => {
         res.sendStatus(200);
     })
 })
-
-// app.post('/utilisateurs/inscription', async(req, res) => {
-//     const { mail, mdp, genre, date, grade } = req.body
-//     if (!(mail && mdp && genre && date && grade)) {
-//         res.status(400).send("Tous les champs n'ont pas été remplis");
-//     }
-//     const utilisateur_existant = await Utilisateur.findOne({ mail });
-//     if (utilisateur_existant) {
-//         return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
-//     }
-//     const utilisateur = new Utilisateur({ mail, mdp: await bcrypt.hash(mdp, 10), genre, date, grade })
-//     utilisateur.save().then(() => {
-//         res.sendStatus(200)
-//     })
-
-//     // let newPlaylist = new Playlist({
-//     //     titre,
-//     //     idVideos,
-//     //     idUtilisateur
-//     // })
-//     // newPlaylist.save().then((PlaylistDoc) => {
-//     //     res.send(PlaylistDoc)
-//     // })
-
-// })
-
-// app.post('/utilisateurs/inscription', async(req, res) => {
-//     const { mail, mdp, genre, date, grade } = req.body
-//     if (!(mail && mdp && genre && date && grade)) {
-//         res.status(400).send("Tous les champs n'ont pas été remplis");
-//     }
-//     const utilisateur_existant = await Utilisateur.findOne({ mail });
-//     if (utilisateur_existant) {
-//         return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
-//     }
-//     const utilisateur = new Utilisateur({ mail, mdp: await bcrypt.hash(mdp, 10), genre, date, grade })
-//     utilisateur.save().then(() => {
-//         res.sendStatus(200)
-//     })
-
-//     // let newPlaylist = new Playlist({
-//     //     titre,
-//     //     idVideos,
-//     //     idUtilisateur
-//     // })
-//     // newPlaylist.save().then((PlaylistDoc) => {
-//     //     res.send(PlaylistDoc)
-//     // })
-
-// })
 app.post('/annonceur/inscription', async (req, res) => {
     const {mail, mdp, genre, date, grade} = req.body
     if (!(mail && mdp && genre && date && grade)) {
@@ -181,15 +131,6 @@ app.post('/annonceur/inscription', async (req, res) => {
         res.sendStatus(200)
     })
 })
-const FormData = require("form-data");
-const axios = require("axios");
-// var upload = multer();
-//
-// // Parse json data
-// app.use(bodyParser.urlencoded({extended: true}));
-// app.use(bodyParser.json());
-// // For multi form data
-// app.use(upload.array());
 
 // GET toutes les annonces d'un annonceur
 app.get('/annonceur/annonces/:id', async (req, res) => {
@@ -332,27 +273,6 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
     res.sendStatus(200)
 };
 
-
-let storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "./uploads");
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + '.png')
-        // uploadImage(file).then(r => {
-        //     console.log(r)
-        // })
-    }
-
-});
-// let upload = multer({storage: storage});
-//
-// app.post("/annonceur/upload", upload.single('file'), (req, res) => {
-//     res.sendStatus(200)
-// })
-// app.post("/annonceur/upload", (req, res) => {
-//     uploadImage(req.file).then(r => console.log(r))
-// })
 
 
 app.listen(3000, () => {
