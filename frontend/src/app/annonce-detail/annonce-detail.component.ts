@@ -15,7 +15,7 @@ export class AnnonceDetailComponent implements OnInit {
     tags,
     impressions,
     engagements,
-    nbVideo
+    nbVideos
   };
   url = '';
   id;
@@ -35,8 +35,10 @@ export class AnnonceDetailComponent implements OnInit {
           tags: r.tags,
           impressions: r.impressions,
           engagements: r.engagements,
-          nbVideo: r.nbVideo
+          nbVideos: r.nbVideos
         };
+
+        console.log(this.annonce)
       },
       error => {
         console.log(error);
