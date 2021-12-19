@@ -10,15 +10,19 @@ import {WatchVideoPlaylistComponent} from './watch-video-playlist/watch-video-pl
 import {HistoryComponent} from './history/history.component';
 import {ProfilUtilisateurComponent} from './profil-utilisateur/profil-utilisateur.component';
 import {ReverseAuthGuard} from './services/reverse-auth.guard';
+import {TestUploadComponent} from './test-upload/test-upload.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: '', redirectTo: 'home', pathMatch: 'full'
   },
   {
     path: 'register',
     component: RegisterComponent
-  }, {
+  },
+  {path: 'uploadAnnonce', component: TestUploadComponent},
+  {
     path: 'login', canActivate: [ReverseAuthGuard],
     component: LoginComponent
   }, {

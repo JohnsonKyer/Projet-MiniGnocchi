@@ -35,7 +35,7 @@ export class HistoryComponent implements OnInit {
       .subscribe(
         (data) => {
           this.videos = data;
-          console.log(this.videos)
+          this.videos=this.videos.reverse()
         },
         (error) => {
           console.log('Erreur ! : ' + error);
@@ -64,5 +64,17 @@ export class HistoryComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  deleteHistory() {
+    this.httpClient
+      .delete(this.urlHistory+JSON.parse(this.token.getUser()).id,{responseType: 'text'})
+      .subscribe(
+        res => {
+        },
+        error => {
+          console.log(error);
+        });
+    this.ngOnInit()
   }
 }

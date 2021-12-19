@@ -1,2 +1,4 @@
 <h2>Vous êtes dans votre historique</h2>
+<button class="bouton" ngbDropdownItem type="button" mdbBtn color="default" rounded="true" data-toggle="modal"
+        data-target="#basicExample" (click)="deleteHistory()" mdbWavesEffect>Supprimer l'historique</button>
 <app-display-videos [videos]="videos" (newItemEvent)="watchVideo($event)"></app-display-videos>
