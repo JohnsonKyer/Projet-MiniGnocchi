@@ -13,6 +13,7 @@ import {ReverseAuthGuard} from './services/reverse-auth.guard';
 import {TestUploadComponent} from './test-upload/test-upload.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'register',
     component: RegisterComponent
