@@ -165,7 +165,6 @@ app.post('/annonceur/uploadOnImgur', upload.single('uploadedImage'), (req, res, 
 })
 
 app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
-    console.log(req.body.annonce)
     let annonceModified = req.body.annonce
     annonceModified.tags = []
     annonceModified.engagements = 0
@@ -180,8 +179,15 @@ app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
     })
 })
 
+app.patch('/annonceur/renameAnnonce/:id',  (req, res) => {
+    Annonceur.findOneAndUpdate({'annonces._id': req.params.id}, {
+        'annonces.$.titre': req.body.titre
+    }).then(() => {
+        res.sendStatus(200);
+    })
+})
+
 app.patch('/annonceur/retraitAnnonce/:id', (req, res) => {
-    console.log(req.body);
     Annonceur.findOneAndUpdate({_id: req.params.id}, {
         $pull: {annonces: {_id: req.body.id}}
     }).then(() => {
@@ -277,7 +283,6 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
     console.log(req, res)
     res.sendStatus(200)
 };
-
 
 
 app.listen(3000, () => {

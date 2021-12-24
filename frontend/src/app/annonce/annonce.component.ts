@@ -13,7 +13,7 @@ export class AnnonceComponent implements OnInit {
   url = 'http://127.0.0.1:3000/annonceur/annonces/';
   urlNewAnnonce = 'http://127.0.0.1:3000/annonceur/ajoutAnnonce/';
   urlDelAnnonce = 'http://127.0.0.1:3000/annonceur/retraitAnnonce/';
-  urlRenameAnnonce = 'http://127.0.0.1:3000/annonceur/renameAnnonce';
+  urlRenameAnnonce = 'http://127.0.0.1:3000/annonceur/renameAnnonce/';
   id: string;
   validatingForm: FormGroup;
   annonces;
@@ -32,8 +32,8 @@ export class AnnonceComponent implements OnInit {
       }
     );
     this.validatingForm = new FormGroup({
-      namePlaylist: new FormControl('', Validators.required),
-      newNamePlaylist: new FormControl('', Validators.required),
+      nameAnnonce: new FormControl('', Validators.required),
+      newNameAnnonce: new FormControl('', Validators.required),
     });
   }
 
@@ -41,11 +41,11 @@ export class AnnonceComponent implements OnInit {
     this.router.navigate(['/annonce-detail'], {queryParams: {id}});
   }
 
-  get nameAnnonce() {
+  get nameAnnonce(): any {
     return this.validatingForm.get('nameAnnonce');
   }
 
-  get newNameAnnonce() {
+  get newNameAnnonce(): any{
     return this.validatingForm.get('newNameAnnonce');
   }
 
