@@ -37,8 +37,9 @@ export class AnnonceDetailComponent implements OnInit {
           engagements: r.engagements,
           nbVideos: r.nbVideos
         };
-
-        console.log(this.annonce)
+        if (this.annonce.tags.length === 0) {
+          this.annonce.tags[0] = 'Aucun tag';
+        }
       },
       error => {
         console.log(error);
