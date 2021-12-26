@@ -3,7 +3,8 @@ import {Observable} from 'rxjs';
 import {UploadService} from '../services/upload.service';
 import {HttpClient} from '@angular/common/http';
 import {TokenStorageService} from '../services/token-storage.service';
-import {error} from "protractor";
+import {error} from 'protractor';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-test-upload',
@@ -21,8 +22,9 @@ export class TestUploadComponent implements OnInit {
   file;
   fileInfos?: Observable<any>;
   private base64textString: string;
+  successfullyUploaded: boolean;
 
-  constructor(private uploadService: UploadService, private http: HttpClient, private token: TokenStorageService) {
+  constructor(private uploadService: UploadService, private http: HttpClient, private token: TokenStorageService, private flashMessage: FlashMessagesService) {
   }
 
   ngOnInit(): void {
@@ -56,6 +58,15 @@ export class TestUploadComponent implements OnInit {
         }
       }, {responseType: 'text'}).subscribe(r => {
         console.log(r);
+        this.flashMessage.show('L\'annonce a bien été publiée. Vous pouvez la visualiser dès maintenant dans vos annonces', {
+          cssClass: 'alert-success p-2',
+          timeout: 7000
+        });
+        this.form.titre = '';
+        this.form.image = '';
+        this.imglink = '';
+        this.successfullyUploaded = true;
+
       }, error1 => {
         console.log(error1.message);
       });

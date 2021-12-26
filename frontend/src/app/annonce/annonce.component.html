@@ -6,9 +6,10 @@
   <div class="playlist" *ngFor="let i of annonces">
     <i class="bi bi-trash icon" (click)="deleteAnnonce(i._id)"></i>
     <i class="bi bi-pencil-square icon" (click)="setId(i._id)" (click)="rename.show()"></i>
-    <img class="click" src="{{i.video}}" width="200" (click)="annonce(i._id)">
+    <img class="click p-2" src="{{i.video}}" width="256" (click)="annonce(i._id)">
     <h5 class="click" (click)="annonce(i._id)">{{i.titre}}</h5>
   </div>
+
 </div>
 
 
