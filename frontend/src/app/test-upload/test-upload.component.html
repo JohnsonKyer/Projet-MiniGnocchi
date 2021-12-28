@@ -1,5 +1,6 @@
 
-<div class="container mt-lg-2">
+
+<div class="container mt-lg-2 p-3">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card">
@@ -13,21 +14,29 @@
               <input type="text" class="form-control" name="titre" [(ngModel)]="form.titre" required #mail="ngModel">
             </div>
             <div class="form-group">
+              <label>Tags séparés par une virgule</label>
+              <input type="text" class="form-control" name="tags" [(ngModel)]="form.tags" required>
+            </div>
+            <div class="form-group">
               <label>Fichier de l'annonce</label>
               <input type="file" class="form-control" name="image" [(ngModel)]="form.image" required #image="ngModel"
                      (change)="selectFile($event)">
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">Publier l'annonce</button>
+              <button type="submit" [disabled]="uploading" id="uploadAnnoncebtn" class="btn btn-primary btn-block">Publier l'annonce</button>
             </div>
           </form>
         </article>
       </div>
     </div>
+    <div *ngIf="imglink" class="col-md-3">  <div >
+      <img [srcset]="imglink" crossorigin="anonymous" height="256px" width="256px">
+    </div></div>
   </div>
-  <div class="row justify-content-center" *ngIf="imglink">
-    <img [srcset]="imglink" crossorigin="anonymous" height="200px" width="200px">
+  <div class="row justify-content-center" *ngIf="uploading">
+    <img src="assets/loading.gif" alt="loading gif">
   </div>
+
   <flash-messages></flash-messages>
 <!--  <span *ngIf="successfullyUploaded"  (load)="progressBar.complete()"></span>-->
 <!--  <ng-progress #progressBar></ng-progress>-->

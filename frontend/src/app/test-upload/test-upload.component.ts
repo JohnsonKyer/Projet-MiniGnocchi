@@ -3,8 +3,8 @@ import {Observable} from 'rxjs';
 import {UploadService} from '../services/upload.service';
 import {HttpClient} from '@angular/common/http';
 import {TokenStorageService} from '../services/token-storage.service';
-import {error} from 'protractor';
 import {FlashMessagesService} from 'angular2-flash-messages';
+
 
 @Component({
   selector: 'app-test-upload',
@@ -17,18 +17,45 @@ export class TestUploadComponent implements OnInit {
   imglink;
   form: any = {
     titre: null,
-    image: null
+    image: null,
+    tags: null
   };
   file;
   fileInfos?: Observable<any>;
   private base64textString: string;
   successfullyUploaded: boolean;
+  uploading: boolean;
+  // dropdownList = [];
+  // selectedItems = [];
+  // dropdownSettings: IDropdownSettings;
 
-  constructor(private uploadService: UploadService, private http: HttpClient, private token: TokenStorageService, private flashMessage: FlashMessagesService) {
+  constructor(private uploadService: UploadService, private http: HttpClient, private token: TokenStorageService,
+              private flashMessage: FlashMessagesService) {
   }
 
   ngOnInit(): void {
     this.fileInfos = this.uploadService.getFiles();
+    // Initialisation du dropdown tags
+    // this.dropdownList = [
+    //   {item_id: 1, item_text: 'Sport'},
+    //   {item_id: 2, item_text: 'Jeu'},
+    //   {item_id: 3, item_text: 'Education'},
+    //   {item_id: 4, item_text: 'Actualité'},
+    //   {item_id: 5, item_text: 'Histoire'}
+    // ];
+    // this.selectedItems = [
+    //   {item_id: 3, item_text: 'Pune'},
+    //   {item_id: 4, item_text: 'Navsari'}
+    // ];
+    // this.dropdownSettings = {
+    //   singleSelection: false,
+    //   idField: 'item_id',
+    //   textField: 'item_text',
+    //   selectAllText: 'Select All',
+    //   unSelectAllText: 'UnSelect All',
+    //   itemsShowLimit: 3,
+    //   allowSearchFilter: true
+    // };
   }
 
   selectFile(event: any): void {
@@ -54,7 +81,8 @@ export class TestUploadComponent implements OnInit {
       this.http.patch('http://localhost:3000/annonceur/ajoutAnnonce/' + JSON.parse(this.token.getUser()).id, {
         annonce: {
           titre: this.form.titre,
-          video: res.uploadedFile.link
+          video: res.uploadedFile.link,
+          tags: this.form.tags
         }
       }, {responseType: 'text'}).subscribe(r => {
         console.log(r);
@@ -66,7 +94,7 @@ export class TestUploadComponent implements OnInit {
         this.form.image = '';
         this.imglink = '';
         this.successfullyUploaded = true;
-
+        this.uploading = false;
       }, error1 => {
         console.log(error1.message);
       });
@@ -76,6 +104,7 @@ export class TestUploadComponent implements OnInit {
   }
 
   upload(): Promise<any> {
+    this.uploading = true;
     return new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append('uploadedImage', this.file);

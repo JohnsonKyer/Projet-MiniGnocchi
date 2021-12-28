@@ -166,7 +166,7 @@ app.post('/annonceur/uploadOnImgur', upload.single('uploadedImage'), (req, res, 
 
 app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
     let annonceModified = req.body.annonce
-    annonceModified.tags = []
+    annonceModified.tags = req.body.annonce.tags.split(',').filter((item) => item.trim().length > 0)
     annonceModified.engagements = 0
     annonceModified.impressions = 0
     annonceModified.nbVideos = 0
