@@ -15,6 +15,7 @@ import {AuthService} from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isCollapsed = true;
+  grade;
 
   constructor(private router: Router, private authService: AuthService,
               private tokenStorage: TokenStorageService) {
@@ -25,11 +26,16 @@ export class HeaderComponent implements OnInit {
   }
 
   isLoggedIn(): boolean {
-    return !!this.tokenStorage.getToken();
+    if (!!this.tokenStorage.getToken()) {
+      this.grade = JSON.parse(this.tokenStorage.getUser()).grade;
+      return true;
+    }
+    return false;
   }
 
   onLogout(): void {
     this.authService.logout();
+    this.grade = null;
   }
 
 }
