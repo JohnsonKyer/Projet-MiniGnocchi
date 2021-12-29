@@ -14,13 +14,13 @@ export class AuthService {
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) {
   }
 
-  register(mail: string, mdp: string, genre: string, date: Date): Observable<any> {
+  register(mail: string, mdp: string, genre: string, date: Date, grade: string): Observable<any> {
     return this.http.post(AUTH_API + 'inscription', {
       mail,
       mdp,
       genre,
       date,
-      grade: 'utilisateur'
+      grade
     }, {responseType: 'text'});
   }
 
