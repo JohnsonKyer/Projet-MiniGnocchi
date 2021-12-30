@@ -179,7 +179,7 @@ app.patch('/annonceur/ajoutAnnonce/:id', async (req, res) => {
     })
 })
 
-app.patch('/annonceur/renameAnnonce/:id',  (req, res) => {
+app.patch('/annonceur/renameAnnonce/:id', (req, res) => {
     Annonceur.findOneAndUpdate({'annonces._id': req.params.id}, {
         'annonces.$.titre': req.body.titre
     }).then(() => {
@@ -222,6 +222,7 @@ app.delete('/annonceur/annonces/:id', (req, res) => {
     }).then(() => {
         res.sendStatus(200);
     })
+});
 // app.post('/utilisateurs/inscription', async(req, res) => {
 //     const { mail, mdp, genre, date, grade } = req.body
 //     if (!(mail && mdp && genre && date && grade)) {
@@ -348,4 +349,4 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
 
 app.listen(3000, () => {
     console.log("Serveur UP sur le port 3000");
-})
+});

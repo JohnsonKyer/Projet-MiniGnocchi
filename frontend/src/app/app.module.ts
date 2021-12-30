@@ -29,7 +29,6 @@ import {HistoryComponent} from './history/history.component';
 import { TestUploadComponent } from './test-upload/test-upload.component';
 import { AnnonceComponent } from './annonce/annonce.component';
 import { AnnonceDetailComponent } from './annonce-detail/annonce-detail.component';
-import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -56,7 +55,6 @@ import { NgProgressModule } from 'ngx-progressbar';
     AnnonceDetailComponent,
   ],
   imports: [
-    NgProgressModule,
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
