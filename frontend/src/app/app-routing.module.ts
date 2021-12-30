@@ -11,6 +11,8 @@ import {HistoryComponent} from './history/history.component';
 import {ProfilUtilisateurComponent} from './profil-utilisateur/profil-utilisateur.component';
 import {ReverseAuthGuard} from './services/reverse-auth.guard';
 import {TestUploadComponent} from './test-upload/test-upload.component';
+import {AnnonceComponent} from './annonce/annonce.component';
+import {AnnonceDetailComponent} from './annonce-detail/annonce-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -19,7 +21,9 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent
   },
-  {path: 'uploadAnnonce', component: TestUploadComponent},
+  {path: 'uploadAnnonce', canActivate: [AuthGuard], component: TestUploadComponent},
+  {path: 'annonce-detail', canActivate: [AuthGuard], component: AnnonceDetailComponent},
+  {path: 'annonce', canActivate: [AuthGuard], component: AnnonceComponent},
   {
     path: 'login', canActivate: [ReverseAuthGuard],
     component: LoginComponent

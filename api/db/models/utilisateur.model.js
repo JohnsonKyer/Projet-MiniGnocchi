@@ -89,10 +89,42 @@ const Utilisateur = mongoose.model("Utilisateur", UtilisateurSchema)
 
 const Annonceur = Utilisateur.discriminator('Annonceur', new mongoose.Schema({
     annonces: [{
-        type: mongoose.Types.ObjectId,
-        required: true,
-        minlength: 0,
-        trim: true
+        titre: {
+            type: String,
+            required: true,
+            minlength: 1,
+            trim: true
+        },
+        video: {
+            type: String,
+            required: false,
+            minlength: 1,
+            trim: true
+        },
+        tags: [{
+            type: String,
+            required: false,
+            minlength: 1,
+            trim: true
+        }],
+        impressions: {
+            type: Number,
+            required: false,
+            minlength: 1,
+            trim: true
+        },
+        engagements: {
+            type: Number,
+            required: false,
+            minlength: 1,
+            trim: true
+        },
+        nbVideos: {
+            type: Number,
+            required: false,
+            minlength: 1,
+            trim: true
+        }
     }]
 }))
 

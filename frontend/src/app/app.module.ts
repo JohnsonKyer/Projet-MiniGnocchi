@@ -27,6 +27,9 @@ import {FormChangeMailComponent} from './forms_utilisateur/form-change-mail/form
 import {WatchVideoPlaylistComponent} from './watch-video-playlist/watch-video-playlist.component';
 import {HistoryComponent} from './history/history.component';
 import { TestUploadComponent } from './test-upload/test-upload.component';
+import { AnnonceComponent } from './annonce/annonce.component';
+import { AnnonceDetailComponent } from './annonce-detail/annonce-detail.component';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -48,9 +51,12 @@ import { TestUploadComponent } from './test-upload/test-upload.component';
     VideoPlaylistComponent,
     WatchVideoPlaylistComponent,
     HistoryComponent,
-    TestUploadComponent
+    TestUploadComponent,
+    AnnonceComponent,
+    AnnonceDetailComponent,
   ],
   imports: [
+    NgProgressModule,
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,

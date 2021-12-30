@@ -1,0 +1,26 @@
+<div class="container p-3">
+  <h2 class="text-center p-2">Votre récapitulatif pour l'annonce "{{annonce.titre}}"</h2>
+  <img class="img-fluid rounded mx-auto d-block p-2" src={{annonce.video}} height="256" width="256" alt="Vidéo de votre annonce">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Titre</th>
+      <th scope="col">Vidéo</th>
+      <th scope="col">Tags</th>
+      <th scope="col">Impressions</th>
+      <th scope="col">Engagements</th>
+      <th scope="col">Nombre de vidéos impactées</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">{{annonce.titre}}</th>
+      <td><a href="{{annonce.video}}" target="_blank">{{annonce.video}}</a></td>
+      <td>{{annonce.tags}}</td>
+      <td>{{annonce.impressions}}</td>
+      <td>{{annonce.engagements}}</td>
+      <td>{{annonce.nbVideos}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

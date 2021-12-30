@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UploadService} from '../services/upload.service';
-import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
+import {TokenStorageService} from '../services/token-storage.service';
+import {FlashMessagesService} from 'angular2-flash-messages';
+
 
 @Component({
   selector: 'app-test-upload',
@@ -9,62 +12,129 @@ import {HttpEventType, HttpResponse} from '@angular/common/http';
   styleUrls: ['./test-upload.component.scss']
 })
 export class TestUploadComponent implements OnInit {
-  title = 'Upload file';
-
   selectedFiles?: FileList;
-  currentFile?: File;
-  progress = 0;
   message = '';
-
+  imglink;
+  form: any = {
+    titre: null,
+    image: null,
+    tags: null
+  };
+  file;
   fileInfos?: Observable<any>;
+  private base64textString: string;
+  successfullyUploaded: boolean;
+  uploading: boolean;
+  // dropdownList = [];
+  // selectedItems = [];
+  // dropdownSettings: IDropdownSettings;
 
-  constructor(private uploadService: UploadService) {
+  constructor(private uploadService: UploadService, private http: HttpClient, private token: TokenStorageService,
+              private flashMessage: FlashMessagesService) {
   }
 
   ngOnInit(): void {
     this.fileInfos = this.uploadService.getFiles();
-
+    // Initialisation du dropdown tags
+    // this.dropdownList = [
+    //   {item_id: 1, item_text: 'Sport'},
+    //   {item_id: 2, item_text: 'Jeu'},
+    //   {item_id: 3, item_text: 'Education'},
+    //   {item_id: 4, item_text: 'Actualité'},
+    //   {item_id: 5, item_text: 'Histoire'}
+    // ];
+    // this.selectedItems = [
+    //   {item_id: 3, item_text: 'Pune'},
+    //   {item_id: 4, item_text: 'Navsari'}
+    // ];
+    // this.dropdownSettings = {
+    //   singleSelection: false,
+    //   idField: 'item_id',
+    //   textField: 'item_text',
+    //   selectAllText: 'Select All',
+    //   unSelectAllText: 'UnSelect All',
+    //   itemsShowLimit: 3,
+    //   allowSearchFilter: true
+    // };
   }
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
-  }
-
-  upload(): void {
-    this.progress = 0;
-
     if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-
+      const file: any | null = this.selectedFiles.item(0);
       if (file) {
-        console.log('ici')
-        this.currentFile = file;
-
-        this.uploadService.upload(this.currentFile).subscribe(
-          (event: any) => {
-            console.log(event.data.id);
-            if (event.type === HttpEventType.UploadProgress) {
-              this.progress = Math.round(100 * event.loaded / event.total);
-            } else if (event instanceof HttpResponse) {
-              this.message = event.body.message;
-              this.fileInfos = this.uploadService.getFiles();
-            }
-          },
-          (err: any) => {
-            console.log(err);
-            this.progress = 0;
-
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Could not upload the file!';
-            }
-
-            this.currentFile = undefined;
-          });
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.imglink = reader.result;
+          // console.log(this.imglink)
+        };
       }
-
-      this.selectedFiles = undefined;
     }
   }
+
+  onSubmit(): any {
+    if (this.selectedFiles) {
+      this.file = this.selectedFiles.item(0);
+    }
+    this.upload().then(res => {
+      this.http.patch('http://localhost:3000/annonceur/ajoutAnnonce/' + JSON.parse(this.token.getUser()).id, {
+        annonce: {
+          titre: this.form.titre,
+          video: res.uploadedFile.link,
+          tags: this.form.tags
+        }
+      }, {responseType: 'text'}).subscribe(r => {
+        console.log(r);
+        this.flashMessage.show('L\'annonce a bien été publiée. Vous pouvez la visualiser dès maintenant dans vos annonces', {
+          cssClass: 'alert-success p-2',
+          timeout: 7000
+        });
+        this.form.titre = '';
+        this.form.image = '';
+        this.imglink = '';
+        this.successfullyUploaded = true;
+        this.uploading = false;
+      }, error1 => {
+        console.log(error1.message);
+      });
+    }, reason => {
+      console.log(reason);
+    });
+  }
+
+  upload(): Promise<any> {
+    this.uploading = true;
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('uploadedImage', this.file);
+      formData.append('titre', this.form.titre);
+      this.http.post('http://localhost:3000/annonceur/uploadOnImgur', formData).subscribe(
+        res => {
+          resolve(res);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  // const reader = new FileReader();
+  // reader.onload = this._handleReaderLoaded.bind(this);
+  // reader.readAsBinaryString(file);
+  // console.log(this.base64textString);
+  // if (reader.DONE) {
+  //   this.http.post('http://127.0.0.1:3000/annonce/test', {image: this.base64textString}).subscribe(
+  //     (r) => {
+  //       console.log('success');
+  //       console.log(r);
+  //     },
+  //     error => {
+  //       console.log('error');
+  //       console.log(error.message);
+  //     }
+  //   );
+  // }
+
 }

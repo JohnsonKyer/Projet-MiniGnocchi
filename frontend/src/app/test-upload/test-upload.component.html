@@ -1,40 +1,46 @@
-<div class="row">
-  <div class="col-8">
-    <label class="btn btn-default p-0">
-      <input type="file" (change)="selectFile($event)">
-    </label>
+
+
+<div class="container mt-lg-2 p-3">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <header class="card-header">
+          <h4 class="card-title mt-2">Mise en ligne d'une nouvelle annonce</h4>
+        </header>
+        <article class="card-body">
+          <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <div class="form-group">
+              <label>Titre de l'annonce</label>
+              <input type="text" class="form-control" name="titre" [(ngModel)]="form.titre" required #mail="ngModel">
+            </div>
+            <div class="form-group">
+              <label>Tags séparés par une virgule</label>
+              <input type="text" class="form-control" name="tags" [(ngModel)]="form.tags" required>
+            </div>
+            <div class="form-group">
+              <label>Fichier de l'annonce</label>
+              <input type="file" class="form-control" name="image" [(ngModel)]="form.image" required #image="ngModel"
+                     (change)="selectFile($event)">
+            </div>
+            <div class="form-group">
+              <button type="submit" [disabled]="uploading" id="uploadAnnoncebtn" class="btn btn-primary btn-block">Publier l'annonce</button>
+            </div>
+          </form>
+        </article>
+      </div>
+    </div>
+    <div *ngIf="imglink" class="col-md-3">  <div >
+      <img [srcset]="imglink" crossorigin="anonymous" height="256px" width="256px">
+    </div></div>
+  </div>
+  <div class="row justify-content-center" *ngIf="uploading">
+    <img src="assets/loading.gif" alt="loading gif">
   </div>
 
-  <div class="col-4">
-    <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
-      Upload
-    </button>
-  </div>
-</div>
+  <flash-messages></flash-messages>
+<!--  <span *ngIf="successfullyUploaded"  (load)="progressBar.complete()"></span>-->
+<!--  <ng-progress #progressBar></ng-progress>-->
 
-<div *ngIf="currentFile" class="progress my-3">
-  <div
-    class="progress-bar progress-bar-info progress-bar-striped"
-    role="progressbar"
-    attr.aria-valuenow="{{ progress }}"
-    aria-valuemin="0"
-    aria-valuemax="100"
-    [ngStyle]="{ width: progress + '%' }"
-  >
-    {{ progress }}%
-  </div>
-</div>
 
-<div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
 
-<div class="card mt-3">
-  <div class="card-header">List of Files</div>
-  <ul
-    class="list-group list-group-flush"
-    *ngFor="let file of fileInfos | async"
-  >
-    <li class="list-group-item">
-      <a href="{{ file.url }}">{{ file.name }}</a>
-    </li>
-  </ul>
 </div>
