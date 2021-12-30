@@ -15,6 +15,8 @@ import {AnnonceComponent} from './annonce/annonce.component';
 import {AnnonceDetailComponent} from './annonce-detail/annonce-detail.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {
     path: 'register',
     component: RegisterComponent

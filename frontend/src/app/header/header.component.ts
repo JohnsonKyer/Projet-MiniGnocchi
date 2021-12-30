@@ -15,22 +15,27 @@ import {AuthService} from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isCollapsed = true;
-  isLoggedIn = false;
+  grade;
 
-  constructor(private token: TokenStorageService, private router: Router, private authService: AuthService,
+  constructor(private router: Router, private authService: AuthService,
               private tokenStorage: TokenStorageService) {
   }
 
 
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
+  }
+
+  isLoggedIn(): boolean {
+    if (!!this.tokenStorage.getToken()) {
+      this.grade = JSON.parse(this.tokenStorage.getUser()).grade;
+      return true;
     }
+    return false;
   }
 
   onLogout(): void {
     this.authService.logout();
-    this.isLoggedIn = false;
+    this.grade = null;
   }
 
 }

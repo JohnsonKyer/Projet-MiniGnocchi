@@ -13,20 +13,26 @@
             <a class="nav-link" routerLink="/profilUtilisateur" routerLinkActive="active" href="#">Mon profil<span
               class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="grade=='utilisateur'">
             <a class="nav-link" routerLink="/playlist" routerLinkActive="active" href="#">Mes playlists<span
               class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="grade=='utilisateur'">
+            <a class="nav-link" routerLink="/history" routerLinkActive="active" href="#">Historique<span
+              class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item" *ngIf="grade=='annonceur'">
             <a class="nav-link" routerLink="/annonce" routerLinkActive="active" href="#">Mes annonces<span
+
               class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a *ngIf="isLoggedIn" routerLink="/login"  href="#" class="nav-link" (click)=onLogout()>Déconnexion<span
+            <a *ngIf="isLoggedIn()" routerLink="/login" href="#" class="nav-link" (click)=onLogout()>Déconnexion<span
               class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a *ngIf="!isLoggedIn" routerLink="/login"  routerLinkActive="active" href="#" class="nav-link">Connexion<span
+            <a *ngIf="!isLoggedIn()" routerLink="/login" routerLinkActive="active" href="#"
+               class="nav-link">Connexion<span
               class="sr-only">(current)</span></a>
           </li>
         </ul>

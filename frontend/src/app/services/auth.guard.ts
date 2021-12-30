@@ -21,7 +21,6 @@ export class AuthGuard implements CanActivate {
 
   checkLogin(url: string): true | UrlTree {
     if (this.tokenStorage.getToken()) {
-      console.log(this.tokenStorage.getToken());
       return true;
     }
 

@@ -195,6 +195,14 @@ app.patch('/annonceur/retraitAnnonce/:id', (req, res) => {
     })
 })
 
+app.delete('/historique/:id', (req, res) => {
+    Utilisateur.findOneAndUpdate({_id: req.params.id}, {
+        $set: {historique: []}
+    }).then(() => {
+        res.sendStatus(200);
+    })
+})
+
 // Retourne l'annonce par l'id de l'annonce contenue dans le body
 // 'annonces.$':1 retourne le premier champ correspondant à la requête.
 app.get('/annonceur/annonce/:id', (req, res) => {
@@ -214,6 +222,59 @@ app.delete('/annonceur/annonces/:id', (req, res) => {
     }).then(() => {
         res.sendStatus(200);
     })
+// app.post('/utilisateurs/inscription', async(req, res) => {
+//     const { mail, mdp, genre, date, grade } = req.body
+//     if (!(mail && mdp && genre && date && grade)) {
+//         res.status(400).send("Tous les champs n'ont pas été remplis");
+//     }
+//     const utilisateur_existant = await Utilisateur.findOne({ mail });
+//     if (utilisateur_existant) {
+//         return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
+//     }
+//     const utilisateur = new Utilisateur({ mail, mdp: await bcrypt.hash(mdp, 10), genre, date, grade })
+//     utilisateur.save().then(() => {
+//         res.sendStatus(200)
+//     })
+
+//     // let newPlaylist = new Playlist({
+//     //     titre,
+//     //     idVideos,
+//     //     idUtilisateur
+//     // })
+//     // newPlaylist.save().then((PlaylistDoc) => {
+//     //     res.send(PlaylistDoc)
+//     // })
+
+// })
+
+// app.post('/utilisateurs/inscription', async(req, res) => {
+//     const { mail, mdp, genre, date, grade } = req.body
+//     if (!(mail && mdp && genre && date && grade)) {
+//         res.status(400).send("Tous les champs n'ont pas été remplis");
+//     }
+//     const utilisateur_existant = await Utilisateur.findOne({ mail });
+//     if (utilisateur_existant) {
+//         return res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
+//     }
+//     const utilisateur = new Utilisateur({ mail, mdp: await bcrypt.hash(mdp, 10), genre, date, grade })
+//     utilisateur.save().then(() => {
+//         res.sendStatus(200)
+//     })
+
+//     // let newPlaylist = new Playlist({
+//     //     titre,
+//     //     idVideos,
+//     //     idUtilisateur
+//     // })
+//     // newPlaylist.save().then((PlaylistDoc) => {
+//     //     res.send(PlaylistDoc)
+//     // })
+
+// })
+app.post('/uploadImage', async (req, res) => {
+    let image = req.body.image;
+    let url = await uploadImage(image)
+    res.send(url)
 })
 
 
