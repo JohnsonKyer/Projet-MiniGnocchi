@@ -5,6 +5,22 @@
       allowfullscreen></iframe>
     <h4>{{title}}</h4>
   </div>
+<button hidden id="buttonpopup" #buttonpopup (click)="popupannonce.show()" ></button>
+  <div mdbModal #popupannonce="mdbModal" class="modal fade left" id="popupannonce" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="overflow:inherit">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">{{annonce.titre}}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeAnnonce()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <img src="{{annonce.video}}">
+      </div>
+
+    </div>
+  </div>
   <div class="right">
     <button [hidden]="del" ngbDropdownItem type="button" mdbBtn color="default" rounded="true" data-toggle="modal"
       data-target="#basicExample" (click)="deleteVideo()" mdbWavesEffect>Supprimer la vidéo de votre playlist</button>
