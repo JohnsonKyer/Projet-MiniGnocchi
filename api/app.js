@@ -135,10 +135,12 @@ app.post('/annonceur/inscription', async (req, res) => {
 // GET toutes les annonces d'un annonceur
 app.get('/annonceur/annonces/:id', async (req, res) => {
     Annonceur.find({_id: req.params.id}).then((annonceur) => {
-        res.send(annonceur[0].annonces)
+        if (annonceur[0])
+            res.send(annonceur[0].annonces)
+        res.send("")
     })
 
-})
+});
 const ImgurStorage = require('multer-storage-imgur');
 const multer = require('multer');
 const upload = multer({
