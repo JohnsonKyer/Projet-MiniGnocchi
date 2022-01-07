@@ -140,9 +140,9 @@ app.get('/annonceur/annonces/:id', async (req, res) => {
 });
 
 app.get('/annonceur/annoncealeatoire', async (req, res) => {
-    Annonceur.count({suspendu: undefined}).then((count) => {
+    Annonceur.count({suspendu: null}).then((count) => {
         let random = Math.floor(Math.random() * count);
-        Annonceur.find({suspendu: undefined}).skip(random).then((annonceur) => {
+        Annonceur.find({suspendu: null}).skip(random).then((annonceur) => {
             let random = Math.floor(Math.random() * annonceur[0].annonces.length);
             res.send(annonceur[0].annonces[random]);
             addImpression(annonceur[0].annonces[random]._id)
