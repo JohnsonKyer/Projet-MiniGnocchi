@@ -348,6 +348,28 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
     res.sendStatus(200)
 };
 
+// Requêtes en rapport avec la modération
+
+app.patch("/moderateur/banUtilisateur/:id", ((req, res) => {
+    Utilisateur.findOne({_id: req.params.id}).then((utilisateur => {
+        if (utilisateur) {
+            if (utilisateur.suspendu instanceof Date)
+                res.send("Annonceur déjà banni").status(400)
+            else Utilisateur.findOneAndUpdate({_id: req.params.id}, {$currentDate: {suspendu: true}}).then(
+                res.sendStatus(200))
+        } else
+            res.send("Annonceur introuvable").status(400)
+    }));
+}))
+app.patch("/moderateur/debanUtilisateur/:id", ((req, res) => {
+    Utilisateur.findOne({_id: req.params.id}).then((utilisateur => {
+        if (!(utilisateur.suspendu instanceof Date))
+            res.send("Annonceur déjà débanni").status(400);
+        else Utilisateur.findOneAndUpdate({_id: req.params.id}, {$set: {suspendu: null}}).then(
+            res.sendStatus(200))
+    }));
+}))
+
 
 app.listen(3000, () => {
     console.log("Serveur UP sur le port 3000");
