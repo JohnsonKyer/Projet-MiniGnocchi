@@ -1,35 +1,29 @@
 const config = require("../config/auth.config");
-const { Playlist, Annonce, Utilisateur, Annonceur, Video } = require('../db/models/index')
+const {Playlist, Annonce, Utilisateur, Annonceur, Video} = require('../db/models/index')
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-signup = async(req, res) => {
-    const { mail, mdp, genre, date, grade } = req.body
+signup = async (req, res) => {
+    const {mail, mdp, genre, date, grade} = req.body
     if (!(mail && mdp && genre && date && grade)) {
         res.status(400).send("Tous les champs n'ont pas été remplis");
     }
-    const utilisateur_existant = await Utilisateur.findOne({ mail });
+    const utilisateur_existant = await Utilisateur.findOne({mail});
     if (utilisateur_existant) {
         res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
     }
-    const utilisateur = new Utilisateur({ mail: mail, mdp: await bcrypt.hash(mdp, 10), genre: genre, date: date, grade: grade })
+    const utilisateur = new Utilisateur({
+        mail: mail,
+        mdp: await bcrypt.hash(mdp, 10),
+        genre: genre,
+        date: date,
+        grade: grade,
+        suspendu: null
+    })
     utilisateur.save().then(() => {
         res.sendStatus(200)
     })
-
-    // const user = new Utilisateur({
-    //     username: req.body.username,
-    //     email: req.body.email,
-    //     password: bcrypt.hashSync(req.body.password, 8)
-    // });
-
-    // user.save((err, user) => {
-    //     if (err) {
-    //         res.status(500).send({ message: err });
-    //         return;
-    //     }
-    // });
 };
 
 signin = (req, res) => {
@@ -37,12 +31,12 @@ signin = (req, res) => {
         mail: req.body.mail
     }).exec((err, user) => {
         if (err) {
-            res.status(500).send({ message: err });
+            res.status(500).send({message: err});
             return;
         }
 
         if (!user) {
-            return res.status(404).send({ message: "Mail introuvable", reason: "mail" });
+            return res.status(404).send({message: "Mail introuvable", reason: "mail"});
         }
         var passwordIsValid = bcrypt.compareSync(
             req.body.mdp,
@@ -57,7 +51,7 @@ signin = (req, res) => {
             });
         }
 
-        var token = jwt.sign({ id: user.id }, config.secret, {
+        var token = jwt.sign({id: user.id}, config.secret, {
             expiresIn: 86400 // 24 hours
         });
         return res.status(200).send({
@@ -82,4 +76,4 @@ moderateurAcces = (req, res) => {
 };
 
 
-module.exports = { signin, signup, utilisateurAcces, annonceurAcces, moderateurAcces }
+module.exports = {signin, signup, utilisateurAcces, annonceurAcces, moderateurAcces}
