@@ -36,7 +36,7 @@ export class WatchVideoPlaylistComponent implements OnInit {
       .subscribe(params => {
         this.id = params.id;
         this.idPlaylist = params.idPlaylist;
-        if (params.del == 1) {
+        if (params.del === 1) {
           this.del = 1;
           this.addPlaylist = 0;
           console.log(params);
@@ -81,16 +81,12 @@ export class WatchVideoPlaylistComponent implements OnInit {
   }
 
   getAnnonce(): void {
+    // L'annonce est affichée 1 fois sur 3
     if (Math.floor(Math.random() * 3) === 0) {
       this.httpClient.get(this.urlAnnonceAleatoire).subscribe(res => {
         this.annonce = res;
-        ($('#popupannonce') as any).modal('show');
+        document.getElementById('buttonpopup').click();
       });
     }
-  } 
-
-  closeAnnonce(): void {
-    ($('#popupannonce') as any).modal('hide');
-
   }
 }
