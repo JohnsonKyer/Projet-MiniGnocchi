@@ -351,7 +351,7 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
 // Requêtes en rapport avec la modération
 
 // Bannir un utilisateur par son ID.
-app.patch("/moderateur/banUtilisateur/:id", ((req, res) => {
+app.patch('/moderateur/banUtilisateur/:id',  (req, res) => {
     Utilisateur.findOne({_id: req.params.id}).then((utilisateur => {
         if (utilisateur) {
             if (utilisateur.suspendu instanceof Date)
@@ -361,10 +361,10 @@ app.patch("/moderateur/banUtilisateur/:id", ((req, res) => {
         } else
             res.send("Annonceur introuvable").status(400)
     }));
-}))
+})
 
 // Débannir un utilisateur par son ID.
-app.patch("/moderateur/debanUtilisateur/:id", ((req, res) => {
+app.patch("/moderateur/debanUtilisateur/:id", (req, res) => {
     Utilisateur.findOne({_id: req.params.id}).then((utilisateur => {
         if (!(utilisateur.suspendu instanceof Date))
             res.send("Annonceur déjà débanni").status(400);
@@ -376,20 +376,19 @@ app.patch("/moderateur/debanUtilisateur/:id", ((req, res) => {
 // Liste des utilisateurs bannis.
 app.get("/moderateur/listebannis", (req, res) => {
     Utilisateur.find({suspendu: {$ne: null}}).then(utilisateurs => {
-            let utilisateursbannis = [];
-            let utilisateurbanni;
-            // Pour chaque utilisateur banni, on récupère uniquement les informations dont on a besoin.
-            for (const utilisateursKey in utilisateurs) {
-                utilisateurbanni = {
-                    _id: utilisateurs[utilisateursKey]._id,
-                    mail: utilisateurs[utilisateursKey].mail,
-                    suspendu: utilisateurs[utilisateursKey].suspendu,
-                }
-                utilisateursbannis.push(utilisateurbanni);
+        let utilisateursbannis = [];
+        let utilisateurbanni;
+        // Pour chaque utilisateur banni, o²n récupère uniquement les informations dont on a besoin.
+        for (const utilisateursKey in utilisateurs) {
+            utilisateurbanni = {
+                _id: utilisateurs[utilisateursKey]._id,
+                mail: utilisateurs[utilisateursKey].mail,
+                suspendu: utilisateurs[utilisateursKey].suspendu,
             }
-            res.send(utilisateursbannis);
+            utilisateursbannis.push(utilisateurbanni);
         }
-    )
+        res.send(utilisateursbannis);
+    })
 })
 
 app.listen(3000, () => {
