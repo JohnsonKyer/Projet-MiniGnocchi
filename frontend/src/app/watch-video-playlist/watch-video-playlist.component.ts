@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { FlashMessagesService } from "angular2-flash-messages";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-watch-video-playlist',
@@ -17,8 +18,8 @@ export class WatchVideoPlaylistComponent implements OnInit {
   urlSafe: SafeResourceUrl;
   del: number = 0;
   addPlaylist: number = 1;
-  url: string = 'http://127.0.0.1:3000/playlistsRetrait/';
-  urlGetVideo: string = 'http://127.0.0.1:3000/getVideoByIdVideo/';
+  url: string = environment.debutBackend + '/playlistsRetrait/';
+  urlGetVideo: string = environment.debutBackend + '/getVideoByIdVideo/';
   test: any;
   miniature: string;
 

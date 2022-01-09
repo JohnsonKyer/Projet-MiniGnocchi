@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {TokenStorageService} from '../services/token-storage.service';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-annonce',
@@ -10,10 +11,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./annonce.component.scss']
 })
 export class AnnonceComponent implements OnInit {
-  url = 'http://127.0.0.1:3000/annonceur/annonces/';
-  urlNewAnnonce = 'http://127.0.0.1:3000/annonceur/ajoutAnnonce/';
-  urlDelAnnonce = 'http://127.0.0.1:3000/annonceur/retraitAnnonce/';
-  urlRenameAnnonce = 'http://127.0.0.1:3000/annonceur/renameAnnonce/';
+  url = environment.debutBackend + '/annonceur/annonces/';
+  urlDelAnnonce = environment.debutBackend + '/annonceur/retraitAnnonce/';
+  urlRenameAnnonce = environment.debutBackend + '/annonceur/renameAnnonce/';
   id: string;
   validatingForm: FormGroup;
   annonces;
@@ -45,7 +45,7 @@ export class AnnonceComponent implements OnInit {
     return this.validatingForm.get('nameAnnonce');
   }
 
-  get newNameAnnonce(): any{
+  get newNameAnnonce(): any {
     return this.validatingForm.get('newNameAnnonce');
   }
 

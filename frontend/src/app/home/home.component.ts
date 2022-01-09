@@ -3,6 +3,7 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {HttpClient} from "@angular/common/http";
 import {TokenStorageService} from "../services/token-storage.service";
 import {Router} from "@angular/router";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   link: string;
   idVideo: string;
   urlSafe: SafeResourceUrl;
-  urlHistory: string = 'http://127.0.0.1:3000/historique/';
+  urlHistory: string = environment.debutBackend + '/historique/';
 
 
   constructor(public sanitizer: DomSanitizer,private httpClient: HttpClient,private token: TokenStorageService,private router: Router) { }

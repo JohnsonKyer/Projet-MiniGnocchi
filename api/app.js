@@ -10,7 +10,12 @@ app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
 const path = require('path')
-app.use(express.static(path.join(__dirname, '../frontend/build')))
+
+app.use(express.static(process.cwd()+"/dist/frontend/"));
+app.get('/', (req,res) => {
+    res.sendFile(process.cwd()+"/dist/frontend/index.html")
+});
+
 
 const {mongoose} = require('./db/mongoose')
 bcrypt = require('bcrypt')
@@ -350,7 +355,11 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
     res.sendStatus(200)
 };
 
+app.get('*',(req,res) =>{
+    res.sendFile(path.join(__dirname,'dist/frontend/index.html'));
+});
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log("Serveur UP sur le port : " + process.env.PORT || 3000);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log("Serveur UP sur le port : " + port);
 });

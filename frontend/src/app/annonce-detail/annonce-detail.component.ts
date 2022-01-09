@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {TokenStorageService} from "../services/token-storage.service";
 import {ActivatedRoute} from "@angular/router";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-annonce-detail',
@@ -27,7 +28,7 @@ export class AnnonceDetailComponent implements OnInit {
     this.route.queryParams.subscribe(r => {
       this.id = r.id;
     });
-    this.http.get('http://127.0.0.1:3000/annonceur/annonce/' + this.id).subscribe(
+    this.http.get(environment.debutBackend + '/annonceur/annonce/' + this.id).subscribe(
       (r: any) => {
         this.annonce = {
           titre: r.titre,

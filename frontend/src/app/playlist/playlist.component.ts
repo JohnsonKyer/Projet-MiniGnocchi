@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { TokenStorageService } from "../services/token-storage.service";
-import { Router } from "@angular/router";
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {TokenStorageService} from "../services/token-storage.service";
+import {Router} from "@angular/router";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-playlist',
@@ -10,14 +11,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnInit {
-  url: string = 'http://127.0.0.1:3000/playlistsFromUser/';
-  urlNewPlaylist: string = 'http://127.0.0.1:3000/playlists';
-  urlRenamePlaylist: string = 'http://127.0.0.1:3000/playlistsRename/';
-  id:string;
+  url: string = environment.debutBackend + '/playlistsFromUser/';
+  urlNewPlaylist: string = environment.debutBackend + '/playlists';
+  urlRenamePlaylist: string = environment.debutBackend + '/playlistsRename/';
+  id: string;
 
   validatingForm: FormGroup;
   playlists: any;
-  constructor(private httpClient: HttpClient, private token: TokenStorageService, private router: Router) { }
+
+  constructor(private httpClient: HttpClient, private token: TokenStorageService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.httpClient
@@ -38,12 +41,13 @@ export class PlaylistComponent implements OnInit {
   }
 
   playlist(id: string, titre: string): void {
-    this.router.navigate(['/videoPlaylist'], { queryParams: { id: id, titre: titre } });
+    this.router.navigate(['/videoPlaylist'], {queryParams: {id: id, titre: titre}});
   }
 
   get namePlaylist() {
     return this.validatingForm.get('namePlaylist');
   }
+
   get newNamePlaylist() {
     return this.validatingForm.get('newNamePlaylist');
   }
@@ -63,9 +67,10 @@ export class PlaylistComponent implements OnInit {
         }
       );
   }
-  deletePlaylist(id:string): void{
+
+  deletePlaylist(id: string): void {
     this.httpClient
-      .delete(this.urlNewPlaylist+"/"+id, {responseType: 'text'})
+      .delete(this.urlNewPlaylist + "/" + id, {responseType: 'text'})
       .subscribe(
         () => {
           this.ngOnInit()
@@ -75,12 +80,14 @@ export class PlaylistComponent implements OnInit {
         }
       );
   }
-  setId(id:string): void{
-    this.id=id;
+
+  setId(id: string): void {
+    this.id = id;
   }
-  renamePlaylist(): void{
+
+  renamePlaylist(): void {
     this.httpClient
-      .patch(this.urlRenamePlaylist+this.id,{titre:this.newNamePlaylist.value}, {responseType: 'text'})
+      .patch(this.urlRenamePlaylist + this.id, {titre: this.newNamePlaylist.value}, {responseType: 'text'})
       .subscribe(
         () => {
           this.ngOnInit()

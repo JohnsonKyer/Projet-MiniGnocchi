@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {HttpClient} from "@angular/common/http";
 import {TokenStorageService} from "../services/token-storage.service";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-history',
@@ -18,8 +19,8 @@ export class HistoryComponent implements OnInit {
   link: string;
   urlSafe: SafeResourceUrl;
   titrePlaylist: string;
-  urlHistory: string = 'http://127.0.0.1:3000/historique/';
-  url: string = 'http://127.0.0.1:3000/historique/';
+  urlHistory: string = environment.debutBackend + '/historique/';
+  url: string = environment.debutBackend + '/historique/';
 
   constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer, private httpClient: HttpClient, private router: Router,private token: TokenStorageService) { }
 
