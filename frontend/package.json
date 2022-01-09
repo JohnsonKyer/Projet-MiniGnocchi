@@ -1,4 +1,5 @@
 {
+  "proxy": "http://localhost:4200",
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
@@ -12,6 +13,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.2.7",
+    "@angular/cli": "~11.2.6",
     "@angular/cdk": "^9.0.0",
     "@angular/common": "~11.2.7",
     "@angular/compiler": "~11.2.7",
@@ -38,7 +40,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.6",
-    "@angular/cli": "~11.2.6",
     "@angular/compiler-cli": "~11.2.7",
     "@types/jasmine": "~3.6.0",
     "@types/jquery": "^3.5.9",
