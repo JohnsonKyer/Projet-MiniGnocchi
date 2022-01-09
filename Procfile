@@ -1,1 +1,1 @@
-worker: nodemon api/app.js
+web: node api/app.js
