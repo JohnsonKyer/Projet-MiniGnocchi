@@ -9,6 +9,8 @@ var bcrypt = require("bcryptjs");
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
+const path = require('path')
+app.use(express.static(path.join(__dirname, '../frontend/build')))
 
 const {mongoose} = require('./db/mongoose')
 bcrypt = require('bcrypt')
