@@ -18,7 +18,6 @@ app.get('/', (req,res) => {
 
 
 const {mongoose} = require('./db/mongoose')
-bcrypt = require('bcrypt')
 const {Playlist, Annonce, Utilisateur, Annonceur, Video} = require('./db/models')
 const {searchVideos, getTagsByIdVideo, getVideoByIdVideo, TendanceVideos} = require('./youtubeApi')
 const {uploadImage} = require('./imgurApi')
