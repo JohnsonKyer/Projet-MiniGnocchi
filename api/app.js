@@ -11,9 +11,9 @@ app.use(express.urlencoded({limit: '50mb'}));
 
 const path = require('path')
 
-app.use(express.static(process.cwd()+"/dist/frontend/"));
-app.get('/', (req,res) => {
-    res.sendFile(process.cwd()+"/dist/frontend/index.html")
+app.use(express.static(process.cwd() + "/dist/frontend/"));
+app.get('/', (req, res) => {
+    res.sendFile(process.cwd() + "/dist/frontend/index.html")
 });
 
 
@@ -143,7 +143,8 @@ app.get('/annonceur/annonces/:id', async (req, res) => {
     Annonceur.find({_id: req.params.id}).then((annonceur) => {
         if (annonceur[0])
             res.send(annonceur[0].annonces)
-        res.send("")
+        else
+            res.sendStatus(400)
     })
 
 });
@@ -357,7 +358,7 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
 // Requêtes en rapport avec la modération
 
 // Bannir un utilisateur par son ID.
-app.patch('/moderateur/banUtilisateur/:id',  (req, res) => {
+app.patch('/moderateur/banUtilisateur/:id', (req, res) => {
     Utilisateur.findOne({_id: req.params.id}).then((utilisateur => {
         if (utilisateur) {
             if (utilisateur.suspendu instanceof Date)
@@ -398,8 +399,8 @@ app.get("/moderateur/listebannis", (req, res) => {
 })
 
 
-app.get('*',(req,res) =>{
-    res.sendFile(path.join(__dirname,'dist/frontend/index.html'));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/frontend/index.html'));
 });
 
 const port = process.env.PORT || 3000;
