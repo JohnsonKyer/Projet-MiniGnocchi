@@ -371,7 +371,7 @@ app.patch("/moderateur/debanUtilisateur/:id", (req, res) => {
         else Utilisateur.findOneAndUpdate({_id: req.params.id}, {$set: {suspendu: null}}).then(
             res.sendStatus(200))
     }));
-}))
+})
 
 // Liste des utilisateurs bannis.
 app.get("/moderateur/listebannis", (req, res) => {
