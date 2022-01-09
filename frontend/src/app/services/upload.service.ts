@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TokenStorageService} from './token-storage.service';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService {
-  baseUrl = 'http://localhost:3000';
+  baseUrl = environment.debutBackend ;
   private base64textString: string;
 
   constructor(private http: HttpClient, private token: TokenStorageService) {

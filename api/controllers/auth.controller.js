@@ -13,6 +13,7 @@ signup = async (req, res) => {
     if (utilisateur_existant) {
         res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
     }
+  
     let newUtilisateur;
     if (grade === 'utilisateur')
         newUtilisateur = new Utilisateur({
@@ -33,19 +34,6 @@ signup = async (req, res) => {
     newUtilisateur.save().then(() => {
         res.sendStatus(200)
     })
-
-    // const user = new Utilisateur({
-    //     username: req.body.username,
-    //     email: req.body.email,
-    //     password: bcrypt.hashSync(req.body.password, 8)
-    // });
-
-    // user.save((err, user) => {
-    //     if (err) {
-    //         res.status(500).send({ message: err });
-    //         return;
-    //     }
-    // });
 };
 
 signin = (req, res) => {

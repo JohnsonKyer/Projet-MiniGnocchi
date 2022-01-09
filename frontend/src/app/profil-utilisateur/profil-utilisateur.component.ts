@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {TokenStorageService} from '../services/token-storage.service';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-profil-utilisateur',
@@ -31,7 +32,7 @@ export class ProfilUtilisateurComponent implements OnInit {
   onSubmitMdp(): void {
     const {mdp} = this.form;
     console.log(mdp);
-    this.http.patch('http://127.0.0.1:3000/utilisateurs/modificationmdp/' + JSON.parse(this.token.getUser()).id, {
+    this.http.patch(environment.debutBackend + '/utilisateurs/modificationmdp/' + JSON.parse(this.token.getUser()).id, {
       mdp
     }, {responseType: 'text'}).subscribe(data => {
         this.isMdpSuccessful = true;
@@ -50,7 +51,7 @@ export class ProfilUtilisateurComponent implements OnInit {
   onSubmitMail(): void {
     const {mail} = this.form2;
     console.log(mail);
-    this.http.patch('http://localhost:3000/utilisateurs/modificationmail/' + JSON.parse(this.token.getUser()).id, {
+    this.http.patch(environment.debutBackend + '/utilisateurs/modificationmail/' + JSON.parse(this.token.getUser()).id, {
       mail
     }, {responseType: 'text'}).subscribe(data => {
         this.isMailSuccessful = true;

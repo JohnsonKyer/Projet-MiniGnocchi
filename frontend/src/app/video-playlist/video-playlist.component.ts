@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { HttpClient } from "@angular/common/http";
 import {TokenStorageService} from "../services/token-storage.service";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-video-playlist',
@@ -18,8 +19,8 @@ export class VideoPlaylistComponent implements OnInit {
   link: string;
   urlSafe: SafeResourceUrl;
   titrePlaylist: string;
-  url: string = 'http://127.0.0.1:3000/playlists/';
-  urlHistory: string = 'http://127.0.0.1:3000/historique/';
+  url: string = environment.debutBackend + '/playlists/';
+  urlHistory: string = environment.debutBackend + '/historique/';
 
 
 

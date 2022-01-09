@@ -8,9 +8,15 @@ const {authJwt} = require("./middlewares");
 var bcrypt = require("bcryptjs");
 app.use(express.json({limit: '50mb'}));
 
+const path = require('path')
+
+app.use(express.static(process.cwd() + "/dist/frontend/"));
+app.get('/', (req, res) => {
+    res.sendFile(process.cwd() + "/dist/frontend/index.html")
+});
+
 
 const {mongoose} = require('./db/mongoose')
-bcrypt = require('bcrypt')
 const {Playlist, Annonce, Utilisateur, Annonceur, Video} = require('./db/models')
 const {searchVideos, getTagsByIdVideo, getVideoByIdVideo, TendanceVideos} = require('./youtubeApi')
 const {uploadImage} = require('./imgurApi')
@@ -134,7 +140,10 @@ app.post('/annonceur/inscription', async (req, res) => {
 // GET toutes les annonces d'un annonceur
 app.get('/annonceur/annonces/:id', async (req, res) => {
     Annonceur.find({_id: req.params.id}).then((annonceur) => {
-        res.send(annonceur[0].annonces)
+        if (annonceur[0])
+            res.send(annonceur[0].annonces)
+        else
+            res.sendStatus(400)
     })
 
 });
@@ -363,7 +372,55 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
     res.sendStatus(200)
 };
 
+// Requêtes en rapport avec la modération
 
-app.listen(3000, () => {
-    console.log("Serveur UP sur le port 3000");
+// Bannir un utilisateur par son ID.
+app.patch('/moderateur/banUtilisateur/:id', (req, res) => {
+    Utilisateur.findOne({_id: req.params.id}).then((utilisateur => {
+        if (utilisateur) {
+            if (utilisateur.suspendu instanceof Date)
+                res.send("Annonceur déjà banni").status(400)
+            else Utilisateur.findOneAndUpdate({_id: req.params.id}, {$currentDate: {suspendu: true}}).then(
+                res.sendStatus(200))
+        } else
+            res.send("Annonceur introuvable").status(400)
+    }));
+})
+
+// Débannir un utilisateur par son ID.
+app.patch("/moderateur/debanUtilisateur/:id", (req, res) => {
+    Utilisateur.findOne({_id: req.params.id}).then((utilisateur => {
+        if (!(utilisateur.suspendu instanceof Date))
+            res.send("Annonceur déjà débanni").status(400);
+        else Utilisateur.findOneAndUpdate({_id: req.params.id}, {$set: {suspendu: null}}).then(
+            res.sendStatus(200))
+    }));
+})
+
+// Liste des utilisateurs bannis.
+app.get("/moderateur/listebannis", (req, res) => {
+    Utilisateur.find({suspendu: {$ne: null}}).then(utilisateurs => {
+        let utilisateursbannis = [];
+        let utilisateurbanni;
+        // Pour chaque utilisateur banni, o²n récupère uniquement les informations dont on a besoin.
+        for (const utilisateursKey in utilisateurs) {
+            utilisateurbanni = {
+                _id: utilisateurs[utilisateursKey]._id,
+                mail: utilisateurs[utilisateursKey].mail,
+                suspendu: utilisateurs[utilisateursKey].suspendu,
+            }
+            utilisateursbannis.push(utilisateurbanni);
+        }
+        res.send(utilisateursbannis);
+    })
+})
+
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/frontend/index.html'));
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log("Serveur UP sur le port : " + port);
 });

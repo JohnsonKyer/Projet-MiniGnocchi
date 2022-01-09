@@ -1,8 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {ActivatedRoute} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {FlashMessagesService} from 'angular2-flash-messages';
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from "@angular/common/http";
+import { FlashMessagesService } from "angular2-flash-messages";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-watch-video-playlist',
@@ -17,11 +18,10 @@ export class WatchVideoPlaylistComponent implements OnInit {
   link: string;
   idPlaylist: string;
   urlSafe: SafeResourceUrl;
-  del = 0;
-  addPlaylist = 1;
-  url = 'http://127.0.0.1:3000/playlistsRetrait/';
-  urlGetVideo = 'http://127.0.0.1:3000/getVideoByIdVideo/';
-  urlAnnonceAleatoire = 'http://127.0.0.1:3000/annonceur/annoncealeatoire';
+  del: number = 0;
+  addPlaylist: number = 1;
+  url: string = environment.debutBackend + '/playlistsRetrait/';
+  urlGetVideo: string = environment.debutBackend + '/getVideoByIdVideo/';
   test: any;
   miniature: string;
   annonce: any;
