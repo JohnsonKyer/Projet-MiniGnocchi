@@ -13,6 +13,7 @@ import {ReverseAuthGuard} from './services/reverse-auth.guard';
 import {TestUploadComponent} from './test-upload/test-upload.component';
 import {AnnonceComponent} from './annonce/annonce.component';
 import {AnnonceDetailComponent} from './annonce-detail/annonce-detail.component';
+import {ModerateurComponent} from "./moderateur/moderateur.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -44,7 +45,8 @@ const routes: Routes = [
     component: HistoryComponent
   }, {
     path: 'profilUtilisateur', canActivate: [AuthGuard], component: ProfilUtilisateurComponent
-  }];
+  },
+  {path: 'moderation', component: ModerateurComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

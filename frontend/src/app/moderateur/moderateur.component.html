@@ -1,0 +1,31 @@
+<h2>Vue modérateur</h2>
+<div class="container p-3">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Mail de l'utilisateur</th>
+      <th scope="col">Suspendu</th>
+      <th scope="col">Date de bannissement</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="utilisateurs" *ngFor="let utilisateur of utilisateurs" id="{{utilisateur._id}}">
+      <th scope="row">{{utilisateur.mail}}</th>
+      <td *ngIf="utilisateur.suspendu !== null; else notbanned">Banni</td>
+      <td>{{utilisateur.suspendu}}</td>
+      <td>
+        <button class="btn btn-primary mx-1" *ngIf="utilisateur.suspendu === null" (click)="ban(utilisateur._id)">
+          Bannir
+        </button>
+        <button class="btn btn-primary mx-1" *ngIf="utilisateur.suspendu !== null" (click)="deban(utilisateur._id)">
+          Débannir
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #notbanned>
+  <td>Non banni</td>
+</ng-template>

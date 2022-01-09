@@ -354,6 +354,50 @@ app.get("/api/test/admin", [authJwt.verifToken, authJwt.isAnnonceur], controller
     res.sendStatus(200)
 };
 
+// Requêtes en rapport avec la modération
+
+// Bannir un utilisateur par son ID.
+app.patch('/moderateur/banUtilisateur/:id',  (req, res) => {
+    Utilisateur.findOne({_id: req.params.id}).then((utilisateur => {
+        if (utilisateur) {
+            if (utilisateur.suspendu instanceof Date)
+                res.send("Annonceur déjà banni").status(400)
+            else Utilisateur.findOneAndUpdate({_id: req.params.id}, {$currentDate: {suspendu: true}}).then(
+                res.sendStatus(200))
+        } else
+            res.send("Annonceur introuvable").status(400)
+    }));
+})
+
+// Débannir un utilisateur par son ID.
+app.patch("/moderateur/debanUtilisateur/:id", (req, res) => {
+    Utilisateur.findOne({_id: req.params.id}).then((utilisateur => {
+        if (!(utilisateur.suspendu instanceof Date))
+            res.send("Annonceur déjà débanni").status(400);
+        else Utilisateur.findOneAndUpdate({_id: req.params.id}, {$set: {suspendu: null}}).then(
+            res.sendStatus(200))
+    }));
+})
+
+// Liste des utilisateurs bannis.
+app.get("/moderateur/listebannis", (req, res) => {
+    Utilisateur.find({suspendu: {$ne: null}}).then(utilisateurs => {
+        let utilisateursbannis = [];
+        let utilisateurbanni;
+        // Pour chaque utilisateur banni, o²n récupère uniquement les informations dont on a besoin.
+        for (const utilisateursKey in utilisateurs) {
+            utilisateurbanni = {
+                _id: utilisateurs[utilisateursKey]._id,
+                mail: utilisateurs[utilisateursKey].mail,
+                suspendu: utilisateurs[utilisateursKey].suspendu,
+            }
+            utilisateursbannis.push(utilisateurbanni);
+        }
+        res.send(utilisateursbannis);
+    })
+})
+
+
 app.get('*',(req,res) =>{
     res.sendFile(path.join(__dirname,'dist/frontend/index.html'));
 });

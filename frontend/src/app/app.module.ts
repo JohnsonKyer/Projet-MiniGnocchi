@@ -29,6 +29,7 @@ import {HistoryComponent} from './history/history.component';
 import { TestUploadComponent } from './test-upload/test-upload.component';
 import { AnnonceComponent } from './annonce/annonce.component';
 import { AnnonceDetailComponent } from './annonce-detail/annonce-detail.component';
+import { ModerateurComponent } from './moderateur/moderateur.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { AnnonceDetailComponent } from './annonce-detail/annonce-detail.componen
     TestUploadComponent,
     AnnonceComponent,
     AnnonceDetailComponent,
+    ModerateurComponent,
   ],
   imports: [
     BrowserModule,
