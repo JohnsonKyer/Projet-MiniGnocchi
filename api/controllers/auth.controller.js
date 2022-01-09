@@ -13,15 +13,25 @@ signup = async (req, res) => {
     if (utilisateur_existant) {
         res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
     }
-    const utilisateur = new Utilisateur({
-        mail: mail,
-        mdp: await bcrypt.hash(mdp, 10),
-        genre: genre,
-        date: date,
-        grade: grade,
-        suspendu: null
-    })
-    utilisateur.save().then(() => {
+  
+    let newUtilisateur;
+    if (grade === 'utilisateur')
+        newUtilisateur = new Utilisateur({
+            mail: mail,
+            mdp: await bcrypt.hash(mdp, 10),
+            genre: genre,
+            date: date,
+            grade: grade
+        })
+    else
+        newUtilisateur = new Annonceur({
+            mail: mail,
+            mdp: await bcrypt.hash(mdp, 10),
+            genre: genre,
+            date: date,
+            grade: grade
+        })
+    newUtilisateur.save().then(() => {
         res.sendStatus(200)
     })
 };

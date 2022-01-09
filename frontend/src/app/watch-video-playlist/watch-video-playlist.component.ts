@@ -11,6 +11,8 @@ import {environment} from "../../environments/environment";
   styleUrls: ['./watch-video-playlist.component.scss']
 })
 export class WatchVideoPlaylistComponent implements OnInit {
+  @ViewChild('buttonpopup') buttonpopup: ElementRef;
+
   id: string;
   title: string;
   link: string;
@@ -22,27 +24,31 @@ export class WatchVideoPlaylistComponent implements OnInit {
   urlGetVideo: string = environment.debutBackend + '/getVideoByIdVideo/';
   test: any;
   miniature: string;
+  annonce: any;
 
-  constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer, private httpClient: HttpClient, private flashMessage: FlashMessagesService) { }
+  constructor(private route: ActivatedRoute, public sanitizer: DomSanitizer, private httpClient: HttpClient,
+              private flashMessage: FlashMessagesService) {
+  }
 
   ngOnInit(): void {
+    this.getAnnonce();
     this.route.queryParams
       .subscribe(params => {
         this.id = params.id;
         this.idPlaylist = params.idPlaylist;
-        if(params.del==1){
-          this.del=1;
-          this.addPlaylist=0;
-          console.log(params)
+        if (params.del === 1) {
+          this.del = 1;
+          this.addPlaylist = 0;
+          console.log(params);
         }
-      })
+      });
     this.httpClient
-      .get(this.urlGetVideo+this.id)
+      .get(this.urlGetVideo + this.id)
       .subscribe(
         (data) => {
-          this.test=data
-          this.miniature=this.test.miniature
-          this.title=this.test.title
+          this.test = data;
+          this.miniature = this.test.miniature;
+          this.title = this.test.title;
         },
         (error) => {
           console.log('Erreur ! : ' + error);
@@ -50,8 +56,7 @@ export class WatchVideoPlaylistComponent implements OnInit {
       );
 
 
-
-    this.link = "https://www.youtube.com/embed/" + this.id;
+    this.link = 'https://www.youtube.com/embed/' + this.id;
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.link);
 
   }
@@ -60,15 +65,28 @@ export class WatchVideoPlaylistComponent implements OnInit {
     this.httpClient
       .patch(this.url + this.idPlaylist, {
         id: this.id
-      }, { responseType: 'text' })
+      }, {responseType: 'text'})
       .subscribe(
         res => {
-          this.flashMessage.show('La vidéo a bien été supprimée de votre playlist.', { cssClass: 'alert-success', timeout: 3000 });
+          this.flashMessage.show('La vidéo a bien été supprimée de votre playlist.', {
+            cssClass: 'alert-success',
+            timeout: 3000
+          });
           this.del = 1;
           this.addPlaylist = 0;
         },
         error => {
           console.log(error);
         });
+  }
+
+  getAnnonce(): void {
+    // L'annonce est affichée 1 fois sur 3
+    if (Math.floor(Math.random() * 3) === 0) {
+      this.httpClient.get(this.urlAnnonceAleatoire).subscribe(res => {
+        this.annonce = res;
+        document.getElementById('buttonpopup').click();
+      });
+    }
   }
 }

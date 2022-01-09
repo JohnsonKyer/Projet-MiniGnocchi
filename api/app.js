@@ -7,7 +7,6 @@ const controller = require("./controllers/auth.controller");
 const {authJwt} = require("./middlewares");
 var bcrypt = require("bcryptjs");
 app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
 
 const path = require('path')
 
@@ -148,6 +147,24 @@ app.get('/annonceur/annonces/:id', async (req, res) => {
     })
 
 });
+
+app.get('/annonceur/annoncealeatoire', async (req, res) => {
+    Annonceur.count({suspendu: null}).then((count) => {
+        let random = Math.floor(Math.random() * count);
+        Annonceur.find({suspendu: null}).skip(random).then((annonceur) => {
+            let random = Math.floor(Math.random() * annonceur[0].annonces.length);
+            res.send(annonceur[0].annonces[random]);
+            addImpression(annonceur[0].annonces[random]._id)
+        })
+    })
+});
+
+
+function addImpression(id) {
+    Annonceur.findOneAndUpdate({'annonces._id': id},
+        {$inc: {'annonces.$.impressions': 1}});
+}
+
 const ImgurStorage = require('multer-storage-imgur');
 const multer = require('multer');
 const upload = multer({
