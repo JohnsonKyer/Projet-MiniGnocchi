@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-form-change-mdp',
@@ -26,7 +27,7 @@ export class FormChangeMdpComponent implements OnInit {
   onSubmitMdp(): void {
     const {mdp} = this.form;
     console.log(mdp);
-    this.http.patch('http://localhost:3000/utilisateurs/modificationmdp/' + JSON.parse(this.token.getUser()).id, {
+    this.http.patch(environment.debutBackend + '/utilisateurs/modificationmdp/' + JSON.parse(this.token.getUser()).id, {
       mdp
     }, {responseType: 'text'}).subscribe(data => {
         this.isMdpSuccessful = true;

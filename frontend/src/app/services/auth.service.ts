@@ -3,8 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tokenize} from '@angular/compiler/src/ml_parser/lexer';
 import {TokenStorageService} from './token-storage.service';
+import {environment} from '../../environments/environment';
 
-const AUTH_API = 'http://localhost:3000/utilisateurs/';
+const AUTH_API = environment.debutBackend + '/utilisateurs/';
 
 
 @Injectable({

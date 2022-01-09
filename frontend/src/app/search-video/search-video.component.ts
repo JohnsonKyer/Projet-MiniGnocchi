@@ -1,5 +1,6 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-search-video',
@@ -7,8 +8,8 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./search-video.component.scss']
 })
 export class SearchVideoComponent implements OnInit {
-  url: string = 'http://127.0.0.1:3000/searchVideos';
-  urlTrends: string = 'http://127.0.0.1:3000/trendsVideo';
+  url: string = environment.debutBackend + '/searchVideos';
+  urlTrends: string = environment.debutBackend + '/trendsVideo';
   videos: any;
   nameVideos: string;
   @Output() newItemEvent = new EventEmitter<any>();

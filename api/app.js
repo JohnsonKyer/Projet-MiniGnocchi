@@ -9,9 +9,15 @@ var bcrypt = require("bcryptjs");
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
+const path = require('path')
+
+app.use(express.static(process.cwd()+"/dist/frontend/"));
+app.get('/', (req,res) => {
+    res.sendFile(process.cwd()+"/dist/frontend/index.html")
+});
+
 
 const {mongoose} = require('./db/mongoose')
-bcrypt = require('bcrypt')
 const {Playlist, Annonce, Utilisateur, Annonceur, Video} = require('./db/models')
 const {searchVideos, getTagsByIdVideo, getVideoByIdVideo, TendanceVideos} = require('./youtubeApi')
 const {uploadImage} = require('./imgurApi')
@@ -391,6 +397,12 @@ app.get("/moderateur/listebannis", (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log("Serveur UP sur le port 3000");
+
+app.get('*',(req,res) =>{
+    res.sendFile(path.join(__dirname,'dist/frontend/index.html'));
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log("Serveur UP sur le port : " + port);
 });

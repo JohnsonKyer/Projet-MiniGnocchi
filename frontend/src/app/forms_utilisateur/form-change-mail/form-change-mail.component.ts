@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {TokenStorageService} from 'src/app/services/token-storage.service';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-form-change-mail',
@@ -13,21 +14,23 @@ export class FormChangeMailComponent implements OnInit {
   form2: any = {
     mail: null
   };
-  isMdpSuccessful ;
-  isMailSuccessful ;
+  isMdpSuccessful;
+  isMailSuccessful;
   errorMessage = '';
   isEditDone = false;
   areMdpDifferent;
   areMailDifferent;
 
-  constructor(private http: HttpClient, private token: TokenStorageService) { }
+  constructor(private http: HttpClient, private token: TokenStorageService) {
+  }
 
   ngOnInit(): void {
   }
+
   onSubmitMail(): void {
     const {mail} = this.form2;
     console.log(mail);
-    this.http.patch('http://localhost:3000/utilisateurs/modificationmail/' + JSON.parse(this.token.getUser()).id, {
+    this.http.patch(environment.debutBackend + '/utilisateurs/modificationmail/' + JSON.parse(this.token.getUser()).id, {
       mail
     }, {responseType: 'text'}).subscribe(data => {
         this.isMailSuccessful = true;
