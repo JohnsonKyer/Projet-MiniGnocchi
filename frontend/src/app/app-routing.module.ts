@@ -13,7 +13,9 @@ import {ReverseAuthGuard} from './services/reverse-auth.guard';
 import {TestUploadComponent} from './test-upload/test-upload.component';
 import {AnnonceComponent} from './annonce/annonce.component';
 import {AnnonceDetailComponent} from './annonce-detail/annonce-detail.component';
-import {ModerateurComponent} from "./moderateur/moderateur.component";
+import {ModerateurComponent} from './moderateur/moderateur.component';
+import {AuthannonceurGuard} from './services/authannonceur.guard';
+import {AuthmodGuard} from "./services/authmod.guard";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -22,9 +24,9 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent
   },
-  {path: 'uploadAnnonce', canActivate: [AuthGuard], component: TestUploadComponent},
-  {path: 'annonce-detail', canActivate: [AuthGuard], component: AnnonceDetailComponent},
-  {path: 'annonce', canActivate: [AuthGuard], component: AnnonceComponent},
+  {path: 'uploadAnnonce', canActivate: [AuthannonceurGuard], component: TestUploadComponent},
+  {path: 'annonce-detail', canActivate: [AuthannonceurGuard], component: AnnonceDetailComponent},
+  {path: 'annonce', canActivate: [AuthannonceurGuard], component: AnnonceComponent},
   {
     path: 'login', canActivate: [ReverseAuthGuard],
     component: LoginComponent
@@ -46,7 +48,7 @@ const routes: Routes = [
   }, {
     path: 'profilUtilisateur', canActivate: [AuthGuard], component: ProfilUtilisateurComponent
   },
-  {path: 'moderation', component: ModerateurComponent}];
+  {path: 'moderation', component: ModerateurComponent, canActivate: [AuthmodGuard]}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
