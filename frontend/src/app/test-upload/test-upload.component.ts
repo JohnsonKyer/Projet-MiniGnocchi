@@ -4,6 +4,7 @@ import {UploadService} from '../services/upload.service';
 import {HttpClient} from '@angular/common/http';
 import {TokenStorageService} from '../services/token-storage.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
+import {environment} from '../../environments/environment';
 
 
 @Component({
@@ -78,7 +79,7 @@ export class TestUploadComponent implements OnInit {
       this.file = this.selectedFiles.item(0);
     }
     this.upload().then(res => {
-      this.http.patch('http://localhost:3000/annonceur/ajoutAnnonce/' + JSON.parse(this.token.getUser()).id, {
+      this.http.patch(environment.debutBackend + '/annonceur/ajoutAnnonce/' + JSON.parse(this.token.getUser()).id, {
         annonce: {
           titre: this.form.titre,
           video: res.uploadedFile.link,
@@ -109,7 +110,7 @@ export class TestUploadComponent implements OnInit {
       const formData = new FormData();
       formData.append('uploadedImage', this.file);
       formData.append('titre', this.form.titre);
-      this.http.post('http://localhost:3000/annonceur/uploadOnImgur', formData).subscribe(
+      this.http.post(environment.debutBackend + '/annonceur/uploadOnImgur', formData).subscribe(
         res => {
           resolve(res);
         },
