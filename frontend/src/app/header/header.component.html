@@ -9,7 +9,7 @@
       </button>
       <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="header">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="grade">
             <a class="nav-link" routerLink="/profilUtilisateur" routerLinkActive="active" href="#">Mon profil<span
               class="sr-only">(current)</span></a>
           </li>
@@ -25,7 +25,7 @@
             <a class="nav-link" routerLink="/annonce" routerLinkActive="active" href="#">Mes annonces<span
               class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="grade=='moderateur'">
             <a class="nav-link" routerLink="/moderation" routerLinkActive="active" href="#">Modération<span
               class="sr-only">(current)</span></a>
           </li>
