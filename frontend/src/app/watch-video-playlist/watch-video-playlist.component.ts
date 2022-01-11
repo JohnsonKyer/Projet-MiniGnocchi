@@ -37,7 +37,7 @@ export class WatchVideoPlaylistComponent implements OnInit {
       .subscribe(params => {
         this.id = params.id;
         this.idPlaylist = params.idPlaylist;
-        if (params.del === 1) {
+        if (params.del == 1) {
           this.del = 1;
           this.addPlaylist = 0;
           console.log(params);
