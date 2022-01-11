@@ -325,6 +325,12 @@ app.get('/utilisateurs', (req, res) => {
     })
 })
 
+app.get('/utilisateurs/sansmoderateurs', (req, res) => {
+    Utilisateur.find({grade: {$ne: 'moderateur'}}).then((utilisateurs) => {
+        res.send(utilisateurs)
+    })
+})
+
 app.patch('/utilisateurs/modificationmdp/:id', async (req, res) => {
     Utilisateur.findOneAndUpdate({_id: req.params.id}, {
         mdp: await bcrypt.hash(req.body.mdp, 10)

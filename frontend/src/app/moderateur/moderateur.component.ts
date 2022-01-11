@@ -17,7 +17,7 @@ export class ModerateurComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get(environment.debutBackend + '/utilisateurs/').subscribe((data) => {
+    this.http.get(environment.debutBackend + '/utilisateurs/sansmoderateurs').subscribe((data) => {
       this.utilisateurs = data;
     });
   }

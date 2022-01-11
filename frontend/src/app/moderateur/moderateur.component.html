@@ -4,6 +4,7 @@
     <thead>
     <tr>
       <th scope="col">Mail de l'utilisateur</th>
+      <th scope="col">Grade</th>
       <th scope="col">Suspendu</th>
       <th scope="col">Date de bannissement</th>
       <th scope="col">Actions</th>
@@ -12,6 +13,7 @@
     <tbody>
     <tr class="utilisateurs" *ngFor="let utilisateur of utilisateurs" id="{{utilisateur._id}}">
       <th scope="row">{{utilisateur.mail}}</th>
+      <td>{{utilisateur.grade}}</td>
       <td *ngIf="utilisateur.suspendu !== null; else notbanned">Banni</td>
       <td>{{utilisateur.suspendu}}</td>
       <td>

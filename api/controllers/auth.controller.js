@@ -13,7 +13,7 @@ signup = async (req, res) => {
     if (utilisateur_existant) {
         res.status(400).send("L'email est déjà enregistrée, veuillez vous connecter.")
     }
-  
+
     let newUtilisateur;
     if (grade === 'utilisateur')
         newUtilisateur = new Utilisateur({
@@ -58,6 +58,13 @@ signin = (req, res) => {
                 accessToken: null,
                 message: "Mot de passe erroné",
                 reason: "mdp"
+            });
+        }
+        if (user.suspendu != null) {
+            return res.status(401).send({
+                accessToken: null,
+                message: "Votre compte a été suspendu, contactez un administrateur.",
+                reason: "suspendu"
             });
         }
 
