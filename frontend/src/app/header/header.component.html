@@ -13,11 +13,11 @@
             <a class="nav-link" routerLink="/profilUtilisateur" routerLinkActive="active" href="#">Mon profil<span
               class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item" *ngIf="grade=='utilisateur'">
+          <li class="nav-item" *ngIf="grade">
             <a class="nav-link" routerLink="/playlist" routerLinkActive="active" href="#">Mes playlists<span
               class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item" *ngIf="grade=='utilisateur'">
+          <li class="nav-item" *ngIf="grade">
             <a class="nav-link" routerLink="/history" routerLinkActive="active" href="#">Historique<span
               class="sr-only">(current)</span></a>
           </li>
